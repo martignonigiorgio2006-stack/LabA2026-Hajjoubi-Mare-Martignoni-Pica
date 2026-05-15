@@ -9,7 +9,7 @@ public class Film {
     private Regista regista;
 
     //COSTRUTTORE
-    public Film(int id, String titolo, int durata, int anno, int etaMin, String genere, Regista regista) {
+    public Film(int id, String titolo, int durata, int anno, int etaMin, String genere, Regista regista) throws IllegalValueException{
         setId(id);
         setTitolo(titolo);
         setDurata(durata);
@@ -53,23 +53,23 @@ public class Film {
         this.id = contaId++;
     }
 
-    private void setTitolo(String titolo) {
-        if(titolo==null || titolo.trim().isEmpty()) throw new IllegalValue("Errore: Titolo non valido!");
+    private void setTitolo(String titolo) throws IllegalValueException{
+        if(titolo==null || titolo.trim().isEmpty()) throw new IllegalValueException("Errore: Titolo non valido!");
         this.titolo = titolo.trim().toLowerCase();
     }
 
-    private void setDurata(int durata) {
-        if(durata <= 0) throw new IllegalValue("Errore: Durata non valida!");
+    private void setDurata(int durata) throws IllegalValueException{
+        if(durata <= 0) throw new IllegalValueException("Errore: Durata non valida!");
         this.durata = durata;
     }
 
-    private void setAnno(int anno) {
-        if(anno < 1985) throw new IllegalValue("Errore: Anno inserito <1985!");
+    private void setAnno(int anno) throws IllegalValueException{
+        if(anno < 1985) throw new IllegalValueException("Errore: Anno inserito <1985!");
         this.anno = anno;
     }
 
-    private void setEtaMin(int etaMin) {
-        if(etaMin < 0) throw new IllegalValue("Errore: Età non valida!");
+    private void setEtaMin(int etaMin) throws IllegalValueException{
+        if(etaMin < 0) throw new IllegalValueException("Errore: Età non valida!");
         this.etaMin = etaMin;
     }
 
