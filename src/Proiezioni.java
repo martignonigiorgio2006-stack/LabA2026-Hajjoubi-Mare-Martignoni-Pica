@@ -11,6 +11,7 @@ public class Proiezioni {
     private static final int maxPosti = 200;
     private int postiLiberi;
 
+    //COSTRUTTORE
     public Proiezioni(int id, Film film, Data data, Ora ora, double costoBiglietto, int postiLiberi) {
         setId(id);
         setFilm(film);
@@ -20,7 +21,7 @@ public class Proiezioni {
         setPostiLiberi(postiLiberi);
     }
 
-    //Metodi get
+    //GETTER
     public int getId() {
         return id;
     }
@@ -50,7 +51,7 @@ public class Proiezioni {
     }
 
 
-    //Metodi set
+    //SETTER
     private void setId(int id) {
         this.id = getContaId();
     }

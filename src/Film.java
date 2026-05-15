@@ -80,4 +80,9 @@ public class Film {
     private void setRegista(Regista regista) {
         this.regista = regista;
     }
+
+    //ToString
+    public String toString(){
+        return getId() + "\n" + getTitolo() + "\n" + getDurata() + "\n" + getAnno() + "\n" + getEtaMin() + "\n" + getGenere() + "\n" + regista.toString() + "\n";
+    }
 }

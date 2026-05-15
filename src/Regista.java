@@ -38,4 +38,9 @@ public class Regista {
         if(cognome == null || cognome.trim().isEmpty()) throw new IllegalValueException("Errore: cognome non valido");
         this.cognome = cognome.trim().toLowerCase();
     }
+
+    //ToString
+    public String toString(){
+        return getId() + "\n" + getNome() + "\n" + getCognome() + "\n";
+    }
 }
