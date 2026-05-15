@@ -54,7 +54,6 @@ public class IO {
         else
             output(x);
     }
-
     public static void output(int x){
         System.out.print(x);
     }
@@ -65,9 +64,18 @@ public class IO {
         else
             output(x);
     }
-
     public static void output(double x){
         System.out.print(x);
     }
-    
+
+    public static void output(char c, boolean b){
+        if(b)
+            System.out.println(c);
+        else
+            output(c);
+    }
+    public static void output(char c){
+        System.out.print(c);
+    }
+
 }
