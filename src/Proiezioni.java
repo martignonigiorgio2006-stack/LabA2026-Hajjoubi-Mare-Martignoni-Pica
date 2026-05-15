@@ -87,7 +87,7 @@ public class Proiezioni {
 
     //ToString
     public String toString(){
-        return "- Id: " + id + "\n" + film.toString() + "\n" + data.toString() + "\n" + ora.toString() + "\n" + "Costo biglietto: " + costoBiglietto + "\n" + "Posti liberi: " + postiLiberi + "\n";
+        return getId() + "\n" + film.toString() + "\n" + data.toString() + "\n" + ora.toString() + "\n" + getCostoBiglietto() + "\n" + getPostiLiberi() + "\n";
 
     }
 }
