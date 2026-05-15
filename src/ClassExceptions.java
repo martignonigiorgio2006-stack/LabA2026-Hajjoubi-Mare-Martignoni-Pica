@@ -3,8 +3,9 @@ public class ClassExceptions extends Exception {
         super(message);
     }
 }
-class IllegalMonthValue extends ClassExceptions{
-    public IllegalMonthValue(String message) {
+
+class IllegalValueException extends ClassExceptions{
+    public IllegalValueException(String message) {
         super(message);
     }
 }

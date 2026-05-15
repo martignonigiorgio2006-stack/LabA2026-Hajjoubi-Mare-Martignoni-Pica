@@ -78,4 +78,8 @@ public class IO {
         System.out.print(c);
     }
 
+    public static void outputErr(String s){
+        System.err.println(s);
+    }
+
 }
