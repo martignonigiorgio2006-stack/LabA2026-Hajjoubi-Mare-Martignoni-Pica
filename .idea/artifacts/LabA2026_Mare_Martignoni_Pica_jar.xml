@@ -1,8 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="jar" name="LabA2026-Mare-Martignoni-Pica:jar">
-    <output-path>$PROJECT_DIR$/out/artifacts/LabA2026_Mare_Martignoni_Pica_jar</output-path>
-    <root id="archive" name="LabA2026-Mare-Martignoni-Pica.jar">
-      <element id="module-output" name="LabA2026-Mare-Martignoni-Pica" />
-    </root>
-  </artifact>
-</component>
