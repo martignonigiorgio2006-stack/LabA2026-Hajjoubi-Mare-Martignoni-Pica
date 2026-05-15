@@ -6,7 +6,7 @@ public class Data {
 
     //COSTANTI
     private static final char TOKEN =  '/';
-    private static final int MESI = 12;
+    private final int MESI = 12;
 
     //COSTRUTTORE
     public Data(int giorno, int mese, int anno) throws IllegalValueException{
