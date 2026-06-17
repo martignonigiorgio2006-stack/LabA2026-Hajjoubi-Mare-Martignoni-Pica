@@ -19,20 +19,21 @@ public class Data {
     private void setMaxGiorni(){
         for(int i = 0; i < MESI; i++)
             switch(i){
-                case 0: maxGiorni[0] = 31;
+                case 0: maxGiorni[0] = 31; break;
                 case 1: if(isBisestile())
                             maxGiorni[1] = 29;
                         else
                             maxGiorni[1] = 28;
-                case 2: maxGiorni[2] = 31;
-                case 3: maxGiorni[3] = 30;
-                case 4: maxGiorni[4] = 31;
-                case 5: maxGiorni[5] = 30;
-                case 6: maxGiorni[6] = 31;
-                case 7: maxGiorni[7] = 31;
-                case 8: maxGiorni[8] = 30;
-                case 9: maxGiorni[9] = 31;
-                case 10: maxGiorni[10] = 30;
+                        break;
+                case 2: maxGiorni[2] = 31; break;
+                case 3: maxGiorni[3] = 30; break;
+                case 4: maxGiorni[4] = 31; break;
+                case 5: maxGiorni[5] = 30; break;
+                case 6: maxGiorni[6] = 31; break;
+                case 7: maxGiorni[7] = 31; break;
+                case 8: maxGiorni[8] = 30; break;
+                case 9: maxGiorni[9] = 31; break;
+                case 10: maxGiorni[10] = 30; break;
                 case 11: maxGiorni[11] = 31;
             }
     }
@@ -67,9 +68,12 @@ public class Data {
         this.anno = anno;
     }
 
+    //ToString
     public String toString(){
         return getGiorno() + TOKEN + getMese() + TOKEN + getAnno() + "\n";
     }
+
+
 
     private boolean isBisestile(){
         return (((anno%4 == 0)&&(anno%100 != 0)) || (anno%400 == 0));

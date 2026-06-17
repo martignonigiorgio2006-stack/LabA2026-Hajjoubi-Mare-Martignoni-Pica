@@ -20,31 +20,31 @@ public class Film {
     }
 
     //GETTER
-    private int getId() {
+    public int getId() {
         return id;
     }
 
-    private String getTitolo() {
+    public String getTitolo() {
         return titolo;
     }
 
-    private int getDurata() {
+    public int getDurata() {
         return durata;
     }
 
-    private int getAnno() {
+    public int getAnno() {
         return anno;
     }
 
-    private int getEtaMin() {
+    public int getEtaMin() {
         return etaMin;
     }
 
-    private String getGenere() {
+    public String getGenere() {
         return genere;
     }
 
-    private Regista getRegista() {
+    public Regista getRegista() {
         return regista;
     }
 
