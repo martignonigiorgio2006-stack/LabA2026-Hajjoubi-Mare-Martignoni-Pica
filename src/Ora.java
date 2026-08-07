@@ -29,19 +29,19 @@ public class Ora {
     //SETTER
     public void setOra(int ora) throws IllegalValueException{
         if(ora<0 || ora>23)
-            throw new IllegalValueException("Errore: ora non valida");
+            throw new IllegalValueException("Errore: Ora non valida!");
         this.ora = ora;
     }
 
     public void setMinuto(int minuto) throws IllegalValueException{
         if(minuto<0 || minuto>59)
-            throw new IllegalValueException("Errore: minutaggio non valido");
+            throw new IllegalValueException("Errore: Minutaggio non valido!");
         this.minuto = minuto;
     }
 
     public void setSecondo(int secondo) throws IllegalValueException{
         if(secondo<0 || secondo>59)
-            throw new IllegalValueException("Errore: secondi non validi");
+            throw new IllegalValueException("Errore: Secondi non validi!");
         this.secondo = secondo;
     }
 
