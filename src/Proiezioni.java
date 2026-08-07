@@ -1,8 +1,6 @@
-
-
 public class Proiezioni {
     private int id;
-    private static int contaId;
+    private static int contaId = 0;
     private Film film;
     private Data data;
     private Ora ora;
@@ -12,8 +10,8 @@ public class Proiezioni {
     private int postiLiberi;
 
     //COSTRUTTORE
-    public Proiezioni(int id, Film film, Data data, Ora ora, double costoBiglietto, int postiLiberi) {
-        setId(id);
+    public Proiezioni(Film film, Data data, Ora ora, double costoBiglietto, int postiLiberi) throws IllegalValueException{
+        this.id = contaId++;
         setFilm(film);
         setData(data);
         setOra(ora);
@@ -24,10 +22,6 @@ public class Proiezioni {
     //GETTER
     public int getId() {
         return id;
-    }
-
-    public static int getContaId() {
-        return contaId;
     }
 
     public Film getFilm() {
@@ -52,14 +46,6 @@ public class Proiezioni {
 
 
     //SETTER
-    private void setId(int id) {
-        this.id = getContaId();
-    }
-
-    private static void setContaId(int contaId) {
-        Proiezioni.contaId = contaId;
-    }
-
     private void setFilm(Film film) {
         this.film = film;
     }
@@ -72,16 +58,16 @@ public class Proiezioni {
         this.ora = ora;
     }
 
-    private void setCostoBiglietto(double costoBiglietto) throws IllegalArgumentException{
-        if(costoBiglietto <0){
-            throw new IllegalArgumentException("Errore: il costo del biglietto non è valido!");
+    private void setCostoBiglietto(double costoBiglietto) throws IllegalValueException{
+        if(costoBiglietto<0){
+            throw new IllegalValueException("Errore: il costo del biglietto non è valido!");
         }
         this.costoBiglietto = costoBiglietto;
     }
 
-    private void setPostiLiberi(int postiLiberi) throws IllegalArgumentException{
-        if(postiLiberi >200 || postiLiberi<0){
-            throw new IllegalArgumentException("Errori: posti liberi non validi!");
+    private void setPostiLiberi(int postiLiberi) throws IllegalValueException{
+        if(postiLiberi>maxPosti || postiLiberi<0){
+            throw new IllegalValueException("Errori: posti liberi non validi!");
         }
         this.postiLiberi = postiLiberi;
     }

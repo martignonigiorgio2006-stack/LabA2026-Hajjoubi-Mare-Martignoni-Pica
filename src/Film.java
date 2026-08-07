@@ -9,8 +9,8 @@ public class Film {
     private Regista regista;
 
     //COSTRUTTORE
-    public Film(int id, String titolo, int durata, int anno, int etaMin, String genere, Regista regista) throws IllegalValueException{
-        setId(id);
+    public Film(String titolo, int durata, int anno, int etaMin, String genere, Regista regista) throws IllegalValueException{
+        this.id = contaId++;
         setTitolo(titolo);
         setDurata(durata);
         setAnno(anno);
@@ -49,10 +49,6 @@ public class Film {
     }
 
     //SETTER
-    private void setId(int id) {
-        this.id = contaId++;
-    }
-
     private void setTitolo(String titolo) throws IllegalValueException{
         if(titolo==null || titolo.trim().isEmpty()) throw new IllegalValueException("Errore: Titolo non valido!");
         this.titolo = titolo.trim().toLowerCase();

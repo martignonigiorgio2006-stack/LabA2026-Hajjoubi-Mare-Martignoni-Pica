@@ -5,8 +5,8 @@ public class Regista {
     private String cognome;
 
     //COSTRUTTORE
-    public Regista(int id, String nome, String cognome) throws IllegalValueException {
-        setId(id);
+    public Regista(String nome, String cognome) throws IllegalValueException {
+        this.id = contaId++;
         setNome(nome);
         setCognome(cognome);
     }
@@ -25,10 +25,6 @@ public class Regista {
     }
 
     //SETTER
-    public void setId(int id) {
-        this.id = contaId++;
-    }
-
     public void setNome(String nome) throws IllegalValueException{
         if(nome == null || nome.trim().isEmpty()) throw new IllegalValueException("Errore: nome non valido");
         this.nome = nome.trim().toLowerCase();
