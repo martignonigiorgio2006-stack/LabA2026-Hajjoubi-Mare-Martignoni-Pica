@@ -51,7 +51,7 @@ public class Film {
     //SETTER
     private void setTitolo(String titolo) throws IllegalValueException{
         if(titolo==null || titolo.trim().isEmpty()) throw new IllegalValueException("Errore: Titolo non valido!");
-        this.titolo = titolo.trim().toLowerCase();
+        this.titolo = titolo.trim();
     }
 
     private void setDurata(int durata) throws IllegalValueException{
@@ -70,7 +70,7 @@ public class Film {
     }
 
     private void setGenere(String genere) {
-        this.genere = genere.trim().toLowerCase();
+        this.genere = genere.trim();
     }
 
     private void setRegista(Regista regista) {
@@ -78,7 +78,12 @@ public class Film {
     }
 
     //ToString
-    public String toString(){
-        return getId() + "\n" + getTitolo() + "\n" + getDurata() + "\n" + getAnno() + "\n" + getEtaMin() + "\n" + getGenere() + "\n" + regista.toString() + "\n";
+    @Override
+    public String toString() {
+        return "FILM #" + id + "\n" +
+                " Titolo: " + titolo + "\n" +
+                " Durata: " + durata + " min | Anno: " + anno + " | VM" + etaMin + "\n" +
+                " Genere: " + genere + "\n" +
+                " " + regista;
     }
 }

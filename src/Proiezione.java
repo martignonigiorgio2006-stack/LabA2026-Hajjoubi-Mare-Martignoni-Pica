@@ -1,4 +1,4 @@
-public class Proiezioni {
+public class Proiezione {
     private int id;
     private static int contaId = 0;
     private Film film;
@@ -10,7 +10,7 @@ public class Proiezioni {
     private int postiLiberi;
 
     //COSTRUTTORE
-    public Proiezioni(Film film, Data data, Ora ora, double costoBiglietto, int postiLiberi) throws IllegalValueException{
+    public Proiezione(Film film, Data data, Ora ora, double costoBiglietto, int postiLiberi) throws IllegalValueException{
         this.id = contaId++;
         setFilm(film);
         setData(data);
@@ -59,22 +59,26 @@ public class Proiezioni {
     }
 
     private void setCostoBiglietto(double costoBiglietto) throws IllegalValueException{
-        if(costoBiglietto<0){
-            throw new IllegalValueException("Errore: il costo del biglietto non è valido!");
-        }
+        if(costoBiglietto<0) throw new IllegalValueException("Errore: il costo del biglietto non è valido!");
         this.costoBiglietto = costoBiglietto;
     }
 
     private void setPostiLiberi(int postiLiberi) throws IllegalValueException{
-        if(postiLiberi>maxPosti || postiLiberi<0){
-            throw new IllegalValueException("Errori: posti liberi non validi!");
-        }
+        if(postiLiberi>maxPosti || postiLiberi<0) throw new IllegalValueException("Errori: posti liberi non validi!");
         this.postiLiberi = postiLiberi;
     }
 
-    //ToString
-    public String toString(){
-        return getId() + "\n" + film.toString() + "\n" + data.toString() + "\n" + ora.toString() + "\n" + getCostoBiglietto() + "\n" + getPostiLiberi() + "\n";
+    //METODO PUBBLICO PER AGGIORNARE PSOTI LIBERI
+    public void scalaPosti(int quantita) throws IllegalValueException{
+        setPostiLiberi(this.postiLiberi - quantita);
+    }
 
+    //ToString
+    @Override
+    public String toString() {
+        return "PROIEZIONE #" + id + "\n" +
+                " Film: " + film.getTitolo() + "\n" +
+                " Data/Ora: " + data + " alle " + ora + "\n" +
+                " Prezzo: " + costoBiglietto + "€ | Posti liberi: " + postiLiberi;
     }
 }

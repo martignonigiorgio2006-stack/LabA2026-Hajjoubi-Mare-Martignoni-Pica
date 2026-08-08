@@ -34,32 +34,32 @@ public class Luogo {
 
 
     //SETTER
-
-    public void setVia(String via) throws IllegalValueException{
+    private void setVia(String via) throws IllegalValueException{
         if(via == null || via.trim().isEmpty()) throw new IllegalValueException("Errore: Formato via non valida!");
-        this.via=via;
+        this.via = via.trim();
     }
 
-    public void setNumC(int numC) throws IllegalValueException{
+    private void setNumC(int numC) throws IllegalValueException{
         if(numC<=0) throw new IllegalValueException("Errore: Numero civico non valido!");
-        this.numC=numC;
+        this.numC = numC;
     }
-    public void setCitta(String citta) throws IllegalValueException{
+    private void setCitta(String citta) throws IllegalValueException{
         if(citta == null || citta.trim().isEmpty()) throw new IllegalValueException("Errore: Formato città non valida!");
-        this.citta = citta;
+        this.citta = citta.trim();
     }
 
-    public void setCAP(String CAP) throws IllegalValueException{
+    private void setCAP(String CAP) throws IllegalValueException{
         if(CAP == null || CAP.trim().isEmpty() || CAP.length()!=5) throw new IllegalValueException(("Errore: Formato CAP non valido!"));
         for(int i=0; i<CAP.length(); i++) {
             char c = CAP.charAt(i);
             if (!Character.isDigit(c)) throw new IllegalValueException("Errore: Non sono tutti numeri!");
         }
-        this.CAP = CAP;
+        this.CAP = CAP.trim();
     }
 
     //ToString
+    @Override
     public String toString() {
-        return "Via " + getVia() + " " + getNumC() + ", " + getCitta() + ", " + getCAP();
+        return "INDIRIZZO: Via " + via + " " + numC + ", " + citta + ", " + CAP;
     }
 }

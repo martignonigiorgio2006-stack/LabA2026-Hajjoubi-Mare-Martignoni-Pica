@@ -27,19 +27,19 @@ public class Ora {
     }
 
     //SETTER
-    public void setOra(int ora) throws IllegalValueException{
+    private void setOra(int ora) throws IllegalValueException{
         if(ora<0 || ora>23)
             throw new IllegalValueException("Errore: Ora non valida!");
         this.ora = ora;
     }
 
-    public void setMinuto(int minuto) throws IllegalValueException{
+    private void setMinuto(int minuto) throws IllegalValueException{
         if(minuto<0 || minuto>59)
             throw new IllegalValueException("Errore: Minutaggio non valido!");
         this.minuto = minuto;
     }
 
-    public void setSecondo(int secondo) throws IllegalValueException{
+    private void setSecondo(int secondo) throws IllegalValueException{
         if(secondo<0 || secondo>59)
             throw new IllegalValueException("Errore: Secondi non validi!");
         this.secondo = secondo;
@@ -47,6 +47,8 @@ public class Ora {
 
 
     //ToString
-    public String toString() { return String.format("%02d%c%02d%c%02d\n", getOra(), TOKEN, getMinuto(), TOKEN, getSecondo()); }
+    @Override
+    public String toString() { return String.format("%02d%c%02d%c%02d\n", ora, TOKEN, minuto, TOKEN, secondo);
+    }
         // %02d va a stampare un intero (d) occupando almeno 2 spazi, riempiendo di zeri a sinistra se serve (per avere 05:12:02 e non 5:12:2)
 }

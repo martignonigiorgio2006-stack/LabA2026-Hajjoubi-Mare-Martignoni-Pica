@@ -26,13 +26,13 @@ public class Data {
         return this.giorno;
     }
 
-    public void setGiorno(int giorno) throws IllegalValueException{
+    private void setGiorno(int giorno) throws IllegalValueException{
         if(giorno<1 || giorno>getMaxGiorniMese(this.mese, this.anno))
             throw new IllegalValueException("Errore: Giorno inserito non valido!");
         this.giorno = giorno;
     }
 
-    public int getMese(){
+    private int getMese(){
         return this.mese;
     }
 
@@ -53,8 +53,9 @@ public class Data {
     }
 
     //ToString
+    @Override
     public String toString(){
-        return getGiorno() + TOKEN + getMese() + TOKEN + getAnno() + "\n";
+        return "DATA:" + giorno + TOKEN + mese + TOKEN + anno;
     }
 
 

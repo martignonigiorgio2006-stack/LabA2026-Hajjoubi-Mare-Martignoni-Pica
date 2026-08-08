@@ -27,16 +27,17 @@ public class Regista {
     //SETTER
     public void setNome(String nome) throws IllegalValueException{
         if(nome == null || nome.trim().isEmpty()) throw new IllegalValueException("Errore: nome non valido");
-        this.nome = nome.trim().toLowerCase();
+        this.nome = nome.trim();
     }
 
     public void setCognome(String cognome) throws IllegalValueException{
         if(cognome == null || cognome.trim().isEmpty()) throw new IllegalValueException("Errore: cognome non valido");
-        this.cognome = cognome.trim().toLowerCase();
+        this.cognome = cognome.trim();
     }
 
     //ToString
-    public String toString(){
-        return getId() + "\n" + getNome() + "\n" + getCognome() + "\n";
+    @Override
+    public String toString() {
+        return "REGISTA [ID: " + id + "] " + nome + " " + cognome;
     }
 }
