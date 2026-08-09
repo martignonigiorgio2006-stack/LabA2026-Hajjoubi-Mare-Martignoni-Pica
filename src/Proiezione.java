@@ -68,9 +68,13 @@ public class Proiezione {
         this.postiLiberi = postiLiberi;
     }
 
-    //METODO PUBBLICO PER AGGIORNARE PSOTI LIBERI
+    //METOIO PUBBLICI PER AGGIORNARE POSTI LIBERI
     public void scalaPosti(int quantita) throws IllegalValueException{
         setPostiLiberi(this.postiLiberi - quantita);
+    }
+
+    public void ripristinaPosti(int quantita) throws IllegalValueException{
+        setPostiLiberi(postiLiberi + quantita);
     }
 
     //ToString

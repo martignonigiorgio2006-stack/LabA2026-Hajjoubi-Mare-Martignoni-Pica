@@ -31,7 +31,9 @@ public class Prenotazione {
         proiezione.scalaPosti(quantita);
     }
 
-
+    public void annullaPrenotazione() throws IllegalValueException {
+        proiezione.ripristinaPosti(this.quantita);
+    }
     //GETTER
     public double getCostoTotale(){
         return quantita*proiezione.getCostoBiglietto();
