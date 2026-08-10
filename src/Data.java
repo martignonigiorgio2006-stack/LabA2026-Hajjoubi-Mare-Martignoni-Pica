@@ -32,7 +32,7 @@ public class Data {
         this.giorno = giorno;
     }
 
-    private int getMese(){
+    public int getMese(){
         return this.mese;
     }
 
@@ -51,6 +51,16 @@ public class Data {
             throw new IllegalValueException("Errore: Anno inserito non valido!");
         this.anno = anno;
     }
+
+    //METODO EQUALS
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Data altra = (Data) obj;
+        return giorno == altra.giorno && mese == altra.mese && anno == altra.anno;
+    }
+    //l'equals non sapevo farlo, l'ha fatto gemini: da controllare se giusto, intanto tengo buono questo
 
     //ToString
     @Override

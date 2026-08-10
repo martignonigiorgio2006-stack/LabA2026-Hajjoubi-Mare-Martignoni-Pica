@@ -34,6 +34,21 @@ public class Prenotazione {
     public void annullaPrenotazione() throws IllegalValueException {
         proiezione.ripristinaPosti(this.quantita);
     }
+
+    public void aggiornaQuantita(int nuovaQuantita) throws IllegalValueException {
+        if (nuovaQuantita <= 0) throw new IllegalValueException("Errore: Impossibile prenotare meno di 1 posto!");
+        int differenza = nuovaQuantita - this.quantita;
+        if (differenza > 0) {
+            // signifca che l'utente aggiunge posti e verifico quindi la disponibilità che è rimasta
+            if (differenza > proiezione.getPostiLiberi()) throw new IllegalValueException("Errore: Non ci sono abbastanza posti disponibili per la modifica!");
+            proiezione.scalaPosti(differenza);
+        } else if (differenza < 0) {
+            //significa che l'utente ha tolto dei posti quindi semplicemente aggiungo"
+            proiezione.ripristinaPosti(-differenza);
+        }
+        this.quantita = nuovaQuantita;
+    }
+
     //GETTER
     public double getCostoTotale(){
         return quantita*proiezione.getCostoBiglietto();

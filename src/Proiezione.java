@@ -10,13 +10,13 @@ public class Proiezione {
     private int postiLiberi;
 
     //COSTRUTTORE
-    public Proiezione(Film film, Data data, Ora ora, double costoBiglietto, int postiLiberi) throws IllegalValueException{
+    public Proiezione(Film film, Data data, Ora ora, double costoBiglietto) throws IllegalValueException{
         this.id = contaId++;
         setFilm(film);
         setData(data);
         setOra(ora);
         setCostoBiglietto(costoBiglietto);
-        setPostiLiberi(postiLiberi);
+        this.postiLiberi = maxPosti;
     }
 
     //GETTER
@@ -75,6 +75,16 @@ public class Proiezione {
 
     public void ripristinaPosti(int quantita) throws IllegalValueException{
         setPostiLiberi(postiLiberi + quantita);
+    }
+
+    //MEOTOD DI AGGIORNAMENTO
+    public void aggiornaProiezione(Data nuovaData, Ora nuovaOra, double nuovoCosto) throws IllegalValueException {
+        if (nuovaData == null || nuovaOra == null) {
+            throw new IllegalValueException("Errore: Data e Ora non specificate!");
+        }
+        setData(nuovaData);
+        setOra(nuovaOra);
+        setCostoBiglietto(nuovoCosto);
     }
 
     //ToString
