@@ -1,4 +1,8 @@
-public class Proiezione {
+
+import java.io.Serializable;
+
+public class Proiezione implements Serializable {
+
     private int id;
     private static int contaId = 0;
     private Film film;
@@ -10,7 +14,7 @@ public class Proiezione {
     private int postiLiberi;
 
     //COSTRUTTORE
-    public Proiezione(Film film, Data data, Ora ora, double costoBiglietto) throws IllegalValueException{
+    public Proiezione(Film film, Data data, Ora ora, double costoBiglietto) throws IllegalValueException {
         this.id = contaId++;
         setFilm(film);
         setData(data);
@@ -44,7 +48,6 @@ public class Proiezione {
         return postiLiberi;
     }
 
-
     //SETTER
     private void setFilm(Film film) {
         this.film = film;
@@ -58,22 +61,26 @@ public class Proiezione {
         this.ora = ora;
     }
 
-    private void setCostoBiglietto(double costoBiglietto) throws IllegalValueException{
-        if(costoBiglietto<0) throw new IllegalValueException("Errore: il costo del biglietto non è valido!");
+    private void setCostoBiglietto(double costoBiglietto) throws IllegalValueException {
+        if (costoBiglietto < 0) {
+            throw new IllegalValueException("Errore: il costo del biglietto non è valido!");
+        }
         this.costoBiglietto = costoBiglietto;
     }
 
-    private void setPostiLiberi(int postiLiberi) throws IllegalValueException{
-        if(postiLiberi>maxPosti || postiLiberi<0) throw new IllegalValueException("Errori: posti liberi non validi!");
+    private void setPostiLiberi(int postiLiberi) throws IllegalValueException {
+        if (postiLiberi > maxPosti || postiLiberi < 0) {
+            throw new IllegalValueException("Errori: posti liberi non validi!");
+        }
         this.postiLiberi = postiLiberi;
     }
 
     //METOIO PUBBLICI PER AGGIORNARE POSTI LIBERI
-    public void scalaPosti(int quantita) throws IllegalValueException{
+    public void scalaPosti(int quantita) throws IllegalValueException {
         setPostiLiberi(this.postiLiberi - quantita);
     }
 
-    public void ripristinaPosti(int quantita) throws IllegalValueException{
+    public void ripristinaPosti(int quantita) throws IllegalValueException {
         setPostiLiberi(postiLiberi + quantita);
     }
 
@@ -90,9 +97,9 @@ public class Proiezione {
     //ToString
     @Override
     public String toString() {
-        return "PROIEZIONE #" + id + "\n" +
-                " Film: " + film.getTitolo() + "\n" +
-                " Data/Ora: " + data + " alle " + ora + "\n" +
-                " Prezzo: " + costoBiglietto + "€ | Posti liberi: " + postiLiberi;
+        return "PROIEZIONE #" + id + "\n"
+                + " Film: " + film.getTitolo() + "\n"
+                + " Data/Ora: " + data + " alle " + ora + "\n"
+                + " Prezzo: " + costoBiglietto + "€ | Posti liberi: " + postiLiberi;
     }
 }

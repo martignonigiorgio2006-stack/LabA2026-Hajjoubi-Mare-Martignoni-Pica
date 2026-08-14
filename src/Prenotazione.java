@@ -1,4 +1,8 @@
-public class Prenotazione {
+
+import java.io.Serializable;
+
+public class Prenotazione implements Serializable {
+
     private int id;
     private static int contaId = 0;
     private Utente utente;
@@ -6,7 +10,7 @@ public class Prenotazione {
     private Proiezione proiezione;
 
     //COSTRUTTORE
-    public Prenotazione(Utente utente, int quantita, Proiezione proiezione) throws IllegalValueException{
+    public Prenotazione(Utente utente, int quantita, Proiezione proiezione) throws IllegalValueException {
         this.id = contaId++;
         setUtente(utente);
         setProiezione(proiezione);
@@ -14,19 +18,26 @@ public class Prenotazione {
     }
 
     //SETTER
-    private void setUtente(Utente utente) throws IllegalValueException{
-        if(utente == null) throw new IllegalValueException("Errore: Utente non inserito");
+    private void setUtente(Utente utente) throws IllegalValueException {
+        if (utente == null) {
+            throw new IllegalValueException("Errore: Utente non inserito");
+        }
         this.utente = utente;
     }
 
-    private void setProiezione(Proiezione proiezione) throws IllegalValueException{
-        if(proiezione == null) throw new IllegalValueException("Errore: proiezione non inserita");
-        this.proiezione =  proiezione;
+    private void setProiezione(Proiezione proiezione) throws IllegalValueException {
+        if (proiezione == null) {
+            throw new IllegalValueException("Errore: proiezione non inserita");
+        }
+        this.proiezione = proiezione;
     }
 
-    private void setQuantita(int quantita) throws IllegalValueException{
-        if(quantita <= 0) throw new IllegalValueException("Errore: Impossibile prenotare meno di 1 posto!");
-        else if(quantita > proiezione.getPostiLiberi()) throw new IllegalValueException("Errore: Non ci sono abbastanza posti a sedere disponibili!");
+    private void setQuantita(int quantita) throws IllegalValueException {
+        if (quantita <= 0) {
+            throw new IllegalValueException("Errore: Impossibile prenotare meno di 1 posto!"); 
+        }else if (quantita > proiezione.getPostiLiberi()) {
+            throw new IllegalValueException("Errore: Non ci sono abbastanza posti a sedere disponibili!");
+        }
         this.quantita = quantita;
         proiezione.scalaPosti(quantita);
     }
@@ -36,11 +47,15 @@ public class Prenotazione {
     }
 
     public void aggiornaQuantita(int nuovaQuantita) throws IllegalValueException {
-        if (nuovaQuantita <= 0) throw new IllegalValueException("Errore: Impossibile prenotare meno di 1 posto!");
+        if (nuovaQuantita <= 0) {
+            throw new IllegalValueException("Errore: Impossibile prenotare meno di 1 posto!");
+        }
         int differenza = nuovaQuantita - this.quantita;
         if (differenza > 0) {
             // signifca che l'utente aggiunge posti e verifico quindi la disponibilità che è rimasta
-            if (differenza > proiezione.getPostiLiberi()) throw new IllegalValueException("Errore: Non ci sono abbastanza posti disponibili per la modifica!");
+            if (differenza > proiezione.getPostiLiberi()) {
+                throw new IllegalValueException("Errore: Non ci sono abbastanza posti disponibili per la modifica!");
+            }
             proiezione.scalaPosti(differenza);
         } else if (differenza < 0) {
             //significa che l'utente ha tolto dei posti quindi semplicemente aggiungo"
@@ -50,8 +65,8 @@ public class Prenotazione {
     }
 
     //GETTER
-    public double getCostoTotale(){
-        return quantita*proiezione.getCostoBiglietto();
+    public double getCostoTotale() {
+        return quantita * proiezione.getCostoBiglietto();
     }
 
     public int getId() {
@@ -70,14 +85,13 @@ public class Prenotazione {
         return proiezione;
     }
 
-
     //ToString
     @Override
     public String toString() {
-        return "PRENOTAZIONE #" + id + "\n" +
-                " Cliente: " + utente.getNome() + " " + utente.getCognome() + " (" + utente.getUsername() + ")\n" +
-                " Dettagli Proiezione:\n" + proiezione + "\n" +
-                " Posti prenotati: " + quantita + "\n" +
-                " Costo Totale: " + getCostoTotale() + "€";
+        return "PRENOTAZIONE #" + id + "\n"
+                + " Cliente: " + utente.getNome() + " " + utente.getCognome() + " (" + utente.getUsername() + ")\n"
+                + " Dettagli Proiezione:\n" + proiezione + "\n"
+                + " Posti prenotati: " + quantita + "\n"
+                + " Costo Totale: " + getCostoTotale() + "€";
     }
 }

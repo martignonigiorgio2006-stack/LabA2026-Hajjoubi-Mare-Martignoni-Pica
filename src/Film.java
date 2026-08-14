@@ -1,14 +1,16 @@
+
 import java.io.Serializable;
 
 public class Film implements Serializable {
+
     private static int contaId = 0;
     private int id, durata, anno, etaMin;
     private String titolo;
-    private String genere;
+    private Genere genere;
     private Regista regista;
 
     //COSTRUTTORE
-    public Film(String titolo, int durata, int anno, int etaMin, String genere, Regista regista) throws IllegalValueException{
+    public Film(String titolo, int durata, int anno, int etaMin, Genere genere, Regista regista) throws IllegalValueException {
         this.id = contaId++;
         setTitolo(titolo);
         setDurata(durata);
@@ -39,7 +41,7 @@ public class Film implements Serializable {
         return etaMin;
     }
 
-    public String getGenere() {
+    public Genere getGenere() {
         return genere;
     }
 
@@ -48,28 +50,36 @@ public class Film implements Serializable {
     }
 
     //SETTER
-    private void setTitolo(String titolo) throws IllegalValueException{
-        if(titolo==null || titolo.trim().isEmpty()) throw new IllegalValueException("Errore: Titolo non valido!");
+    private void setTitolo(String titolo) throws IllegalValueException {
+        if (titolo == null || titolo.trim().isEmpty()) {
+            throw new IllegalValueException("Errore: Titolo non valido!");
+        }
         this.titolo = titolo.trim();
     }
 
-    private void setDurata(int durata) throws IllegalValueException{
-        if(durata <= 0) throw new IllegalValueException("Errore: Durata non valida!");
+    private void setDurata(int durata) throws IllegalValueException {
+        if (durata <= 0) {
+            throw new IllegalValueException("Errore: Durata non valida!");
+        }
         this.durata = durata;
     }
 
-    private void setAnno(int anno) throws IllegalValueException{
-        if(anno < 1985) throw new IllegalValueException("Errore: Anno inserito <1985!");
+    private void setAnno(int anno) throws IllegalValueException {
+        if (anno < 1985) {
+            throw new IllegalValueException("Errore: Anno inserito <1985!");
+        }
         this.anno = anno;
     }
 
-    private void setEtaMin(int etaMin) throws IllegalValueException{
-        if(etaMin < 0) throw new IllegalValueException("Errore: Età non valida!");
+    private void setEtaMin(int etaMin) throws IllegalValueException {
+        if (etaMin < 0) {
+            throw new IllegalValueException("Errore: Età non valida!");
+        }
         this.etaMin = etaMin;
     }
 
-    private void setGenere(String genere) {
-        this.genere = genere.trim();
+    private void setGenere(Genere genere) {
+        this.genere = genere;
     }
 
     private void setRegista(Regista regista) {
@@ -79,10 +89,10 @@ public class Film implements Serializable {
     //ToString
     @Override
     public String toString() {
-        return "FILM #" + id + "\n" +
-                "Titolo: " + titolo + "\n" +
-                "Durata: " + durata + " min | Anno: " + anno + " | VM" + etaMin + "\n" +
-                "Genere: " + genere + "\n" +
-                " " + regista;
+        return "FILM #" + id + "\n"
+                + "Titolo: " + titolo + "\n"
+                + "Durata: " + durata + " min | Anno: " + anno + " | VM" + etaMin + "\n"
+                + "Genere: " + genere + "\n"
+                + " " + regista;
     }
 }
