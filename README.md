@@ -1,4 +1,2 @@
-# LabA2026-Mare-Martignoni-Pica
-Prova Martignoni
-Prova Pica
-Prova Mare
+# LabA2026-Hajjoubi-Mare-Martignoni-Pica
+Progetto di gruppo di Hajjoubi, Mare, Martignoni e Pica.
