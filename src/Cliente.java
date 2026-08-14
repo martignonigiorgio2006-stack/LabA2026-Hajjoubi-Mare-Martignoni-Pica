@@ -1,5 +1,6 @@
 public class Cliente extends Utente{
 
+    //COSTRUTTORI
     public Cliente(String nome, String cognome, String username, String psw, Luogo domicilio, Data dataNascita) throws IllegalValueException {
         super(nome, cognome, username, psw, domicilio, dataNascita, Ruolo.CLIENTE);
     }

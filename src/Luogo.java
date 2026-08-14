@@ -1,21 +1,22 @@
-public class Luogo {
-    private String via;
-    private int numC;
-    private String citta;
-    private String CAP;
 
+import java.io.Serializable;
+
+public class Luogo implements Serializable{
+
+    //ATTRIBUTI
+    private String via, citta, cap;
+    private int numC;
 
     //COSTRUTTORE
-    public Luogo(String via, int numC, String citta, String CAP) throws IllegalValueException {
+    public Luogo(String via, int numC, String citta, String cap) throws IllegalValueException {
         setVia(via);
         setNumC(numC);
         setCitta(citta);
-        setCAP(CAP);
+        setCAP(cap);
     }
 
 
     //GETTER
-
     public String getVia() {
         return via;
     }
@@ -29,7 +30,7 @@ public class Luogo {
     }
 
     public String getCAP() {
-        return CAP;
+        return cap;
     }
 
 
@@ -48,18 +49,18 @@ public class Luogo {
         this.citta = citta.trim();
     }
 
-    private void setCAP(String CAP) throws IllegalValueException{
-        if(CAP == null || CAP.trim().isEmpty() || CAP.length()!=5) throw new IllegalValueException(("Errore: Formato CAP non valido!"));
-        for(int i=0; i<CAP.length(); i++) {
-            char c = CAP.charAt(i);
+    private void setCAP(String cap) throws IllegalValueException{
+        if(cap == null || cap.trim().isEmpty() || cap.length() != 5) throw new IllegalValueException(("Errore: Formato CAP non valido!"));
+        for(int i = 0; i < cap.length(); i++) {
+            char c = cap.charAt(i);
             if (!Character.isDigit(c)) throw new IllegalValueException("Errore: Non sono tutti numeri!");
         }
-        this.CAP = CAP.trim();
+        this.cap = cap.trim();
     }
 
     //ToString
     @Override
     public String toString() {
-        return "INDIRIZZO: Via " + via + " " + numC + ", " + citta + ", " + CAP;
+        return  via + " " + numC + ", " + citta + ", " + cap;
     }
 }

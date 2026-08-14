@@ -1,4 +1,6 @@
-public class Regista {
+import java.io.Serializable;
+
+public class Regista implements Serializable {
     private static int contaId = 0;
     private int id;
     private String nome;
@@ -38,6 +40,6 @@ public class Regista {
     //ToString
     @Override
     public String toString() {
-        return "REGISTA [ID: " + id + "] " + nome + " " + cognome;
+        return "Regista #" + id + " " + nome + " " + cognome;
     }
 }

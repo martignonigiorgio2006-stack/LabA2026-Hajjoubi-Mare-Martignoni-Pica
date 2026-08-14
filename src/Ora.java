@@ -1,7 +1,8 @@
-public class Ora {
-    private int ora;
-    private int minuto;
-    private int secondo;
+
+import java.io.Serializable;
+
+public class Ora implements Serializable {
+    private int ora, minuto, secondo;
 
     //COSTANTI
     private static final char TOKEN = ':';

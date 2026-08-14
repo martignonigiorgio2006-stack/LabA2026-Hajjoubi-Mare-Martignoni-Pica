@@ -1,10 +1,9 @@
-public class Film {
+import java.io.Serializable;
+
+public class Film implements Serializable {
     private static int contaId = 0;
-    private int id;
+    private int id, durata, anno, etaMin;
     private String titolo;
-    private int durata;
-    private int anno;
-    private int etaMin;
     private String genere;
     private Regista regista;
 
@@ -81,9 +80,9 @@ public class Film {
     @Override
     public String toString() {
         return "FILM #" + id + "\n" +
-                " Titolo: " + titolo + "\n" +
-                " Durata: " + durata + " min | Anno: " + anno + " | VM" + etaMin + "\n" +
-                " Genere: " + genere + "\n" +
+                "Titolo: " + titolo + "\n" +
+                "Durata: " + durata + " min | Anno: " + anno + " | VM" + etaMin + "\n" +
+                "Genere: " + genere + "\n" +
                 " " + regista;
     }
 }

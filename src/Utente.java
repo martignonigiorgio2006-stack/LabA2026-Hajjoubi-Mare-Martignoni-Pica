@@ -1,4 +1,6 @@
-public abstract class Utente {
+import java.io.Serializable;
+
+public abstract class Utente implements Serializable {
     private static int contaId = 0;
     private int id;
     private String nome, cognome, username, psw;
@@ -71,7 +73,7 @@ public abstract class Utente {
 
     private void setUsername(String username) throws IllegalValueException {
         if (username == null || username.trim().isEmpty()) throw new IllegalValueException("Errore: Username non valido!");
-        this.username = username.trim().toLowerCase();
+        this.username = username.trim();
     }
 
     private void setPsw(String psw) throws IllegalValueException {
@@ -100,10 +102,10 @@ public abstract class Utente {
     @Override
     public String toString() {
         return "UTENTE #" + id + "\n" +
-                " Nome completo: " + nome + " " + cognome + "\n" +
-                " Username: " + username + "\n" +
-                " Domicilio: " + domicilio + "\n" +
-                " Nascita: " + (dataNascita != null ? dataNascita : "Non inserita") + "\n" +
-                " Ruolo: " + ruolo;
+                "Nome completo: " + nome + " " + cognome + "\n" +
+                "Username: " + username + "\n" +
+                "Domicilio: " + domicilio + "\n" +
+                "Nascita: " + (dataNascita != null ? dataNascita : "Non inserita") + "\n" +
+                "Ruolo: " + ruolo;
     }
 }
