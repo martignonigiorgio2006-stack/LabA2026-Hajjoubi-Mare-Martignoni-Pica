@@ -149,7 +149,7 @@ public class GestoreCinema {
     // 4. OPERAZIONI ESCLUSIVE CLIENTE
     // =========================================================================
     public LinkedList<Prenotazione> getPrenotazioneUtente() throws IllegalValueException {
-        verificaCliente();
+        //verificaCliente();
         LinkedList<Prenotazione> lista = new LinkedList<>();
         for (Prenotazione p : listaPrenotazioni) {
             if (utenteLoggato.getId() == p.getUtente().getId()) {
@@ -160,7 +160,7 @@ public class GestoreCinema {
     }
 
     public void aggiungiPrenotazione(int idProiezione, int quantita) throws IllegalValueException {
-        verificaCliente();
+        //verificaCliente();
         for (Proiezione p : listaProiezioni) {
             if (idProiezione == p.getId()) {
                 Prenotazione prenotazione = new Prenotazione(utenteLoggato, quantita, p);
@@ -172,7 +172,7 @@ public class GestoreCinema {
     }
 
     public void rimuoviPrenotazione(int idPrenotazione) throws IllegalValueException {
-        verificaCliente();
+        //verificaCliente();
         for (Prenotazione p : listaPrenotazioni) {
             if (idPrenotazione == p.getId()) {
                 //verificaProprietaPrenotazione(p);
@@ -185,7 +185,7 @@ public class GestoreCinema {
     }
 
     public void modificaPrenotazione(int idPrenotazione, int nuovaQuantita) throws IllegalValueException {
-        verificaCliente();
+        //verificaCliente();
         for (Prenotazione p : listaPrenotazioni) {
             if (idPrenotazione == p.getId()) {
                 verificaProprietaPrenotazione(p);
@@ -200,21 +200,21 @@ public class GestoreCinema {
     // 5. OPERAZIONI ESCLUSIVE BIGLIETTAIO
     // =========================================================================
     public void registraBigliettaio(String nome, String cognome, String username, String psw, Luogo domicilio) throws IllegalValueException {
-        verificaBigliettaio();
+        //verificaBigliettaio();
         verificaUsernameDisponibile(username);
         Bigliettaio b = new Bigliettaio(nome, cognome, username, psw, domicilio);
         listaUtenti.add(b);
     }
 
     public void registraProiezionista(String nome, String cognome, String username, String psw, Luogo domicilio) throws IllegalValueException {
-        verificaBigliettaio();
+        //verificaBigliettaio();
         verificaUsernameDisponibile(username);
         Proiezionista p = new Proiezionista(nome, cognome, username, psw, domicilio);
         listaUtenti.add(p);
     }
 
     public LinkedList<Prenotazione> getPrenotazionePerData(Data data) throws IllegalValueException {
-        verificaBigliettaio();
+        //verificaBigliettaio();
         LinkedList<Prenotazione> lista = new LinkedList<>();
         for (Prenotazione p : listaPrenotazioni) {
             if (data.equals(p.getProiezione().getData())) {
@@ -225,7 +225,7 @@ public class GestoreCinema {
     }
 
     public Prenotazione cercaPrenotazione(int idPrenotazione) throws IllegalValueException {
-        verificaBigliettaio();
+        //verificaBigliettaio();
         for (Prenotazione p : listaPrenotazioni) {
             if (p.getId() == idPrenotazione) {
                 return p;
@@ -235,7 +235,7 @@ public class GestoreCinema {
     }
 
     public LinkedList<Prenotazione> getListaPrenotazioni() throws IllegalValueException {
-        verificaBigliettaio();
+        //verificaBigliettaio();
         return new LinkedList<>(listaPrenotazioni);
     }
 
@@ -243,7 +243,7 @@ public class GestoreCinema {
     // 6. OPERAZIONI ESCLUSIVE PROIEZIONISTA
     // =========================================================================
     public void aggiungiFilm(String titolo, int durata, int anno, int etaMin, Genere genere, Regista regista) throws IllegalValueException {
-        verificaProiezionista();
+        //verificaProiezionista();
         for (Film f : listaFilm) {
             if (titolo.equalsIgnoreCase(f.getTitolo())) {
                 throw new IllegalValueException("Film già presente nel catalogo!");
@@ -254,7 +254,7 @@ public class GestoreCinema {
     }
 
     public void rimuoviFilm(String titolo) throws IllegalValueException {
-        verificaProiezionista();
+        //verificaProiezionista();
         for (Film f : listaFilm) {
             if (titolo.equalsIgnoreCase(f.getTitolo())) {
                 listaFilm.remove(f);
@@ -265,7 +265,7 @@ public class GestoreCinema {
     }
 
     public void aggiungiProiezione(Film film, Data data, Ora ora, double costoBiglietto) throws IllegalValueException {
-        verificaProiezionista();
+        //verificaProiezionista();
         if (!listaFilm.contains(film)) {
             throw new IllegalValueException("Impossibile creare proiezione: film non presente in catalogo!");
         }
@@ -279,7 +279,7 @@ public class GestoreCinema {
     }
 
     public void rimuoviProiezione(int id) throws IllegalValueException {
-        verificaProiezionista();
+        //verificaProiezionista();
         if (haPrenotazioniAttive(id)) {
             throw new IllegalValueException("Impossibile eliminare: esistono già prenotazioni per questa proiezione!");
         }
@@ -293,8 +293,7 @@ public class GestoreCinema {
     }
 
     public void modificaProiezione(int idProiezione, Data data, Ora ora, double costoBiglietto) throws IllegalValueException {
-        verificaProiezionista();
-
+        //verificaProiezionista();
         if (haPrenotazioniAttive(idProiezione)) {
             throw new IllegalValueException("Impossibile modificare: esistono già prenotazioni per questa proiezione!");
         }
@@ -333,6 +332,12 @@ public class GestoreCinema {
 
             //Stream di scrittura
             scrittore = new ObjectOutputStream(new FileOutputStream(file));
+
+            //Scriviamo sul file una lista che contiene gli id istanziati dal quale ripartire a creare oggetti
+            scrittore.writeObject(aggiornaID());
+
+            //Dividiamo le liste con il token *
+            scrittore.writeObject("*");
 
             //Scriviamo sul file tutta la lista di utenti registrati
             scrittore.writeObject(listaUtenti);
@@ -400,7 +405,7 @@ public class GestoreCinema {
             lettore = new ObjectInputStream(new FileInputStream(file));
 
             Object oggetto;
-            int contatoreSezioni = 0; // 0 = lista utenti, 1 = lista film, 2 = prenotazioni, ecc.
+            int contatoreSezioni = 0; // 1 = lista utenti, 2 = lista film, 3 = prenotazioni, ecc.
 
             while (true) {
                 try {
@@ -416,21 +421,24 @@ public class GestoreCinema {
                         LinkedList<?> lista = (LinkedList<?>) oggetto;
 
                         switch (contatoreSezioni) {
-                            case 0:
-                                this.listaUtenti = (LinkedList<Utente>) lista;
+                            case 0: 
+                                modificaContatoriID((LinkedList<Integer>) lista);
                                 break;
                             case 1:
-                                this.listaFilm = (LinkedList<Film>) lista;
+                                this.listaUtenti = (LinkedList<Utente>) lista;
                                 break;
                             case 2:
-                                this.listaPrenotazioni = (LinkedList<Prenotazione>) lista;
+                                this.listaFilm = (LinkedList<Film>) lista;
                                 break;
                             case 3:
+                                this.listaPrenotazioni = (LinkedList<Prenotazione>) lista;
+                                break;
+                            case 4:
                                 this.listaProiezioni = (LinkedList<Proiezione>) lista;
                                 break;
                         }
                     }
-                    if (contatoreSezioni == 3) {
+                    if (contatoreSezioni == 4) {
                         return;
                     }
 
@@ -465,7 +473,7 @@ public class GestoreCinema {
             lettore = new ObjectInputStream(new FileInputStream(file));
 
             Object oggetto;
-            int contatoreSezioni = 0; // 0 = lista utenti, 1 = lista film, 2 = prenotazioni, ecc.
+            int contatoreSezioni = 0; // 1 = lista utenti, 2 = lista film, 3 = prenotazioni, ecc.
 
             while (true) {
                 try {
@@ -481,30 +489,30 @@ public class GestoreCinema {
                         LinkedList<?> lista = (LinkedList<?>) oggetto;
 
                         switch (contatoreSezioni) {
-                            case 0:
-                                for (Utente u : (LinkedList<Utente>) lista) {
-                                    IO.output(u.toString());
-                                }
+                            case 0: 
+                                for (Integer i : (LinkedList<Integer>) lista)
+                                    IO.output(i.toString()+"\t");
+                                IO.output("\n");
                                 break;
                             case 1:
-                                for (Film f : (LinkedList<Film>) lista) {
-                                    IO.output(f.toString());
-
-                                }
+                                for (Utente u : (LinkedList<Utente>) lista) 
+                                    IO.output(u.toString() + "\n", true);
                                 break;
                             case 2:
-                                for (Prenotazione p : (LinkedList<Prenotazione>) lista) {
-                                    IO.output(p.toString());
-                                }
+                                for (Film f : (LinkedList<Film>) lista) 
+                                    IO.output(f.toString() + "\n", true);
                                 break;
                             case 3:
-                                for (Proiezione p : (LinkedList<Proiezione>) lista) {
-                                    IO.output(p.toString());
-                                }
+                                for (Prenotazione p : (LinkedList<Prenotazione>) lista) 
+                                    IO.output(p.toString() + "\n", true);
+                                break;
+                            case 4:
+                                for (Proiezione p : (LinkedList<Proiezione>) lista) 
+                                    IO.output(p.toString() + "\n",true);
                                 break;
                         }
                     }
-                    if (contatoreSezioni == 3) {
+                    if (contatoreSezioni == 4) {
                         return;
                     }
 
@@ -517,6 +525,42 @@ public class GestoreCinema {
         }
 
     }
+
+
+
+    public LinkedList<Integer> aggiornaID(){
+        LinkedList<Integer> listaID = new LinkedList<Integer>();
+        if(listaUtenti.isEmpty())
+             listaID.add(0);
+        else
+            listaID.add(listaUtenti.getLast().getId());
+
+        if(listaFilm.isEmpty())
+             listaID.add(0);
+        else
+            listaID.add(listaFilm.getLast().getId());
+
+        if(listaPrenotazioni.isEmpty())
+             listaID.add(0);
+        else
+            listaID.add(listaPrenotazioni.getLast().getId());
+
+        if(listaProiezioni.isEmpty())
+             listaID.add(0);
+        else
+            listaID.add(listaProiezioni.getLast().getId());
+        
+        return listaID;
+    }
+
+    public void modificaContatoriID(LinkedList<Integer> listaID){
+        Utente.setContaId((int)listaID.get(0));
+        Film.setContaId((int)listaID.get(1));
+        Prenotazione.setContaId((int)listaID.get(2));
+        Proiezione.setContaId((int)listaID.get(3));
+    }
+
+
 
 }
 

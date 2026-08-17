@@ -3,8 +3,10 @@ import java.io.Serializable;
 
 public class Proiezione implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+    
+    private static int contaId = -1;
     private int id;
-    private static int contaId = 0;
     private Film film;
     private Data data;
     private Ora ora;
@@ -15,7 +17,7 @@ public class Proiezione implements Serializable {
 
     //COSTRUTTORE
     public Proiezione(Film film, Data data, Ora ora, double costoBiglietto) throws IllegalValueException {
-        this.id = contaId++;
+        this.id = ++contaId;
         setFilm(film);
         setData(data);
         setOra(ora);
@@ -49,6 +51,11 @@ public class Proiezione implements Serializable {
     }
 
     //SETTER
+
+    public static void setContaId(int contaId){
+        Proiezione.contaId = contaId;
+    }
+
     private void setFilm(Film film) {
         this.film = film;
     }
@@ -98,8 +105,8 @@ public class Proiezione implements Serializable {
     @Override
     public String toString() {
         return "PROIEZIONE #" + id + "\n"
-                + " Film: " + film.getTitolo() + "\n"
-                + " Data/Ora: " + data + " alle " + ora + "\n"
-                + " Prezzo: " + costoBiglietto + "€ | Posti liberi: " + postiLiberi;
+                + "Film: " + film.getTitolo() + "\n"
+                + "Data/Ora: " + data + " alle " + ora 
+                + "Prezzo: " + costoBiglietto + "€ | Posti liberi: " + postiLiberi;
     }
 }

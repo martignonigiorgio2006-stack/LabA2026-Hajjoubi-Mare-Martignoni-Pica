@@ -3,21 +3,28 @@ import java.io.Serializable;
 
 public class Prenotazione implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+
+    
+    private static int contaId = -1;
     private int id;
-    private static int contaId = 0;
     private Utente utente;
     private int quantita;
     private Proiezione proiezione;
 
     //COSTRUTTORE
     public Prenotazione(Utente utente, int quantita, Proiezione proiezione) throws IllegalValueException {
-        this.id = contaId++;
+        this.id = ++contaId;
         setUtente(utente);
         setProiezione(proiezione);
         setQuantita(quantita);
     }
 
     //SETTER
+    public static void setContaId(int contaId){
+        Prenotazione.contaId = contaId;
+    }
+
     private void setUtente(Utente utente) throws IllegalValueException {
         if (utente == null) {
             throw new IllegalValueException("Errore: Utente non inserito");
@@ -89,9 +96,9 @@ public class Prenotazione implements Serializable {
     @Override
     public String toString() {
         return "PRENOTAZIONE #" + id + "\n"
-                + " Cliente: " + utente.getNome() + " " + utente.getCognome() + " (" + utente.getUsername() + ")\n"
-                + " Dettagli Proiezione:\n" + proiezione + "\n"
-                + " Posti prenotati: " + quantita + "\n"
-                + " Costo Totale: " + getCostoTotale() + "€";
+                + "Cliente: " + utente.getNome() + " " + utente.getCognome() + " (" + utente.getUsername() + ")\n"
+                + "Dettagli Proiezione:\n" + proiezione + "\n"
+                + "Posti prenotati: " + quantita + "\n"
+                + "Costo Totale: " + getCostoTotale() + "€";
     }
 }

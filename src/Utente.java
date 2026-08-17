@@ -1,18 +1,21 @@
-
 import java.io.Serializable;
 
 public abstract class Utente implements Serializable {
 
-    private static int contaId = 0;
+
+    private static final long serialVersionUID = 1L;
+
+    private static int contaId = -1;
     private int id;
     private String nome, cognome, username, psw;
     private Luogo domicilio;
     private Data dataNascita;
     private Ruolo ruolo;
 
+
     //COSTRUTTORI
     public Utente(String nome, String cognome, String username, String psw, Luogo domicilio, Data dataNascita, Ruolo ruolo) throws IllegalValueException {
-        this.id = contaId++;
+        this.id = ++contaId;
         setNome(nome);
         setCognome(cognome);
         setUsername(username);
@@ -60,6 +63,10 @@ public abstract class Utente implements Serializable {
     }
 
     //SETTER
+    public static void setContaId(int contaId){
+        Utente.contaId = contaId;
+    }
+
     private void setNome(String nome) throws IllegalValueException {
         if (nome == null || nome.trim().isEmpty()) {
             throw new IllegalValueException("Errore: Nome non valido!");

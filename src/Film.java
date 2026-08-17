@@ -3,7 +3,10 @@ import java.io.Serializable;
 
 public class Film implements Serializable {
 
-    private static int contaId = 0;
+
+    private static final long serialVersionUID = 1L;
+
+    private static int contaId = -1;
     private int id, durata, anno, etaMin;
     private String titolo;
     private Genere genere;
@@ -11,7 +14,7 @@ public class Film implements Serializable {
 
     //COSTRUTTORE
     public Film(String titolo, int durata, int anno, int etaMin, Genere genere, Regista regista) throws IllegalValueException {
-        this.id = contaId++;
+        this.id = ++contaId;
         setTitolo(titolo);
         setDurata(durata);
         setAnno(anno);
@@ -50,6 +53,12 @@ public class Film implements Serializable {
     }
 
     //SETTER
+
+    public static void setContaId(int contaId){
+        Film.contaId = contaId;
+    }
+
+
     private void setTitolo(String titolo) throws IllegalValueException {
         if (titolo == null || titolo.trim().isEmpty()) {
             throw new IllegalValueException("Errore: Titolo non valido!");
@@ -93,6 +102,6 @@ public class Film implements Serializable {
                 + "Titolo: " + titolo + "\n"
                 + "Durata: " + durata + " min | Anno: " + anno + " | VM" + etaMin + "\n"
                 + "Genere: " + genere + "\n"
-                + " " + regista;
+                + regista;
     }
 }

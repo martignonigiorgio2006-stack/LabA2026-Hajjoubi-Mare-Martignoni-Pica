@@ -9,6 +9,13 @@
       "name": "CineMax",
       "request": "launch",
       "mainClass": "CineMax",
+      "projectName": "LabA2026-Hajjoubi-Mare-Martignoni-Pica_197a992"
+    },
+    {
+      "type": "java",
+      "name": "CineMax",
+      "request": "launch",
+      "mainClass": "CineMax",
       "projectName": "LabA2026-Hajjoubi-Mare-Martignoni-Pica_ee494dc8"
     },
     {
