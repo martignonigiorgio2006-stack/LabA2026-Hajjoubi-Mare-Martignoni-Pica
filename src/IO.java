@@ -77,6 +77,12 @@ public class IO {
         return valore;
     }
 
+    public static double readDouble() {
+        double valore = tastiera.nextDouble();
+        tastiera.nextLine(); // Consuma il resto della riga
+        return valore;
+    }
+
     public static char readChar(String s) {
         output(s, false);
         String temp = tastiera.nextLine();
@@ -95,6 +101,25 @@ public class IO {
 
     public static String readString() {
         return tastiera.nextLine();
+    }
+
+    public static Data readData(String s) throws IllegalValueException{
+        String dataFormatoStringa = readString(s);
+        if(dataFormatoStringa.trim().equals("-1"))
+            return null;
+        String[] dataArray = dataFormatoStringa.split("/");
+        return new Data(Integer.parseInt(dataArray[0]), Integer.parseInt(dataArray[0]), Integer.parseInt(dataArray[2]));
+    }
+
+    public static Genere readGenere(String s) throws IllegalValueException{
+        String genereFormatoStringa = readString(s);
+        if(genereFormatoStringa.trim().equals("-1"))
+            return null;
+        Genere[] listaGeneri = Genere.values();
+        for(Genere g : listaGeneri)
+            if(genereFormatoStringa.trim().toUpperCase().equals(g.toString().toUpperCase()))
+                return g;
+        throw new IllegalValueException("Errore: il genere non esiste!");
     }
 
 }
