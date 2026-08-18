@@ -1,14 +1,16 @@
+
 import java.io.Serializable;
 
 public class Regista implements Serializable {
-    private static int contaId = 0;
+
+    private static int contaId = -1;
     private int id;
     private String nome;
     private String cognome;
 
     //COSTRUTTORE
     public Regista(String nome, String cognome) throws IllegalValueException {
-        this.id = contaId++;
+        this.id = ++contaId;
         setNome(nome);
         setCognome(cognome);
     }
@@ -27,13 +29,21 @@ public class Regista implements Serializable {
     }
 
     //SETTER
-    public void setNome(String nome) throws IllegalValueException{
-        if(nome == null || nome.trim().isEmpty()) throw new IllegalValueException("Errore: nome non valido");
+    public static void setContaId(int contaId) {
+        Regista.contaId = contaId;
+    }
+
+    public void setNome(String nome) throws IllegalValueException {
+        if (nome == null || nome.trim().isEmpty()) {
+            throw new IllegalValueException("Errore: nome non valido");
+        }
         this.nome = nome.trim();
     }
 
-    public void setCognome(String cognome) throws IllegalValueException{
-        if(cognome == null || cognome.trim().isEmpty()) throw new IllegalValueException("Errore: cognome non valido");
+    public void setCognome(String cognome) throws IllegalValueException {
+        if (cognome == null || cognome.trim().isEmpty()) {
+            throw new IllegalValueException("Errore: cognome non valido");
+        }
         this.cognome = cognome.trim();
     }
 

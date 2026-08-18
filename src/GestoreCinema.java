@@ -1,4 +1,6 @@
 
+import javax.naming.ldap.LdapReferralException;
+
 import java.io.*;
 import java.util.*;
 
@@ -8,6 +10,7 @@ public class GestoreCinema {
     private LinkedList<Film> listaFilm;
     private LinkedList<Proiezione> listaProiezioni;
     private LinkedList<Prenotazione> listaPrenotazioni;
+    private LinkedList<Regista> listaRegisti;
     private Utente utenteLoggato;
 
     public GestoreCinema() {
@@ -15,6 +18,7 @@ public class GestoreCinema {
         this.listaFilm = new LinkedList<Film>();
         this.listaProiezioni = new LinkedList<Proiezione>();
         this.listaPrenotazioni = new LinkedList<Prenotazione>();
+        this.listaRegisti = new LinkedList<Regista>();
         this.utenteLoggato = null;
     }
 
@@ -97,6 +101,10 @@ public class GestoreCinema {
 
     public LinkedList<Utente> getListaUtenti() {
         return new LinkedList<>(listaUtenti);
+    }
+
+    public LinkedList<Regista> getListaRegista() {
+        return new LinkedList<>(listaRegisti);
     }
 
     // =========================================================================
@@ -264,6 +272,27 @@ public class GestoreCinema {
         throw new IllegalValueException("Impossibile rimuovere: film non trovato!");
     }
 
+    public void aggiungiRegista(String nome, String cognome) throws IllegalValueException {
+        //verificaProiezionista();
+        for (Regista r : listaRegisti) {
+            if (nome.equalsIgnoreCase(r.getNome()) && cognome.equalsIgnoreCase(r.getCognome())) {
+                throw new IllegalValueException("Regista già presente nel catalogo!");
+            }
+        }
+        Regista regista = new Regista(nome, cognome);
+        listaRegisti.add(regista);
+    }
+
+    public void rimuoviFilm(String nome, String cognome) throws IllegalValueException {
+        //verificaProiezionista();
+        for (Regista r : listaRegisti) {
+            if (nome.equalsIgnoreCase(r.getNome()) && cognome.equalsIgnoreCase(r.getCognome())) {
+                listaRegisti.remove(r);
+            }
+        }
+        throw new IllegalValueException("Impossibile rimuovere: regista non trovato!");
+    }
+
     public void aggiungiProiezione(Film film, Data data, Ora ora, double costoBiglietto) throws IllegalValueException {
         //verificaProiezionista();
         if (!listaFilm.contains(film)) {
@@ -372,6 +401,15 @@ public class GestoreCinema {
             //Cancelliamo tutti gli elementi dalla lista che abbiamo scritto 
             listaProiezioni.clear();
 
+            //Dividiamo le liste con il token *
+            scrittore.writeObject("*");
+
+            //Scriviamo sul file tutta la lista delle proiezioni registrate            
+            scrittore.writeObject(listaRegisti);
+
+            //Cancelliamo tutti gli elementi dalla lista che abbiamo scritto 
+            listaRegisti.clear();
+
             //Chiusura dello stream
             scrittore.close();
 
@@ -421,7 +459,7 @@ public class GestoreCinema {
                         LinkedList<?> lista = (LinkedList<?>) oggetto;
 
                         switch (contatoreSezioni) {
-                            case 0: 
+                            case 0:
                                 modificaContatoriID((LinkedList<Integer>) lista);
                                 break;
                             case 1:
@@ -436,9 +474,12 @@ public class GestoreCinema {
                             case 4:
                                 this.listaProiezioni = (LinkedList<Proiezione>) lista;
                                 break;
+                            case 5:
+                                this.listaRegisti = (LinkedList<Regista>) lista;
+                                break;
                         }
                     }
-                    if (contatoreSezioni == 4) {
+                    if (contatoreSezioni == 5) {
                         return;
                     }
 
@@ -489,30 +530,40 @@ public class GestoreCinema {
                         LinkedList<?> lista = (LinkedList<?>) oggetto;
 
                         switch (contatoreSezioni) {
-                            case 0: 
-                                for (Integer i : (LinkedList<Integer>) lista)
-                                    IO.output(i.toString()+"\t");
+                            case 0:
+                                for (Integer i : (LinkedList<Integer>) lista) {
+                                    IO.output(i.toString() + "\t");
+                                }
                                 IO.output("\n");
                                 break;
                             case 1:
-                                for (Utente u : (LinkedList<Utente>) lista) 
+                                for (Utente u : (LinkedList<Utente>) lista) {
                                     IO.output(u.toString() + "\n", true);
+                                }
                                 break;
                             case 2:
-                                for (Film f : (LinkedList<Film>) lista) 
+                                for (Film f : (LinkedList<Film>) lista) {
                                     IO.output(f.toString() + "\n", true);
+                                }
                                 break;
                             case 3:
-                                for (Prenotazione p : (LinkedList<Prenotazione>) lista) 
+                                for (Prenotazione p : (LinkedList<Prenotazione>) lista) {
                                     IO.output(p.toString() + "\n", true);
+                                }
                                 break;
                             case 4:
-                                for (Proiezione p : (LinkedList<Proiezione>) lista) 
-                                    IO.output(p.toString() + "\n",true);
+                                for (Proiezione p : (LinkedList<Proiezione>) lista) {
+                                    IO.output(p.toString() + "\n", true);
+                                }
+                                break;
+                            case 5:
+                                for (Regista r : (LinkedList<Regista>) lista) {
+                                    IO.output(r.toString() + "\n", true);
+                                }
                                 break;
                         }
                     }
-                    if (contatoreSezioni == 4) {
+                    if (contatoreSezioni == 5) {
                         return;
                     }
 
@@ -526,41 +577,48 @@ public class GestoreCinema {
 
     }
 
-
-
-    public LinkedList<Integer> aggiornaID(){
+    public LinkedList<Integer> aggiornaID() {
         LinkedList<Integer> listaID = new LinkedList<Integer>();
-        if(listaUtenti.isEmpty())
-             listaID.add(0);
-        else
+        if (listaUtenti.isEmpty()) {
+            listaID.add(0);
+        } else {
             listaID.add(listaUtenti.getLast().getId());
+        }
 
-        if(listaFilm.isEmpty())
-             listaID.add(0);
-        else
+        if (listaFilm.isEmpty()) {
+            listaID.add(0);
+        } else {
             listaID.add(listaFilm.getLast().getId());
+        }
 
-        if(listaPrenotazioni.isEmpty())
-             listaID.add(0);
-        else
+        if (listaPrenotazioni.isEmpty()) {
+            listaID.add(0);
+        } else {
             listaID.add(listaPrenotazioni.getLast().getId());
+        }
 
-        if(listaProiezioni.isEmpty())
-             listaID.add(0);
-        else
+        if (listaProiezioni.isEmpty()) {
+            listaID.add(0);
+        } else {
             listaID.add(listaProiezioni.getLast().getId());
-        
+        }
+
+        if (listaRegisti.isEmpty()) {
+            listaID.add(0);
+        } else {
+            listaID.add(listaRegisti.getLast().getId());
+        }
+
         return listaID;
     }
 
-    public void modificaContatoriID(LinkedList<Integer> listaID){
-        Utente.setContaId((int)listaID.get(0));
-        Film.setContaId((int)listaID.get(1));
-        Prenotazione.setContaId((int)listaID.get(2));
-        Proiezione.setContaId((int)listaID.get(3));
+    public void modificaContatoriID(LinkedList<Integer> listaID) {
+        Utente.setContaId((int) listaID.get(0));
+        Film.setContaId((int) listaID.get(1));
+        Prenotazione.setContaId((int) listaID.get(2));
+        Proiezione.setContaId((int) listaID.get(3));
+        Regista.setContaId((int) listaID.get(4));
     }
-
-
 
 }
 
