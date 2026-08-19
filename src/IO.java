@@ -70,6 +70,10 @@ public class IO {
         return valore;
     }
 
+    public static String readIntFormatoStringa(String s) {
+       return readString(s);
+    }
+
     public static double readDouble(String s) {
         output(s, false);
         double valore = tastiera.nextDouble();
@@ -105,10 +109,22 @@ public class IO {
 
     public static Data readData(String s) throws IllegalValueException{
         String dataFormatoStringa = readString(s);
+
         if(dataFormatoStringa.trim().equals("-1"))
             return null;
+
         String[] dataArray = dataFormatoStringa.split("/");
-        return new Data(Integer.parseInt(dataArray[0]), Integer.parseInt(dataArray[0]), Integer.parseInt(dataArray[2]));
+        if(dataArray.length != 3)
+            throw new IllegalValueException("Errore: Formato data non valido");
+        
+        try {
+            int giorno = Integer.parseInt(dataArray[0].trim());
+            int mese = Integer.parseInt(dataArray[1].trim()); 
+            int anno = Integer.parseInt(dataArray[2].trim());
+            return new Data(giorno, mese, anno);
+        } catch (NumberFormatException e) {
+            throw new IllegalValueException("Errore: La data contiene valori non ammessi!");
+        }    
     }
 
     public static Genere readGenere(String s) throws IllegalValueException{
@@ -123,3 +139,33 @@ public class IO {
     }
 
 }
+
+
+/*
+public static Data readData(String s) throws IllegalValueException {
+    String dataFormatoStringa = readString(s);
+    
+    // 1. Ritorna null se è -1
+    if (dataFormatoStringa.trim().equals("-1")) {
+        return null;
+    }
+    
+    // 2. Controllo del separatore e del numero di elementi
+    String[] dataArray = dataFormatoStringa.split("/");
+    if (dataArray.length != 3) {
+        throw new IllegalValueException("Errore: Formato data non valido (usare GG/MM/AAAA)");
+    }
+    
+    // 3. Conversione in interi e gestione di altri errori
+    try {
+        int giorno = Integer.parseInt(dataArray[0].trim());
+        int mese = Integer.parseInt(dataArray[1].trim()); // Corretto l'indice [1]
+        int anno = Integer.parseInt(dataArray[2].trim());
+        
+        return new Data(giorno, mese, anno);
+    } catch (NumberFormatException e) {
+        // Cattura testo o caratteri non validi nei numeri
+        throw new IllegalValueException("Errore: La data contiene valori non numerici");
+    }
+}
+*/

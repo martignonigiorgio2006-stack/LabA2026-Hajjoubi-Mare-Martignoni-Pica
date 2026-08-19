@@ -113,17 +113,19 @@ public class GestoreCinema {
     // 3. OPERAZIONI UTENTE NON AUTENTICATO (OSPITE)
     // =========================================================================
     public void registraCliente(String nome, String cognome, String username, String psw, Luogo domicilio, Data dataNascita) throws IllegalValueException {
+        if(dataNascita == null)
+            registraCliente(nome, cognome, username, psw, domicilio);
         verificaUsernameDisponibile(username);
         Cliente cliente = new Cliente(nome, cognome, username, psw, domicilio, dataNascita);
         listaUtenti.add(cliente);
-        this.utenteLoggato = cliente;
+        //this.utenteLoggato = cliente;//solo se fa il login va bene ? guarda main.
     }
 
     public void registraCliente(String nome, String cognome, String username, String psw, Luogo domicilio) throws IllegalValueException {
-        //verificaUsernameDisponibile(username);
+        verificaUsernameDisponibile(username);
         Cliente cliente = new Cliente(nome, cognome, username, psw, domicilio);
         listaUtenti.add(cliente);
-        this.utenteLoggato = cliente;
+        //this.utenteLoggato = cliente;//solo se fa il login va bene ? guarda main.
     }
 
     public Proiezione getProiezionePerId(int id) throws IllegalValueException {
@@ -170,7 +172,7 @@ public class GestoreCinema {
     }
 
     public void aggiungiPrenotazione(int idProiezione, int quantita) throws IllegalValueException {
-        //verificaCliente();
+        verificaCliente();
         for (Proiezione p : listaProiezioni) {
             if (idProiezione == p.getId()) {
                 Prenotazione prenotazione = new Prenotazione(utenteLoggato, quantita, p);
@@ -178,7 +180,7 @@ public class GestoreCinema {
                 return;
             }
         }
-        throw new IllegalValueException("Errore: l'id non corrisponde a nessuna proiezione nel catalogo!");
+        throw new IllegalValueException("Errore: L'ID non corrisponde a nessuna proiezione nel catalogo!");
     }
 
     public void rimuoviPrenotazione(int idPrenotazione) throws IllegalValueException {
@@ -623,190 +625,3 @@ public class GestoreCinema {
     }
 
 }
-
-// =========================================================================
-// METODI SINGOLI PER IL RIEMPIMENTO DELLE LISTE (TENUTI PER EMERGENZA)
-// =========================================================================
-//Riempiamo la lista degli utenti
-/* 
-    public void riempiListaUtenti() {
-
-        File file = new File("archivio.txt");
-
-        if (!file.exists()) {
-            try {
-                file.createNewFile();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-
-        ObjectInputStream lettore;
-
-        try {
-
-            lettore = new ObjectInputStream(new FileInputStream(file));
-
-            LinkedList<Utente> listaDaFile = (LinkedList<Utente>) lettore.readObject();
-
-            listaUtenti = listaDaFile;
-
-            lettore.close();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-    }
-
-    //Riempiamo la lista dei film 
-    public void riempiListaFilm() {
-        File file = new File("archivio.txt");
-
-        if (!file.exists()) {
-            try {
-                file.createNewFile();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-
-        ObjectInputStream lettore;
-
-        try {
-
-            lettore = new ObjectInputStream(new FileInputStream(file));
-
-            Object oggetto;
-            int contatoreSezioni = 0; // 0 = lista utenti, 1 = lista film, 2 = prenotazioni, ecc.
-
-            while (true) {
-                try {
-                    oggetto = lettore.readObject();
-
-                    // Quando incontri il token, incrementi il contatore e vai avanti
-                    if (oggetto instanceof String && oggetto.equals("*")) {
-                        contatoreSezioni++;
-                        continue;
-                    }
-
-                    if (oggetto instanceof LinkedList) {
-                        LinkedList<?> lista = (LinkedList<?>) oggetto;
-
-                        // Controlli il valore del contatore per capire cosa stai leggendo!
-                        if (contatoreSezioni == 1) {
-                            this.listaFilm = (LinkedList<Film>) lista;
-                        }
-
-                    }
-                } catch (EOFException e) {
-                    break;
-                }
-            }
-
-        } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-    }
-
-    //Riempiamo la lista dei film 
-    public void riempiListaPrenotazioni() {
-        File file = new File("archivio.txt");
-
-        if (!file.exists()) {
-            try {
-                file.createNewFile();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-
-        ObjectInputStream lettore;
-
-        try {
-
-            lettore = new ObjectInputStream(new FileInputStream(file));
-
-            Object oggetto;
-            int contatoreSezioni = 0; // 0 = lista utenti, 1 = lista film, 2 = prenotazioni, ecc.
-
-            while (true) {
-                try {
-                    oggetto = lettore.readObject();
-
-                    // Quando incontri il token, incrementi il contatore e vai avanti
-                    if (oggetto instanceof String && oggetto.equals("*")) {
-                        contatoreSezioni++;
-                        continue;
-                    }
-
-                    if (oggetto instanceof LinkedList) {
-                        LinkedList<?> lista = (LinkedList<?>) oggetto;
-
-                        // Controlli il valore del contatore per capire cosa stai leggendo!
-                        if (contatoreSezioni == 2) {
-                            this.listaPrenotazioni = (LinkedList<Prenotazione>) lista;
-                        }
-
-                    }
-                } catch (EOFException e) {
-                    break;
-                }
-            }
-
-        } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-    }
-
-    //Riempiamo la lista dei film 
-    public void riempiListaProiezioni() {
-        File file = new File("archivio.txt");
-
-        if (!file.exists()) {
-            try {
-                file.createNewFile();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-
-        ObjectInputStream lettore;
-
-        try {
-
-            lettore = new ObjectInputStream(new FileInputStream(file));
-
-            Object oggetto;
-            int contatoreSezioni = 0; // 0 = lista utenti, 1 = lista film, 2 = prenotazioni, ecc.
-
-            while (true) {
-                try {
-                    oggetto = lettore.readObject();
-
-                    // Quando incontri il token, incrementi il contatore e vai avanti
-                    if (oggetto instanceof String && oggetto.equals("*")) {
-                        contatoreSezioni++;
-                        continue;
-                    }
-
-                    if (oggetto instanceof LinkedList) {
-                        LinkedList<?> lista = (LinkedList<?>) oggetto;
-
-                        // Controlli il valore del contatore per capire cosa stai leggendo!
-                        if (contatoreSezioni == 3) {
-                            this.listaProiezioni = (LinkedList<Proiezione>) lista;
-                        }
-
-                    }
-                } catch (EOFException e) {
-                    break;
-                }
-            }
-
-        } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-    }
- */
