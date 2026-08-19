@@ -157,6 +157,30 @@ public class GestoreCinema {
         return lista;
     }
 
+    public LinkedList<Proiezione> cercaProiezioni(String titolo, Data inizio, Data fine, Genere genere, Double costoMin, Double costoMax){
+        LinkedList<Proiezione> risultato = new LinkedList<>();
+        for(Proiezione p: listaProiezioni){
+            boolean controllo = true;
+
+            if(titolo != null && !p.getFilm().getTitolo().toLowerCase().contains(titolo.toLowerCase()))
+                controllo = false;
+            if(inizio != null && p.getData().compareTo(inizio) < 0)
+                controllo = false;
+            if(fine != null && p.getData().compareTo(fine) > 0)
+                controllo = false;
+            if(genere != null && p.getFilm().getGenere().equals(genere))
+                controllo = false;
+            if(costoMin != null && p.getCostoBiglietto() < costoMin)
+                controllo = false;
+            if(costoMax != null && p.getCostoBiglietto() > costoMax)
+                controllo = false;
+
+            if(controllo)
+                risultato.add(p);
+        }
+        return risultato;
+    }
+
     // =========================================================================
     // 4. OPERAZIONI ESCLUSIVE CLIENTE
     // =========================================================================
@@ -236,14 +260,29 @@ public class GestoreCinema {
         return lista;
     }
 
-    public Prenotazione cercaPrenotazione(int idPrenotazione) throws IllegalValueException {
-        //verificaBigliettaio();
-        for (Prenotazione p : listaPrenotazioni) {
-            if (p.getId() == idPrenotazione) {
-                return p;
-            }
+    public LinkedList<Prenotazione> cercaPrenotazione(Integer id, String nome, String cognome, String titolo, Data inizio, Data fine) throws IllegalValueException {
+        LinkedList<Prenotazione> risultato = new LinkedList<>();
+        for(Prenotazione p: listaPrenotazioni){
+            boolean controllo = true;
+
+            if(id != null && p.getId() != id.intValue())
+                controllo = false;
+            if(nome != null && !p.getUtente().getNome().toLowerCase().equals(nome.toLowerCase()))
+                controllo = false;
+            if(cognome != null && !p.getUtente().getCognome().toLowerCase().equals(cognome.toLowerCase()))
+                controllo = false;
+            if(titolo != null && !p.getProiezione().getFilm().getTitolo().toLowerCase().equals(titolo.toLowerCase()))
+                controllo = false;
+            if(inizio != null && p.getProiezione().getData().compareTo(inizio) < 0)
+                controllo = false;
+            if(fine != null && p.getProiezione().getData().compareTo(fine) > 0)
+                controllo = false;
+
+            if(controllo)
+                risultato.add(p);
         }
-        throw new IllegalValueException("Nessuna prenotazione trovata con ID: " + idPrenotazione);
+
+        return risultato;
     }
 
     public LinkedList<Prenotazione> getListaPrenotazioni() throws IllegalValueException {

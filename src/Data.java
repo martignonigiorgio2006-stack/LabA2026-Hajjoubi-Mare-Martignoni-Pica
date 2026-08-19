@@ -64,6 +64,16 @@ public class Data implements Serializable {
         this.anno = anno;
     }
 
+    //METODO compareTo
+    public int compareTo(Data altra) {
+        if (this.anno != altra.getAnno()) {
+            return this.anno - altra.getAnno();
+        }
+        if (this.mese != altra.getMese()) {
+            return this.mese - altra.getMese();
+        }
+        return this.giorno - altra.getGiorno();
+    }
     //METODO EQUALS
     @Override
     public boolean equals(Object obj) {

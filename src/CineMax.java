@@ -1,3 +1,5 @@
+import java.util.LinkedList;
+
 public class CineMax{
     
     public static GestoreCinema gc;
@@ -112,7 +114,7 @@ public class CineMax{
     }//chiusura registraCliente
 
     public static void cercaProiezione(){
-        String[] opzioni = {"Titolo: ", "Da (formato data gg/mm/aaaa): ", "A (formato data gg/mm/aaaa): ", "Genere: ", "Costo del biglietto: "};
+        String[] opzioni = {"Titolo: ", "Da (formato data gg/mm/aaaa): ", "A (formato data gg/mm/aaaa): ", "Genere: ", "Costo minimo: ", "Costo massimo: "};
         IO.output("Inserisci i filtri della ricerca (-1 per saltare):", true);
 
         String titolo;
@@ -121,8 +123,9 @@ public class CineMax{
             titolo = null;
 
         Data inizio, fine;
-        boolean errore = false;
+        boolean errore;
         do{
+            errore = false;
             try {
                 inizio = IO.readData(opzioni[1]);
                 fine = IO.readData(opzioni[2]);
@@ -131,7 +134,7 @@ public class CineMax{
                 errore = true;
             }    
         }while(errore);
-       
+
         Genere genere;
         errore = false;
          do{
@@ -142,14 +145,30 @@ public class CineMax{
                 errore = true;
             }    
         }while(errore);
-        
-        Double costo; //classe Double così accetta il null
-        costo = IO.readDouble(opzioni[4]);
-        if(costo == -1)
-            costo = null;
 
-        gc.cercaProiezioni(titolo, inizio, fine, genere, costo);
-        
+        Double costoMin; //classe Double così accetta il null
+        costoMin = IO.readDouble(opzioni[4]);
+        if(costoMin == -1)
+            costoMin = null;
+        Double costoMax;
+        costoMax = IO.readDouble(opzioni[5]);
+        if(costoMax == -1)
+            costoMax = null;
+
+        try{
+            LinkedList<Proiezione> risultato = gc.cercaProiezioni(titolo, inizio, fine, genere, costoMin, costoMax);
+            if(risultato.isEmpty()){
+                IO.output("Nessuna proiezione trovata con questi filtri.", true);
+            }else{
+                IO.output("Proiezioni trovate: ");
+                for(Proiezione p: risultato){
+                    IO.output(p.toString(), true);
+                }
+            }
+        }catch(IllegalValueException e){
+            IO.outputErr(e.getMessage());
+        }
+
     }//Chiusura cercaProiezione
     
     public static void visualizzaCatalogoFilm(){
@@ -163,7 +182,7 @@ public class CineMax{
             IO.output(f.toString(), true);
         }
 
-    }//Chiusura visualizzacatalogoFilm
+    }//Chiusura visualizzaCatalogoFilm
 
     public static boolean menuClienteRegistrato() {
         String[] opzioni = {"effettuare una prenotazione", "modificare una prenotazione", "cancellare una prenotazione", "visualizzare le prenotazioni", "logout"};
@@ -436,29 +455,57 @@ public class CineMax{
     }
     
     public static void cercaPrenotazione(){
-    String[] opzioni = {"Titolo: ", "Da: ", "A: "};
+    String[] opzioni = {"Codice: ", "Nome: ", "Cognome: ", "Titolo: ", "Da: ", "A: "};
     IO.output("Inserisci i filtri della ricerca (-1 per saltare):", true);
 
+    Integer codice;
+    codice = IO.readInt(opzioni[0]);
+    if(codice == -1)
+        codice = null;
+
+    String nome;
+    nome = IO.readString(opzioni[1]);
+    if(nome.trim().equals("-1"))
+        nome = null;
+
+    String cognome;
+    cognome = IO.readString(opzioni[1]);
+    if(cognome.trim().equals("-1"))
+        cognome = null;
+
     String titolo;
-    titolo = IO.readString(opzioni[0]);
+    titolo = IO.readString(opzioni[3]);
     if(titolo.trim().equals("-1"))
         titolo = null;
 
-    Data inizio, fine;
-    boolean errore = false;
+    Data inizio;
+    Data fine;
+    boolean errore;
     do{
+        errore = false;
         try {
-            inizio = IO.readData(opzioni[1]);
-            fine = IO.readData(opzioni[2]);
+            inizio = IO.readData(opzioni[4]);
+            fine = IO.readData(opzioni[5]);
         } catch (IllegalValueException e) {
             IO.outputErr(e.getMessage()+"\nRiprova!");
             errore = true;
         }    
     }while(errore);
-
-    gc.cercaPrenotazione(titolo, inizio, fine);
-    
+    try{
+        LinkedList<Prenotazione> risultato = gc.cercaPrenotazione(codice, nome, cognome, titolo, inizio, fine);
+        if(risultato.isEmpty()){
+            IO.output("Nessuna prenotazione trovata.", true);
+        } else {
+            IO.output("Prenotazioni trovate: ");
+            for (Prenotazione p : risultato) {
+                IO.output(p.toString(), true);
+            }
+        }
+    }catch(IllegalValueException e){
+        IO.outputErr(e.getMessage());
     }
+    
+    }//chiusura metodo cercaPrenotazione()
     
     public static void aggiungiBigliettaio(){
 
