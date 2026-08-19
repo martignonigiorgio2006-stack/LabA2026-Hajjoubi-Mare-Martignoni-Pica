@@ -32,7 +32,7 @@ public class Prenotazione implements Serializable {
         this.utente = utente;
     }
 
-    private void setProiezione(Proiezione proiezione) throws IllegalValueException {
+    public void setProiezione(Proiezione proiezione) throws IllegalValueException {
         if (proiezione == null) {
             throw new IllegalValueException("Errore: proiezione non inserita");
         }

@@ -118,14 +118,12 @@ public class GestoreCinema {
         verificaUsernameDisponibile(username);
         Cliente cliente = new Cliente(nome, cognome, username, psw, domicilio, dataNascita);
         listaUtenti.add(cliente);
-        //this.utenteLoggato = cliente;//solo se fa il login va bene ? guarda main.
     }
 
     public void registraCliente(String nome, String cognome, String username, String psw, Luogo domicilio) throws IllegalValueException {
         verificaUsernameDisponibile(username);
         Cliente cliente = new Cliente(nome, cognome, username, psw, domicilio);
         listaUtenti.add(cliente);
-        //this.utenteLoggato = cliente;//solo se fa il login va bene ? guarda main.
     }
 
     public Proiezione getProiezionePerId(int id) throws IllegalValueException {
@@ -232,6 +230,27 @@ public class GestoreCinema {
         throw new IllegalValueException("Impossibile modificare: prenotazione non trovata!");
     }
 
+    public void modificaPrenotazione(int idPrenotazione, Proiezione nuovaProiezione, Data dataOdierna) throws IllegalValueException {
+        //verificaCliente();
+        for(Prenotazione p: listaPrenotazioni){
+            verificaProprietaPrenotazione(p);
+
+            if(idPrenotazione == p.getId()){
+
+                Data vecchiaData = p.getProiezione().getData();
+                Data nuovaData = nuovaProiezione.getData();
+                if(vecchiaData.compareTo(dataOdierna) <= 0 || nuovaData.compareTo(dataOdierna) <= 0) throw new IllegalValueException("Impossibile modificare: data già superata!");
+                
+                if(nuovaProiezione.getPostiLiberi() < p.getQuantita() ) throw new IllegalValueException("Impossibile eseguire: non ci sono abbastanza posti disponibili nella nuova proiezione!");
+
+                p.getProiezione().ripristinaPosti(p.getQuantita());
+                nuovaProiezione.scalaPosti(p.getQuantita());
+                
+                p.setProiezione(nuovaProiezione);
+            }
+        }
+    }
+
     // =========================================================================
     // 5. OPERAZIONI ESCLUSIVE BIGLIETTAIO
     // =========================================================================
@@ -294,7 +313,7 @@ public class GestoreCinema {
     // 6. OPERAZIONI ESCLUSIVE PROIEZIONISTA
     // =========================================================================
     public void aggiungiFilm(String titolo, int durata, int anno, int etaMin, Genere genere, Regista regista) throws IllegalValueException {
-        //verificaProiezionista();
+        verificaProiezionista();
         for (Film f : listaFilm) {
             if (titolo.equalsIgnoreCase(f.getTitolo())) {
                 throw new IllegalValueException("Film già presente nel catalogo!");
@@ -305,7 +324,7 @@ public class GestoreCinema {
     }
 
     public void rimuoviFilm(String titolo) throws IllegalValueException {
-        //verificaProiezionista();
+        verificaProiezionista();
         for (Film f : listaFilm) {
             if (titolo.equalsIgnoreCase(f.getTitolo())) {
                 listaFilm.remove(f);
@@ -315,29 +334,28 @@ public class GestoreCinema {
         throw new IllegalValueException("Impossibile rimuovere: film non trovato!");
     }
 
-    public void aggiungiRegista(String nome, String cognome) throws IllegalValueException {
-        //verificaProiezionista();
+    public void aggiungiRegista(Regista regista) throws IllegalValueException {
+        verificaProiezionista();
         for (Regista r : listaRegisti) {
-            if (nome.equalsIgnoreCase(r.getNome()) && cognome.equalsIgnoreCase(r.getCognome())) {
-                throw new IllegalValueException("Regista già presente nel catalogo!");
+            if (regista.getNome().equalsIgnoreCase(r.getNome()) && regista.getCognome().equalsIgnoreCase(r.getCognome())) {
+                throw new IllegalValueException("Errore: Regista già presente nel catalogo!");
             }
         }
-        Regista regista = new Regista(nome, cognome);
         listaRegisti.add(regista);
     }
 
-    public void rimuoviFilm(String nome, String cognome) throws IllegalValueException {
-        //verificaProiezionista();
+    public void rimuoviRegista(Regista regista) throws IllegalValueException {
+        verificaProiezionista();
         for (Regista r : listaRegisti) {
-            if (nome.equalsIgnoreCase(r.getNome()) && cognome.equalsIgnoreCase(r.getCognome())) {
+            if (regista.getNome().equalsIgnoreCase(r.getNome()) && regista.getCognome().equalsIgnoreCase(r.getCognome())) {
                 listaRegisti.remove(r);
             }
         }
-        throw new IllegalValueException("Impossibile rimuovere: regista non trovato!");
+        throw new IllegalValueException("Errore: Regista non trovato!");
     }
 
     public void aggiungiProiezione(Film film, Data data, Ora ora, double costoBiglietto) throws IllegalValueException {
-        //verificaProiezionista();
+        verificaProiezionista();
         if (!listaFilm.contains(film)) {
             throw new IllegalValueException("Impossibile creare proiezione: film non presente in catalogo!");
         }

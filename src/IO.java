@@ -128,44 +128,169 @@ public class IO {
     }
 
     public static Genere readGenere(String s) throws IllegalValueException{
-        String genereFormatoStringa = readString(s);
+        String genereFormatoStringa;
+        boolean errore = false;
+        do{
+            genereFormatoStringa = readString(s);
+            if(genereFormatoStringa == null || genereFormatoStringa.trim().isEmpty()){
+                outputErr("Errore: Compilare i campi richiesti!");
+                errore = true;
+            }
+        }while(errore);
+        
+
         if(genereFormatoStringa.trim().equals("-1"))
             return null;
+
         Genere[] listaGeneri = Genere.values();
         for(Genere g : listaGeneri)
             if(genereFormatoStringa.trim().toUpperCase().equals(g.toString().toUpperCase()))
                 return g;
-        throw new IllegalValueException("Errore: il genere non esiste!");
+        throw new IllegalValueException("Errore: Il genere non esiste!");
     }
 
-}
+    public static Luogo readDomicilio(String s) throws IllegalValueException{ 
+        output(s, true);
 
+        String via, citta, cap, numeroCivicoFormatoStringa;
+        int numeroCivico = 0;
+        boolean errore = false;
 
-/*
-public static Data readData(String s) throws IllegalValueException {
-    String dataFormatoStringa = readString(s);
-    
-    // 1. Ritorna null se è -1
-    if (dataFormatoStringa.trim().equals("-1")) {
-        return null;
-    }
-    
-    // 2. Controllo del separatore e del numero di elementi
-    String[] dataArray = dataFormatoStringa.split("/");
-    if (dataArray.length != 3) {
-        throw new IllegalValueException("Errore: Formato data non valido (usare GG/MM/AAAA)");
-    }
-    
-    // 3. Conversione in interi e gestione di altri errori
-    try {
-        int giorno = Integer.parseInt(dataArray[0].trim());
-        int mese = Integer.parseInt(dataArray[1].trim()); // Corretto l'indice [1]
-        int anno = Integer.parseInt(dataArray[2].trim());
+        do{
+            via = IO.readString("Via: ");
+            if(via == null || via.trim().isEmpty()){
+                outputErr("Errore: Compilare i campi richiesti!");
+                errore = true;
+            }
+        }while(errore);
+
+        errore = false;
+
+        do{
+            numeroCivicoFormatoStringa = IO.readString("Numero civico: ");
+            if(numeroCivicoFormatoStringa == null || numeroCivicoFormatoStringa.trim().isEmpty()){
+                outputErr("Errore: Compilare i campi richiesti!");
+                errore = true;
+            }
+            else {
+                try{
+                    numeroCivico = Integer.parseInt(numeroCivicoFormatoStringa);
+                } catch(NumberFormatException e){
+                    outputErr("Errore: Il numero civico contiene valori non ammessi!");
+                    errore = true;
+                }
+            }
+        }while(errore);
+
+        errore = false;
+
+        do{
+            citta = IO.readString("Città: ");
+            if(citta == null || citta.trim().isEmpty()){
+                outputErr("Errore: Compilare i campi richiesti!");
+                errore = true;
+            }
+        }while(errore);
         
-        return new Data(giorno, mese, anno);
-    } catch (NumberFormatException e) {
-        // Cattura testo o caratteri non validi nei numeri
-        throw new IllegalValueException("Errore: La data contiene valori non numerici");
+        errore = false;
+
+        do{
+            cap = IO.readString("Cap: ");
+            if(cap == null || cap.trim().isEmpty()){
+                outputErr("Errore: Compilare i campi richiesti!");
+                errore = true;
+            }
+        }while(errore);
+
+        return new Luogo(via, numeroCivico, citta, cap);
+    }
+
+    public static Regista readRegista(String s) throws IllegalValueException{
+        output(s);
+        
+        String nome, cognome;
+        boolean errore = false;
+        do{
+            nome = readString("Nome: ");
+            if(nome == null || nome.trim().isEmpty()){
+                outputErr("Errore: Compilare i campi richiesti!");
+                errore = true;
+            }
+        }while(errore);
+
+        errore = false;
+        do{
+            cognome = readString("Cognome: ");
+            if(cognome == null || cognome.trim().isEmpty()){
+                outputErr("Errore: Compilare i campi richiesti!");
+                errore = true;
+            }
+        }while(errore);
+
+        return new Regista(nome, cognome);
+    }
+
+
+    public static Ora readOra(String s) throws IllegalValueException{
+
+        String oraFormatoStringa, minutoFormatoStringa, secondoFormatoStringa;
+        int ora = 0, minuto = 0, secondo = 0;
+        boolean errore = false;
+
+        do{
+            oraFormatoStringa = IO.readString("Ora: ");
+            if(oraFormatoStringa == null || oraFormatoStringa.trim().isEmpty()){
+                outputErr("Errore: Compilare i campi richiesti!");
+                errore = true;
+            }
+            else {
+                try{
+                    ora = Integer.parseInt(oraFormatoStringa);
+                } catch(NumberFormatException e){
+                    outputErr("Errore: Il campo ora contiene valori non ammessi!");
+                    errore = true;
+                }
+            }
+        }while(errore);
+
+        errore = false;
+
+        do{
+            minutoFormatoStringa = IO.readString("Minuto: ");
+            if(minutoFormatoStringa == null || minutoFormatoStringa.trim().isEmpty()){
+                outputErr("Errore: Compilare i campi richiesti!");
+                errore = true;
+            }
+            else {
+                try{
+                    minuto = Integer.parseInt(minutoFormatoStringa);
+                } catch(NumberFormatException e){
+                    outputErr("Errore: Il campo minuto contiene valori non ammessi!");
+                    errore = true;
+                }
+            }
+        }while(errore);
+
+        errore = false;
+
+        do{
+            secondoFormatoStringa = IO.readString("Secondo: ");
+            if(secondoFormatoStringa == null || secondoFormatoStringa.trim().isEmpty()){
+                outputErr("Errore: Compilare i campi richiesti!");
+                errore = true;
+            }
+            else {
+                try{
+                    secondo = Integer.parseInt(secondoFormatoStringa);
+                } catch(NumberFormatException e){
+                    outputErr("Errore: Il campo secondo contiene valori non ammessi!");
+                    errore = true;
+                }
+            }
+        }while(errore);
+
+        return new Ora(ora, minuto, secondo);
     }
 }
-*/
+
+
