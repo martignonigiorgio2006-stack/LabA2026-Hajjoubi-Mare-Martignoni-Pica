@@ -51,10 +51,52 @@ public class CineMax{
 
     public static void login(){
 
+        String username = IO.readString("Username: ");
+        String password = IO.readString("Password: ");
+
+        try{
+            gc.login(username, password);
+            Utente utente = gc.getUtenteLoggato();
+
+            IO.output("Login effettuato!\nBenvenuto " + utente.getNome() , true);
+
+            boolean scelta;
+            do {
+                scelta = menuCliente();
+            } while (!scelta);
+                
+
+        }catch(IllegalValueException e){
+            IO.outuptErr(e.getMessage()+"\nRiprova!");
+            return;
+        }
     }
 
     public static void registraCliente(){
         
+        try{
+
+            String nome = IO.readString("Nome: ");
+            String cognome = IO.readString("Cognome: ");
+            String username = IO.readString("Username: ");
+            String password = IO.readString("Password: ");
+
+            IO.output("Inserisci il tuo domicilio:", true);
+            String via = IO.readString("Via: ");
+            int numeroCivico = IO.readInt("Numero civico: ");
+            String citta = IO.readString("Citta: ");
+            String cap = IO.readString("CAP: ");
+
+            Luogo domicilio = new Luogo(via, numeroCivico, città, cap)
+
+            gc.registraCliente(nome, cognome, username, password, domicilio);
+
+            IO.output("Registrazione effettuata correttamente!", true);
+
+        }catch(IllegalValueException e){
+            IO.outputErr(e.getMessage()+"\nRiprova!");
+        
+        }
     }
 
     public static void cercaProiezione(){
@@ -100,6 +142,15 @@ public class CineMax{
     
     public static void visualizzaCatalogoFilm(){
 
+        if(gc.getCataLogoFilm().isEmpty()){
+            IO.output("Catalogo vuoto.", true);
+        }
+        
+        IO.output("Catalogo film:", true);
+        for(Film f : gc.getCataLogoFilm()){
+            IO.output(f.toString(), true);
+        }
+
     }
 
     public static boolean menuClienteRegistrato() {
@@ -131,11 +182,37 @@ public class CineMax{
     }
 
     public static void effettuaPrenotazione(){
+        try{
+            IO.output("effettuare prenotazione", true);
+
+             int idProiezione = IO.readInt("Inserisci l'ID della proiezione: ");
+             int quantita = IO.readInt("Inserisci il numero di biglietti: ");
+
+             gc.aggiungiPrenotazione(idProiezione, quantita)
+             IO.output("Prenotazione effettuata con successo!", true);
+        }catch(IllegalValueException e){
+            IO.outputErr(e.getMessage()+ true);
+
+        }
+        }
 
     }
 
     public static void modificaPrenotazione(){
 
+        try{
+             IO.output("Modifica Prenotazione", true);
+
+              int idPrenotazione = IO.readInt("Inserisci l'ID della prenotazione: ");
+              int nuovaQuantita = IO.readInt("Inserisci il nuovo numero di biglietti: ");
+
+             gc.modificaPrenotazione(idPrenotazione, nuovaQuantita);
+
+             IO.output("Prenotazione modificata con successo!", true);
+        }catch(IllegalValueException e){
+
+            IO.outputErr(e.getMessage()+ true);
+        }
     }
 
     public static void cancellarePrenotazione(){
@@ -185,6 +262,7 @@ public class CineMax{
 
     public static void aggiungiFilm(){
 
+        
     }
     
     public static void rimuoviFilm(){
@@ -275,5 +353,5 @@ public class CineMax{
 
     }
 
-}
+
 

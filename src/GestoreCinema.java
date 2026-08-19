@@ -78,13 +78,15 @@ public class GestoreCinema {
     }
 
     public void login(String username, String psw) throws IllegalValueException {
+        if(username == null || psw == null)
+                throw new IllegalValueException("Errore: credenziali non inserite correttamente!");
         for (Utente u : listaUtenti) {
             if (username.equals(u.getUsername()) && psw.equals(u.getPsw())) {
                 this.utenteLoggato = u;
                 return;
             }
         }
-        throw new IllegalValueException("Credenziali errate");
+        throw new IllegalValueException("Errore: credenziali errate!");
     }
 
     public void logout() {
@@ -111,7 +113,7 @@ public class GestoreCinema {
     // 3. OPERAZIONI UTENTE NON AUTENTICATO (OSPITE)
     // =========================================================================
     public void registraCliente(String nome, String cognome, String username, String psw, Luogo domicilio, Data dataNascita) throws IllegalValueException {
-        //verificaUsernameDisponibile(username);
+        verificaUsernameDisponibile(username);
         Cliente cliente = new Cliente(nome, cognome, username, psw, domicilio, dataNascita);
         listaUtenti.add(cliente);
         this.utenteLoggato = cliente;
