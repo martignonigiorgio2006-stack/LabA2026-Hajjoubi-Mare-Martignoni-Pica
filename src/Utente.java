@@ -1,19 +1,65 @@
+
 import java.io.Serializable;
 
+/**
+ * Rappresenta un utente composto da id, nome, cognome, username, psw,
+ * domicilio, dataNascita, ruolo Implementa {@link Serializable} per consentire
+ * la serializzazione degli oggetti.
+ */
 public abstract class Utente implements Serializable {
 
-
     private static final long serialVersionUID = 1L;
-
+    /**
+     * contaId.
+     */
     private static int contaId = -1;
+    /**
+     * Id.
+     */
     private int id;
-    private String nome, cognome, username, psw;
+    /**
+     * nome.
+     */
+    private String nome;
+    /**
+     * cognome.
+     */
+    private String cognome;
+    /**
+     * username.
+     */
+    private String username;
+    /**
+     * password.
+     */
+    private String psw;
+    /**
+     * domiclio.
+     */
     private Luogo domicilio;
+    /**
+     * data di nascita.
+     */
     private Data dataNascita;
+    /**
+     * ruolo.
+     */
     private Ruolo ruolo;
 
-
-    //COSTRUTTORI
+    /**
+     * Costruisce un nuovo oggetto {@code Utente}. Tramite i set effettua
+     * verifiche ai parametri.
+     *
+     * @param nome il nome del utente
+     * @param cognome il cognome del utente
+     * @param username il username del utente
+     * @param password il password del utente
+     * @param domicilio il domicilio del utente
+     * @param dataNascita la data di nascita del utente
+     * @param ruolo il ruolo del utente
+     * @throws IllegalValueException se uno qualsiasi dei parametri non rispetta
+     * i vincoli di integrità
+     */
     public Utente(String nome, String cognome, String username, String psw, Luogo domicilio, Data dataNascita, Ruolo ruolo) throws IllegalValueException {
         this.id = ++contaId;
         setNome(nome);
@@ -25,19 +71,46 @@ public abstract class Utente implements Serializable {
         setRuolo(ruolo);
     }
 
+    /**
+     * Costruisce un nuovo oggetto {@code Utente}. Tramite i set effettua
+     * verifiche ai parametri.
+     *
+     * @param nome il nome del utente
+     * @param cognome il cognome del utente
+     * @param username il username del utente
+     * @param password il password del utente
+     * @param domicilio il domicilio del utente
+     * @param ruolo il ruolo del utente
+     * @throws IllegalValueException se uno qualsiasi dei parametri non rispetta
+     * i vincoli di integrità
+     */
     public Utente(String nome, String cognome, String username, String psw, Luogo domicilio, Ruolo ruolo) throws IllegalValueException {
         this(nome, cognome, username, psw, domicilio, null, ruolo);
     }
 
-    //GETTER
+    /**
+     * Restituisce l'id.
+     *
+     * @return id
+     */
     public int getId() {
         return id;
     }
 
+    /**
+     * Restituisce il nome.
+     *
+     * @return nome
+     */
     public String getNome() {
         return nome;
     }
 
+    /**
+     * Restituisce il cognome.
+     *
+     * @return cognome
+     */
     public String getCognome() {
         return cognome;
     }
@@ -63,7 +136,7 @@ public abstract class Utente implements Serializable {
     }
 
     //SETTER
-    public static void setContaId(int contaId){
+    public static void setContaId(int contaId) {
         Utente.contaId = contaId;
     }
 
