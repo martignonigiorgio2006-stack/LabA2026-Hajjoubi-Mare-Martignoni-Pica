@@ -52,7 +52,7 @@ public class GestoreCinema {
     private void verificaUsernameDisponibile(String username) throws IllegalValueException {
         for (Utente u : listaUtenti) {
             if (username.equals(u.getUsername())) {
-                throw new IllegalValueException("Username già in uso!");
+                throw new IllegalValueException("Errore: Username già in uso!");
             }
         }
     }
@@ -183,7 +183,7 @@ public class GestoreCinema {
     // 4. OPERAZIONI ESCLUSIVE CLIENTE
     // =========================================================================
     public LinkedList<Prenotazione> getPrenotazioneUtente() throws IllegalValueException {
-        //verificaCliente();
+        verificaCliente();
         LinkedList<Prenotazione> lista = new LinkedList<>();
         for (Prenotazione p : listaPrenotazioni) {
             if (utenteLoggato.getId() == p.getUtente().getId()) {
@@ -206,7 +206,7 @@ public class GestoreCinema {
     }
 
     public void rimuoviPrenotazione(int idPrenotazione) throws IllegalValueException {
-        //verificaCliente();
+        verificaCliente();
         for (Prenotazione p : listaPrenotazioni) {
             if (idPrenotazione == p.getId()) {
                 //verificaProprietaPrenotazione(p);
@@ -219,7 +219,7 @@ public class GestoreCinema {
     }
 
     public void modificaPrenotazione(int idPrenotazione, int nuovaQuantita) throws IllegalValueException {
-        //verificaCliente();
+        verificaCliente();
         for (Prenotazione p : listaPrenotazioni) {
             if (idPrenotazione == p.getId()) {
                 verificaProprietaPrenotazione(p);
@@ -231,7 +231,7 @@ public class GestoreCinema {
     }
 
     public void modificaPrenotazione(int idPrenotazione, Proiezione nuovaProiezione, Data dataOdierna) throws IllegalValueException {
-        //verificaCliente();
+        verificaCliente();
         for(Prenotazione p: listaPrenotazioni){
             verificaProprietaPrenotazione(p);
 
@@ -255,21 +255,39 @@ public class GestoreCinema {
     // 5. OPERAZIONI ESCLUSIVE BIGLIETTAIO
     // =========================================================================
     public void registraBigliettaio(String nome, String cognome, String username, String psw, Luogo domicilio) throws IllegalValueException {
-        //verificaBigliettaio();
+        verificaBigliettaio();
         verificaUsernameDisponibile(username);
         Bigliettaio b = new Bigliettaio(nome, cognome, username, psw, domicilio);
         listaUtenti.add(b);
     }
 
+    public void rimuoviBigliettaio(int idBigliettaio) throws IllegalValueException{
+        verificaBigliettaio();
+        for(Utente u : listaUtenti){
+            if(u instanceof Bigliettaio && u.getId() == idBigliettaio)
+                listaUtenti.remove(u);
+        }
+        throw new IllegalValueException("Errore: Bigliettaio non trovato!");
+    }
+
     public void registraProiezionista(String nome, String cognome, String username, String psw, Luogo domicilio) throws IllegalValueException {
-        //verificaBigliettaio();
+        verificaBigliettaio();
         verificaUsernameDisponibile(username);
         Proiezionista p = new Proiezionista(nome, cognome, username, psw, domicilio);
         listaUtenti.add(p);
     }
 
+    public void rimuoviProiezionista(int idProiezionista) throws IllegalValueException{
+        verificaBigliettaio();
+        for(Utente u : listaUtenti){
+            if(u instanceof Proiezionista && u.getId() == idProiezionista)
+                listaUtenti.remove(u);
+        }
+        throw new IllegalValueException("Errore: Proiezionista non trovato!");
+    }
+
     public LinkedList<Prenotazione> getPrenotazionePerData(Data data) throws IllegalValueException {
-        //verificaBigliettaio();
+        verificaBigliettaio();
         LinkedList<Prenotazione> lista = new LinkedList<>();
         for (Prenotazione p : listaPrenotazioni) {
             if (data.equals(p.getProiezione().getData())) {
@@ -305,7 +323,7 @@ public class GestoreCinema {
     }
 
     public LinkedList<Prenotazione> getListaPrenotazioni() throws IllegalValueException {
-        //verificaBigliettaio();
+        verificaBigliettaio();
         return new LinkedList<>(listaPrenotazioni);
     }
 
@@ -369,9 +387,9 @@ public class GestoreCinema {
     }
 
     public void rimuoviProiezione(int id) throws IllegalValueException {
-        //verificaProiezionista();
+        verificaProiezionista();
         if (haPrenotazioniAttive(id)) {
-            throw new IllegalValueException("Impossibile eliminare: esistono già prenotazioni per questa proiezione!");
+            throw new IllegalValueException("Errore: Non si può effettuare l'eliminazione della proiezione esistono prenotazioni attive!");
         }
         for (Proiezione p : listaProiezioni) {
             if (id == p.getId()) {
@@ -383,7 +401,7 @@ public class GestoreCinema {
     }
 
     public void modificaProiezione(int idProiezione, Data data, Ora ora, double costoBiglietto) throws IllegalValueException {
-        //verificaProiezionista();
+        verificaProiezionista();
         if (haPrenotazioniAttive(idProiezione)) {
             throw new IllegalValueException("Impossibile modificare: esistono già prenotazioni per questa proiezione!");
         }
@@ -504,7 +522,7 @@ public class GestoreCinema {
             lettore = new ObjectInputStream(new FileInputStream(file));
 
             Object oggetto;
-            int contatoreSezioni = 0; // 1 = lista utenti, 2 = lista film, 3 = prenotazioni, ecc.
+            int contatoreSezioni = 0;
 
             while (true) {
                 try {
@@ -575,7 +593,7 @@ public class GestoreCinema {
             lettore = new ObjectInputStream(new FileInputStream(file));
 
             Object oggetto;
-            int contatoreSezioni = 0; // 1 = lista utenti, 2 = lista film, 3 = prenotazioni, ecc.
+            int contatoreSezioni = 0; 
 
             while (true) {
                 try {
@@ -679,6 +697,18 @@ public class GestoreCinema {
         Prenotazione.setContaId((int) listaID.get(2));
         Proiezione.setContaId((int) listaID.get(3));
         Regista.setContaId((int) listaID.get(4));
+    }
+
+
+//////  METODI NON RICHIESTI LI USIAMO??
+
+    public void rimuoviCliente (int idCliente) throws IllegalValueException{
+        //verificaBigliettaio();    boh chi verificia
+        for(Utente u : listaUtenti){
+            if(u instanceof Cliente && u.getId() == idCliente)
+                listaUtenti.remove(u);
+        }
+        throw new IllegalValueException("Errore: Cliente non trovato!");
     }
 
 }

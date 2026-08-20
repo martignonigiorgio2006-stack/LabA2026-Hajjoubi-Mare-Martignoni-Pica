@@ -107,11 +107,14 @@ public class IO {
         return tastiera.nextLine();
     }
 
-    public static Data readData(String s) throws IllegalValueException{
+    public static Data readData(String s) throws IllegalValueException{ //se lo invio null?
         String dataFormatoStringa = readString(s);
 
         if(dataFormatoStringa.trim().equals("-1"))
             return null;
+
+        if(dataFormatoStringa.trim().isEmpty() || dataFormatoStringa == null)
+            throw new IllegalValueException("Errore: Compilare i campi richiesti!");
 
         String[] dataArray = dataFormatoStringa.split("/");
         if(dataArray.length != 3)
@@ -131,6 +134,7 @@ public class IO {
         String genereFormatoStringa;
         boolean errore = false;
         do{
+            errore = false;
             genereFormatoStringa = readString(s);
             if(genereFormatoStringa == null || genereFormatoStringa.trim().isEmpty()){
                 outputErr("Errore: Compilare i campi richiesti!");
@@ -157,6 +161,7 @@ public class IO {
         boolean errore = false;
 
         do{
+            errore = false;
             via = IO.readString("Via: ");
             if(via == null || via.trim().isEmpty()){
                 outputErr("Errore: Compilare i campi richiesti!");
@@ -164,9 +169,8 @@ public class IO {
             }
         }while(errore);
 
-        errore = false;
-
         do{
+            errore = false;
             numeroCivicoFormatoStringa = IO.readString("Numero civico: ");
             if(numeroCivicoFormatoStringa == null || numeroCivicoFormatoStringa.trim().isEmpty()){
                 outputErr("Errore: Compilare i campi richiesti!");
@@ -185,6 +189,7 @@ public class IO {
         errore = false;
 
         do{
+            errore = false;
             citta = IO.readString("Città: ");
             if(citta == null || citta.trim().isEmpty()){
                 outputErr("Errore: Compilare i campi richiesti!");
@@ -195,6 +200,7 @@ public class IO {
         errore = false;
 
         do{
+            errore = false;
             cap = IO.readString("Cap: ");
             if(cap == null || cap.trim().isEmpty()){
                 outputErr("Errore: Compilare i campi richiesti!");
@@ -211,6 +217,7 @@ public class IO {
         String nome, cognome;
         boolean errore = false;
         do{
+            errore = false;
             nome = readString("Nome: ");
             if(nome == null || nome.trim().isEmpty()){
                 outputErr("Errore: Compilare i campi richiesti!");
@@ -220,6 +227,7 @@ public class IO {
 
         errore = false;
         do{
+            errore = false;
             cognome = readString("Cognome: ");
             if(cognome == null || cognome.trim().isEmpty()){
                 outputErr("Errore: Compilare i campi richiesti!");
@@ -233,11 +241,14 @@ public class IO {
 
     public static Ora readOra(String s) throws IllegalValueException{
 
+        output(s, true);
+
         String oraFormatoStringa, minutoFormatoStringa, secondoFormatoStringa;
         int ora = 0, minuto = 0, secondo = 0;
         boolean errore = false;
 
         do{
+            errore = false;
             oraFormatoStringa = IO.readString("Ora: ");
             if(oraFormatoStringa == null || oraFormatoStringa.trim().isEmpty()){
                 outputErr("Errore: Compilare i campi richiesti!");
@@ -253,9 +264,8 @@ public class IO {
             }
         }while(errore);
 
-        errore = false;
-
         do{
+            errore = false;
             minutoFormatoStringa = IO.readString("Minuto: ");
             if(minutoFormatoStringa == null || minutoFormatoStringa.trim().isEmpty()){
                 outputErr("Errore: Compilare i campi richiesti!");
@@ -274,6 +284,7 @@ public class IO {
         errore = false;
 
         do{
+            errore = false;
             secondoFormatoStringa = IO.readString("Secondo: ");
             if(secondoFormatoStringa == null || secondoFormatoStringa.trim().isEmpty()){
                 outputErr("Errore: Compilare i campi richiesti!");
