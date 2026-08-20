@@ -1,8 +1,9 @@
+
 import java.time.LocalDate;
 import java.util.LinkedList;
 
-public class CineMax{
-    
+public class CineMax {
+
     public static GestoreCinema gc;
 
     public static void main(String[] args) {
@@ -26,12 +27,13 @@ public class CineMax{
     }//Chiusura main
 
     public static boolean menuPrincipale() {
-        IO.output("## Menù princilale ##", true); 
+        IO.output("## Menù princilale ##", true);
 
         String[] opzioni = {"loggarti", "registrati come cliente", "cercare proiezioni", "visualizza catalogo film", "uscire"};
         IO.output("Digita:", true);
-        for (int i = 0; i < opzioni.length; i++) 
+        for (int i = 0; i < opzioni.length; i++) {
             IO.output("- " + (i + 1) + "  per " + opzioni[i]);
+        }
         int scelta = IO.readInt();
         switch (scelta) {
             case 1:
@@ -54,47 +56,47 @@ public class CineMax{
         }
     }//Chiusura menuPrincipale
 
-    public static void login(){
-        IO.output("## Login ##", true); 
-        
+    public static void login() {
+        IO.output("## Login ##", true);
+
         //Controlli del null nel metodo della classe GestioneCinema
         String username = IO.readString("Username: ");
         String password = IO.readString("Password: ");
 
-        try{
+        try {
             gc.login(username, password);
-            
+
             Utente utente = gc.getUtenteLoggato();
 
-            IO.output("Login effettuato!\nBenvenuto " + utente.getNome() , true);
+            IO.output("Login effettuato!\nBenvenuto " + utente.getNome(), true);
 
-            if(utente.getRuolo() == Ruolo.CLIENTE){
+            if (utente.getRuolo() == Ruolo.CLIENTE) {
                 boolean scelta;
                 do {
                     scelta = menuClienteRegistrato();
                 } while (!scelta);
-            } else if (utente.getRuolo() == Ruolo.BIGLIETTAIO){
+            } else if (utente.getRuolo() == Ruolo.BIGLIETTAIO) {
                 boolean scelta;
                 do {
                     scelta = menuBigliettaioRegistrato();
                 } while (!scelta);
-            } else if (utente.getRuolo() == Ruolo.PROIEZIONISTA){
+            } else if (utente.getRuolo() == Ruolo.PROIEZIONISTA) {
                 boolean scelta;
                 do {
                     scelta = menuProiezionistaRegistrato();
                 } while (!scelta);
             }
-        
-        }catch(IllegalValueException e){
-            IO.outputErr(e.getMessage()+"\nRiprova!");
+
+        } catch (IllegalValueException e) {
+            IO.outputErr(e.getMessage() + "\nRiprova!");
             return;
         }
     }//Chiusura login
 
-    public static void registraCliente(){
-        IO.output("## Registrazione clienti ##", true); 
+    public static void registraCliente() {
+        IO.output("## Registrazione clienti ##", true);
 
-        try{
+        try {
 
             String nome = IO.readString("Nome: ");
             String cognome = IO.readString("Cognome: ");
@@ -102,121 +104,122 @@ public class CineMax{
             String password = IO.readString("Password: ");
 
             Luogo domicilio = null;
-            try{
+            try {
                 domicilio = IO.readDomicilio("Inserisci il tuo domicilio");
-            }catch(IllegalValueException e){
+            } catch (IllegalValueException e) {
                 IO.outputErr(e.getMessage() + "\nRiprova!");
             }
 
             Data dataDiNascita = null;
             boolean errore = false;
-            do{
+            do {
                 try {
                     dataDiNascita = IO.readData("Inserisci la tua data di nascita in formato gg/mm/aaaa (-1 per saltare): ");
                 } catch (IllegalValueException e) {
-                    IO.outputErr(e.getMessage()+"\nRiprova!");
+                    IO.outputErr(e.getMessage() + "\nRiprova!");
                     errore = true;
-                }    
-            }while(errore);
+                }
+            } while (errore);
 
             gc.registraCliente(nome, cognome, username, password, domicilio, dataDiNascita);
 
             IO.output("Registrazione effettuata correttamente!", true);
 
-        }catch(IllegalValueException e){
-            IO.outputErr(e.getMessage()+"\nRiprova!");
+        } catch (IllegalValueException e) {
+            IO.outputErr(e.getMessage() + "\nRiprova!");
             return;
         }
     }//chiusura registraCliente
 
-    public static void cercaProiezione(){
-        IO.output("## Ricerca proiezioni ##", true); 
+    public static void cercaProiezione() {
+        IO.output("## Ricerca proiezioni ##", true);
 
         String[] opzioni = {"Titolo: ", "Da (formato data gg/mm/aaaa): ", "A (formato data gg/mm/aaaa): ", "Genere: ", "Costo minimo: ", "Costo massimo: "};
         IO.output("Inserisci i filtri della ricerca (-1 per saltare):", true);
 
         String titolo;
         titolo = IO.readString(opzioni[0]);
-        if(titolo.trim().equals("-1"))
+        if (titolo.trim().equals("-1")) {
             titolo = null;
+        }
 
         Data inizio = null, fine = null;
         boolean errore;
-        do{
+        do {
             errore = false;
             try {
                 inizio = IO.readData(opzioni[4]);
             } catch (IllegalValueException e) {
-                IO.outputErr(e.getMessage()+"\nRiprova!");
+                IO.outputErr(e.getMessage() + "\nRiprova!");
                 errore = true;
-            }    
-        }while(errore);
+            }
+        } while (errore);
 
-        do{
+        do {
             errore = false;
             try {
                 fine = IO.readData(opzioni[5]);
             } catch (IllegalValueException e) {
-                IO.outputErr(e.getMessage()+"\nRiprova!");
+                IO.outputErr(e.getMessage() + "\nRiprova!");
                 errore = true;
-            }    
-        }while(errore);
+            }
+        } while (errore);
 
         Genere genere = null;
         errore = false;
-         do{
+        do {
             try {
                 genere = IO.readGenere(opzioni[3]);
             } catch (IllegalValueException e) {
-                IO.outputErr(e.getMessage()+"\nRiprova!");
+                IO.outputErr(e.getMessage() + "\nRiprova!");
                 errore = true;
-            }    
-        }while(errore);
+            }
+        } while (errore);
 
-        Double costoMin; 
+        Double costoMin;
         errore = false;
-        do{
+        do {
             costoMin = IO.readDouble(opzioni[4]);
-            if(costoMin == -1)
-                costoMin = null;
-            else if(costoMin < 0 ){
+            if (costoMin == -1) {
+                costoMin = null; 
+            }else if (costoMin < 0) {
                 IO.outputErr("Errore: Costo negativo non consentito\nRiprova!");
                 errore = true;
             }
-        }while(errore);
+        } while (errore);
 
-        Double costoMax; 
+        Double costoMax;
         errore = false;
-        do{
+        do {
             costoMax = IO.readDouble(opzioni[4]);
-            if(costoMax == -1)
-                costoMax = null;
-            else if(costoMax < 0 ){
+            if (costoMax == -1) {
+                costoMax = null; 
+            }else if (costoMax < 0) {
                 IO.outputErr("Errore: Costo negativo non consentito\nRiprova!");
                 errore = true;
             }
-        }while(errore);
+        } while (errore);
 
         LinkedList<Proiezione> risultato = gc.cercaProiezioni(titolo, inizio, fine, genere, costoMin, costoMax);
-        if(risultato.isEmpty()){
+        if (risultato.isEmpty()) {
             IO.output("Nessuna proiezione trovata con questi filtri.", true);
-        }else{
+        } else {
             IO.output("Proiezioni trovate: ");
-            for(Proiezione p: risultato){
+            for (Proiezione p : risultato) {
                 IO.output(p.toString(), true);
             }
         }
     }//Chiusura cercaProiezione
-    
-    public static void visualizzaCatalogoFilm(){
-        IO.output("## Catalogo film ##", true); 
 
-        if(gc.getListaFilm().isEmpty() || gc.getListaFilm() == null){
+    public static void visualizzaCatalogoFilm() {
+        IO.output("## Catalogo film ##", true);
+
+        if (gc.getListaFilm().isEmpty() || gc.getListaFilm() == null) {
             IO.output("Catalogo vuoto.", true);
         }
-        
+
         IO.output("Catalogo film:", true);
-        for(Film f : gc.getListaFilm()){
+        for (Film f : gc.getListaFilm()) {
             IO.output(f.toString(), true);
         }
 
@@ -224,12 +227,13 @@ public class CineMax{
 
     //CASE 2 COMMENTATO
     public static boolean menuClienteRegistrato() {
-        IO.output("## Menù cliente ##", true); 
+        IO.output("## Menù cliente ##", true);
 
         String[] opzioni = {"effettuare una prenotazione", "modificare una prenotazione", "cancellare una prenotazione", "visualizzare le prenotazioni", "logout"};
         IO.output("Digita:", true);
-        for (int i = 0; i < opzioni.length; i++) 
+        for (int i = 0; i < opzioni.length; i++) {
             IO.output("- " + (i + 1) + "  per " + opzioni[i]);
+        }
         int scelta = IO.readInt();
         switch (scelta) {
             case 1:
@@ -253,44 +257,44 @@ public class CineMax{
         }
     }//Chiusura menuClienteRegistrato()
 
-    public static void effettuaPrenotazione(){
-        try{
-            IO.output("## Effettuare prenotazione ##", true); 
+    public static void effettuaPrenotazione() {
+        try {
+            IO.output("## Effettuare prenotazione ##", true);
 
             String idProiezioneString;
             boolean errore = false;
 
-            do{
+            do {
                 idProiezioneString = IO.readIntFormatoStringa("Inserisci l'ID della proiezione: ");
-                if(idProiezioneString == null || idProiezioneString.trim().isEmpty()){
+                if (idProiezioneString == null || idProiezioneString.trim().isEmpty()) {
                     errore = true;
                     IO.outputErr("Errore: Compilare i campi richiesti!\nRiprova!");
                 }
-            }while(errore);
-    
+            } while (errore);
+
             int idProiezione = Integer.parseInt(idProiezioneString);
 
             String quantitaString;
             errore = false;
-            do{
+            do {
                 quantitaString = IO.readIntFormatoStringa("Inserisci il numero di biglietti: ");
-                if(quantitaString == null ||  quantitaString.trim().isEmpty()){
+                if (quantitaString == null || quantitaString.trim().isEmpty()) {
                     errore = true;
                     IO.outputErr("Errore: Compilare i campi richiesti!\nRiprova!");
-                } else if(Integer.parseInt(quantitaString) <= 0){
+                } else if (Integer.parseInt(quantitaString) <= 0) {
                     errore = true;
                     IO.outputErr("Errore: Quantità non ammessa!\nRiprova!");
-                } 
-            }while(errore);
+                }
+            } while (errore);
 
             int quantita = Integer.parseInt(quantitaString);
 
             gc.aggiungiPrenotazione(idProiezione, quantita);
-            
+
             IO.output("Prenotazione effettuata con successo!", true);
 
-        }catch(IllegalValueException e){
-            IO.outputErr(e.getMessage()+"\nRiprova!");
+        } catch (IllegalValueException e) {
+            IO.outputErr(e.getMessage() + "\nRiprova!");
 
         }
     }//Chiusura menuClienteRegistrato()
@@ -336,72 +340,72 @@ public class CineMax{
 
             }
         }//Chiusura modificaPrenotazione()
-    */
+     */
+    public static void cancellarePrenotazione() {
+        IO.output("## Cancellare prenotazione ##", true);
+        try {
 
-    public static void cancellarePrenotazione(){
-        IO.output("## Cancellare prenotazione ##", true); 
-        try{
-            
             String idPrenotazioneFormatoStringa;
             int idPrenotazione = 0;
             boolean errore = false;
 
-            do{
+            do {
                 errore = false;
                 idPrenotazioneFormatoStringa = IO.readString("Inserisci l'ID della prenotazione da cancellare: ");
-                if(idPrenotazioneFormatoStringa == null || idPrenotazioneFormatoStringa.trim().isEmpty()){
+                if (idPrenotazioneFormatoStringa == null || idPrenotazioneFormatoStringa.trim().isEmpty()) {
                     IO.outputErr("Errore: Compilare i campi richiesti!");
                     errore = true;
                 } else {
-                    try{
+                    try {
                         idPrenotazione = Integer.parseInt(idPrenotazioneFormatoStringa);
-                    } catch(NumberFormatException e){
+                    } catch (NumberFormatException e) {
                         IO.outputErr("Errore: Il campo richiesto contiene valori non ammessi!");
                         errore = true;
                     }
                 }
-            }while(errore);
-            
+            } while (errore);
+
             gc.rimuoviPrenotazione(idPrenotazione);
 
-            IO.output("Prenotazione cancellata con successo!", true);    
-        }catch(IllegalValueException e){
-             IO.outputErr(e.getMessage() + "\nRiprova!");
+            IO.output("Prenotazione cancellata con successo!", true);
+        } catch (IllegalValueException e) {
+            IO.outputErr(e.getMessage() + "\nRiprova!");
         }
 
     }//Chiusura cancellarePrenotazione
 
-    public static void visualizzaPrenotazioni(){
-        IO.output("## Visualizza prenotazioni ##", true); 
-        try{
+    public static void visualizzaPrenotazioni() {
+        IO.output("## Visualizza prenotazioni ##", true);
+        try {
             LinkedList<Prenotazione> prenotazioniUtente = gc.getPrenotazioneUtente();
-            if(prenotazioniUtente.isEmpty() || prenotazioniUtente == null){
+            if (prenotazioniUtente.isEmpty() || prenotazioniUtente == null) {
                 IO.output("Nessuna prenotazione trovata.", true);
                 return;
             }
-            for(Prenotazione p : prenotazioniUtente){
-                IO.output(p.toString(), true );
+            for (Prenotazione p : prenotazioniUtente) {
+                IO.output(p.toString(), true);
             }
-            
-        }catch(IllegalValueException e){
+
+        } catch (IllegalValueException e) {
             IO.outputErr(e.getMessage() + "\nRiprova!");
         }
-        
+
     }//Chiusura visualizzaPrenotazioni
 
-    public static void logout(){
-        IO.output("## Logout ##", true); 
+    public static void logout() {
+        IO.output("## Logout ##", true);
         gc.logout();
     }//Chiusura logout
 
     //CASE 6 COMMENTATO
     public static boolean menuProiezionistaRegistrato() {
-        IO.output("## Menù proiezionista ##", true); 
-        
+        IO.output("## Menù proiezionista ##", true);
+
         String[] opzioni = {"aggiungere un nuovo film al catalogo", "rimuovere un film dal catalogo", "aggiungingere un nuovo regista al catalogo", "rimuovere un regista dal catalogo", "aggiungiere una nuova proiezione", "modificare una proiezione", "cancellare una proiezione", "logout"};
         IO.output("Digita:", true);
-        for (int i = 0; i < opzioni.length; i++) 
+        for (int i = 0; i < opzioni.length; i++) {
             IO.output("- " + (i + 1) + "  per " + opzioni[i]);
+        }
         int scelta = IO.readInt();
         switch (scelta) {
             case 1:
@@ -422,10 +426,10 @@ public class CineMax{
             case 6:
                 //modificaProiezione();
                 return false;
-            case 7: 
+            case 7:
                 cancellaProiezione();
                 return false;
-            case 8: 
+            case 8:
                 logout();
                 return true;
             default:
@@ -434,9 +438,9 @@ public class CineMax{
         }
     }//Chiusura menuProiezionistaRegistrato
 
-    public static void aggiungiFilm(){
-        try{
-            IO.output("## Aggiungi film ##",true); 
+    public static void aggiungiFilm() {
+        try {
+            IO.output("## Aggiungi film ##", true);
 
             //Non effettuo controlli sui parametri siccome lo fa già il costruttore (tecnicamente tutti i metodi aggiungi non devno avere controlli)
             String titolo = IO.readString("Titolo: ");
@@ -446,72 +450,72 @@ public class CineMax{
             Genere genere = IO.readGenere("Genere:");
             Regista regista = IO.readRegista("Regista: ");
 
-            gc.aggiungiFilm(titolo, durata,anno, etaMin, genere, regista);
+            gc.aggiungiFilm(titolo, durata, anno, etaMin, genere, regista);
             IO.output("Film aggiunto con successo", true);
 
-        }catch(IllegalValueException e){
-            IO.outputErr(e.getMessage()+"\nRiprova");
+        } catch (IllegalValueException e) {
+            IO.outputErr(e.getMessage() + "\nRiprova");
         }
     }//Chiusura aggiungiFilm
-    
-    public static void rimuoviFilm(){
-        try{  
+
+    public static void rimuoviFilm() {
+        try {
             IO.output("## Rimuovi film ##", true);
 
             String titolo = IO.readString();
             gc.rimuoviFilm(titolo);
             IO.output("Film rimosso con successo");
 
-        }catch(IllegalValueException e){
-            IO.outputErr(e.getMessage()+"\nRiprova");
+        } catch (IllegalValueException e) {
+            IO.outputErr(e.getMessage() + "\nRiprova");
         }
     }//Chiusura rimuoviFilm
 
-    public static void aggiungiRegista(){
-         try{
+    public static void aggiungiRegista() {
+        try {
             IO.output("## Aggiungi regista ##", true);
 
             gc.aggiungiRegista(IO.readRegista("Inserisci dati regista"));
 
             IO.output("Regista aggiunto con successo ", true);
-         }catch(IllegalValueException e){
-            IO.outputErr(e.getMessage()+"\nRiprova");
-         }
+        } catch (IllegalValueException e) {
+            IO.outputErr(e.getMessage() + "\nRiprova");
+        }
 
     }//Chiusura aggiungiRegista
 
-    public static void rimuoviRegista(){
-        try{
+    public static void rimuoviRegista() {
+        try {
             IO.output("## Rimuovi regista ##", true);
 
             gc.rimuoviRegista(IO.readRegista("Inserisci dati regista"));
 
             IO.output("Regista rimosso con successo", true);
 
-        }catch(IllegalValueException e){
-            IO.outputErr(e.getMessage()+"\nRiprova");
+        } catch (IllegalValueException e) {
+            IO.outputErr(e.getMessage() + "\nRiprova");
         }
     }//Chiusura rimuoviRegista
 
-    public static void aggiungiProiezione(){
-        try{
+    public static void aggiungiProiezione() {
+        try {
             IO.output("## Aggiungi proiezione ##", true);
 
-            for(Film f : gc.getListaFilm()){
+            for (Film f : gc.getListaFilm()) {
                 IO.output(f.toString(), true);
             }
 
             Film filmscelto = null;
             int idFilm = IO.readInt("Inserisci l'ID del film: ");
-            
-            for(Film f : gc.getListaFilm()){
-                if(f.getId() == idFilm){
+
+            for (Film f : gc.getListaFilm()) {
+                if (f.getId() == idFilm) {
                     filmscelto = f;
                     break;
                 }
             }
 
-            if(filmscelto == null){
+            if (filmscelto == null) {
                 IO.outputErr("Errore: Film non trovato ");
                 return;
             }
@@ -519,15 +523,15 @@ public class CineMax{
             Data data = IO.readData("Data proiezione: ");
 
             Ora orario = IO.readOra("Inserisci orrario proiezione");
-            
+
             double costo = IO.readDouble("Costo: ");
 
             gc.aggiungiProiezione(filmscelto, data, orario, costo);
-            
+
             IO.output("Proiezione aggiunta con successo", true);
 
-        }catch(IllegalValueException e){
-            IO.outputErr(e.getMessage()+"\nRiprova");
+        } catch (IllegalValueException e) {
+            IO.outputErr(e.getMessage() + "\nRiprova");
         }
 
     }//Chiusura aggiungiProiezione
@@ -549,10 +553,9 @@ public class CineMax{
           IO.outputErr(e.getMessage()+"\nRiprova");
         }
     }//Chiusura modificaProiezione
-    */
-
-    public static void cancellaProiezione(){
-        try{
+     */
+    public static void cancellaProiezione() {
+        try {
             IO.output("## Cancella proiezione ##", true);
 
             int idProiezione = IO.readInt("Inserisci l'ID della proiezione da cancellare:");
@@ -560,18 +563,19 @@ public class CineMax{
             gc.rimuoviProiezione(idProiezione);
 
             IO.output("Proiezione cancellata con successo", true);
-        }catch(IllegalValueException e){
-            IO.outputErr(e.getMessage()+"\nRiprova");
+        } catch (IllegalValueException e) {
+            IO.outputErr(e.getMessage() + "\nRiprova");
         }
     }//Chiusura cancellaProiezione
-    
+
     public static boolean menuBigliettaioRegistrato() {
-        IO.output("## Menù bigliettaio ##", true); 
+        IO.output("## Menù bigliettaio ##", true);
 
         String[] opzioni = {"consultare le prenotazioni odierne", "cercare prenotazione", "aggiungere un nuovo bigliettaio", "aggiungere un nuovo proiezionista", "logout"};
         IO.output("Digita:", true);
-        for (int i = 0; i < opzioni.length; i++) 
+        for (int i = 0; i < opzioni.length; i++) {
             IO.output("- " + (i + 1) + "  per " + opzioni[i]);
+        }
         int scelta = IO.readInt();
         switch (scelta) {
             case 1:
@@ -595,81 +599,85 @@ public class CineMax{
         }
     }//Chiusura menuBigliettaioRegistrato
 
-    public static void cercaPrenotazioniOdierne(){
-        IO.output("## Prenotazioni odierne ##", true); 
-        
-        try{
+    public static void cercaPrenotazioniOdierne() {
+        IO.output("## Prenotazioni odierne ##", true);
+
+        try {
             LocalDate oggi = LocalDate.now();
 
             Data dataOdierna = new Data(oggi.getDayOfMonth(), oggi.getMonthValue(), oggi.getYear());
-            
+
             LinkedList<Prenotazione> prenotazioniOdierne = gc.getPrenotazionePerData(dataOdierna);
-            
-            if(prenotazioniOdierne.isEmpty() || prenotazioniOdierne == null){
-            IO.output("Nessuna prenotazione trovata per oggi.", true);
-            return;
+
+            if (prenotazioniOdierne.isEmpty() || prenotazioniOdierne == null) {
+                IO.output("Nessuna prenotazione trovata per oggi.", true);
+                return;
             }
 
-            for(Prenotazione p : prenotazioniOdierne){
+            for (Prenotazione p : prenotazioniOdierne) {
                 IO.output(p.toString(), true);
             }
-        }catch(IllegalValueException e){
-            IO.outputErr(e.getMessage()+"\nRiprova");
+        } catch (IllegalValueException e) {
+            IO.outputErr(e.getMessage() + "\nRiprova");
         }
 
     }//Chiusura cercaPrenotazioniOdierne
-    
-    public static void cercaPrenotazione(){
-        IO.output("## Cerca prenotazione ##", true); 
+
+    public static void cercaPrenotazione() {
+        IO.output("## Cerca prenotazione ##", true);
 
         String[] opzioni = {"Codice: ", "Nome: ", "Cognome: ", "Titolo: ", "Da: ", "A: "};
         IO.output("Inserisci i filtri della ricerca (-1 per saltare):", true);
 
         Integer codice;
         codice = IO.readInt(opzioni[0]);
-        if(codice == -1)
+        if (codice == -1) {
             codice = null;
+        }
 
         String nome;
         nome = IO.readString(opzioni[1]);
-        if(nome.trim().equals("-1"))
+        if (nome.trim().equals("-1")) {
             nome = null;
+        }
 
         String cognome;
         cognome = IO.readString(opzioni[1]);
-        if(cognome.trim().equals("-1"))
+        if (cognome.trim().equals("-1")) {
             cognome = null;
+        }
 
         String titolo;
         titolo = IO.readString(opzioni[3]);
-        if(titolo.trim().equals("-1"))
+        if (titolo.trim().equals("-1")) {
             titolo = null;
+        }
 
         Data inizio = null, fine = null;
         boolean errore;
-        do{
+        do {
             errore = false;
             try {
                 inizio = IO.readData(opzioni[4]);
             } catch (IllegalValueException e) {
-                IO.outputErr(e.getMessage()+"\nRiprova!");
+                IO.outputErr(e.getMessage() + "\nRiprova!");
                 errore = true;
-            }    
-        }while(errore);
+            }
+        } while (errore);
 
-        do{
+        do {
             errore = false;
             try {
                 fine = IO.readData(opzioni[5]);
             } catch (IllegalValueException e) {
-                IO.outputErr(e.getMessage()+"\nRiprova!");
+                IO.outputErr(e.getMessage() + "\nRiprova!");
                 errore = true;
-            }    
-        }while(errore);
+            }
+        } while (errore);
 
-        try{
+        try {
             LinkedList<Prenotazione> risultato = gc.cercaPrenotazione(codice, nome, cognome, titolo, inizio, fine);
-            if(risultato.isEmpty()){
+            if (risultato.isEmpty()) {
                 IO.output("Nessuna prenotazione trovata.", true);
             } else {
                 IO.output("Prenotazioni trovate: ");
@@ -677,148 +685,146 @@ public class CineMax{
                     IO.output(p.toString(), true);
                 }
             }
-        }catch(IllegalValueException e){
-            IO.outputErr(e.getMessage()+"\nRiprova!");
+        } catch (IllegalValueException e) {
+            IO.outputErr(e.getMessage() + "\nRiprova!");
         }
     }//Chiusura metodo cercaPrenotazione()
-    
-    public static void aggiungiBigliettaio(){
+
+    public static void aggiungiBigliettaio() {
         IO.output("## Aggiungi bigliettaio ##", true);
-        
-        try{
+
+        try {
             String nome = IO.readString("Nome: ");
             String cognome = IO.readString("Cognome: ");
             String username = IO.readString("Username: ");
             String password = IO.readString("Password: ");
 
             Luogo domicilio = null;
-            try{
+            try {
                 domicilio = IO.readDomicilio("Inserisci il tuo domicilio");
-            }catch(IllegalValueException e){
+            } catch (IllegalValueException e) {
                 IO.outputErr(e.getMessage() + "\nRiprova!");
             }
             gc.registraBigliettaio(nome, cognome, username, password, domicilio);
-        }catch(IllegalValueException e){
-            IO.outputErr(e.getMessage()+"\nRiprova!");
+        } catch (IllegalValueException e) {
+            IO.outputErr(e.getMessage() + "\nRiprova!");
         }
-        
+
     }//Chiusura aggiungiBigliettaio
 
-    public static void aggiungiProiezionista(){
-        IO.output("## Aggiungi proiezionista ##", true); 
+    public static void aggiungiProiezionista() {
+        IO.output("## Aggiungi proiezionista ##", true);
 
-        try{
+        try {
             String nome = IO.readString("Nome: ");
             String cognome = IO.readString("Cognome: ");
             String username = IO.readString("Username: ");
             String password = IO.readString("Password: ");
 
             Luogo domicilio = null;
-            try{
+            try {
                 domicilio = IO.readDomicilio("Inserisci il tuo domicilio");
-            }catch(IllegalValueException e){
+            } catch (IllegalValueException e) {
                 IO.outputErr(e.getMessage() + "\nRiprova!");
             }
             gc.registraProiezionista(nome, cognome, username, password, domicilio);
-        }catch(IllegalValueException e){
-            IO.outputErr(e.getMessage()+"\nRiprova!");
+        } catch (IllegalValueException e) {
+            IO.outputErr(e.getMessage() + "\nRiprova!");
         }
 
     }//Chiusura aggiungiProiezionista
 
-
-
-//////  METODI NON RICHIESTI LI USIAMO?
-    public static void rimuoviCliente(){
+    //////  METODI NON RICHIESTI LI USIAMO?
+    public static void rimuoviCliente() {
         IO.output("## Rimuovi cliente ##", true);
 
-        try{
+        try {
             String idClienteFormatoStringa;
             int idCliente = 0;
             boolean errore = false;
 
-            do{
+            do {
                 idClienteFormatoStringa = IO.readString("Inserisci l'ID del cliente da cancellare: ");
-                if(idClienteFormatoStringa == null || idClienteFormatoStringa.trim().isEmpty()){
+                if (idClienteFormatoStringa == null || idClienteFormatoStringa.trim().isEmpty()) {
                     IO.outputErr("Errore: Compilare i campi richiesti!");
                     errore = true;
                 } else {
-                    try{
+                    try {
                         idCliente = Integer.parseInt(idClienteFormatoStringa);
-                    } catch(NumberFormatException e){
+                    } catch (NumberFormatException e) {
                         IO.outputErr("Errore: Il campo richiesto contiene valori non ammessi!");
                         errore = true;
                     }
                 }
-            }while(errore);
+            } while (errore);
 
             gc.rimuoviCliente(idCliente);
 
-        }catch(IllegalValueException e){
-            IO.outputErr(e.getMessage()+"\nRiprova!");
+        } catch (IllegalValueException e) {
+            IO.outputErr(e.getMessage() + "\nRiprova!");
         }
-        
+
     }//Chiusura rimuoviBigliettaio
 
-    public static void rimuoviBigliettaio(){
+    public static void rimuoviBigliettaio() {
         IO.output("## Rimuovi bigliettaio ##", true);
 
-        try{
+        try {
             String idBigliettaioFormatoStringa;
             int idBigliettaio = 0;
             boolean errore = false;
 
-            do{
+            do {
                 idBigliettaioFormatoStringa = IO.readString("Inserisci l'ID del bigliettaio da cancellare: ");
-                if(idBigliettaioFormatoStringa == null || idBigliettaioFormatoStringa.trim().isEmpty()){
+                if (idBigliettaioFormatoStringa == null || idBigliettaioFormatoStringa.trim().isEmpty()) {
                     IO.outputErr("Errore: Compilare i campi richiesti!");
                     errore = true;
                 } else {
-                    try{
+                    try {
                         idBigliettaio = Integer.parseInt(idBigliettaioFormatoStringa);
-                    } catch(NumberFormatException e){
+                    } catch (NumberFormatException e) {
                         IO.outputErr("Errore: Il campo richiesto contiene valori non ammessi!");
                         errore = true;
                     }
                 }
-            }while(errore);
+            } while (errore);
 
             gc.rimuoviBigliettaio(idBigliettaio);
 
-        }catch(IllegalValueException e){
-            IO.outputErr(e.getMessage()+"\nRiprova!");
+        } catch (IllegalValueException e) {
+            IO.outputErr(e.getMessage() + "\nRiprova!");
         }
-        
+
     }//Chiusura rimuoviBigliettaio
 
-    public static void rimuoviProiezionista(){
-        IO.output("## Rimuovi proiezionista ##", true); 
+    public static void rimuoviProiezionista() {
+        IO.output("## Rimuovi proiezionista ##", true);
 
-        try{
+        try {
             String idProiezionistaFormatoStringa;
             int idProiezionista = 0;
             boolean errore = false;
 
-            do{
+            do {
                 errore = false;
                 idProiezionistaFormatoStringa = IO.readString("Inserisci l'ID del proiezionista da cancellare: ");
-                if(idProiezionistaFormatoStringa == null || idProiezionistaFormatoStringa.trim().isEmpty()){
+                if (idProiezionistaFormatoStringa == null || idProiezionistaFormatoStringa.trim().isEmpty()) {
                     IO.outputErr("Errore: Compilare i campi richiesti!");
                     errore = true;
                 } else {
-                    try{
+                    try {
                         idProiezionista = Integer.parseInt(idProiezionistaFormatoStringa);
-                    } catch(NumberFormatException e){
+                    } catch (NumberFormatException e) {
                         IO.outputErr("Errore: Il campo richiesto contiene valori non ammessi!");
                         errore = true;
                     }
                 }
-            }while(errore);
+            } while (errore);
 
             gc.rimuoviProiezione(idProiezionista);
 
-        }catch(IllegalValueException e){
-            IO.outputErr(e.getMessage()+"\nRiprova!");
+        } catch (IllegalValueException e) {
+            IO.outputErr(e.getMessage() + "\nRiprova!");
         }
 
     }//Chiusura rimuoviProiezionista

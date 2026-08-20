@@ -1,12 +1,12 @@
+
 import java.io.Serializable;
 
 /**
  * Rappresenta una prenotazione composta da id, utente, quantità, proiezione
  *
- * Implementa {@link Serializable} per consentire
- * la serializzazione degli oggetti.
+ * Implementa {@link Serializable} per consentire la serializzazione degli
+ * oggetti.
  */
-
 public class Prenotazione implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -46,7 +46,8 @@ public class Prenotazione implements Serializable {
      * @param utente l'utente
      * @param quantita la quantità
      * @param proiezione la proiezione
-     * @throws IllegalValueException se uno qualsiasi dei parametri non rispetta i vincoli di integrità
+     * @throws IllegalValueException se uno qualsiasi dei parametri non rispetta
+     * i vincoli di integrità
      */
     public Prenotazione(Utente utente, int quantita, Proiezione proiezione) throws IllegalValueException {
         this.id = ++contaId;
@@ -60,7 +61,7 @@ public class Prenotazione implements Serializable {
      *
      * @param contaId il contatore degli ID
      */
-    public static void setContaId(int contaId){
+    public static void setContaId(int contaId) {
         Prenotazione.contaId = contaId;
     }
 
@@ -93,16 +94,17 @@ public class Prenotazione implements Serializable {
     /**
      * Imposta e valida la quantità di biglietti.
      *
-     * Se i biglietti vengono impostati verranno
-     * aggiornati i poati disponibili alla proiezione in questione.
+     * Se i biglietti vengono impostati verranno aggiornati i poati disponibili
+     * alla proiezione in questione.
      *
      * @param quantita la quantità
-     * @throws IllegalValueException se i posti richiesti sono meno di 1 oppure più dei posti disponibili
+     * @throws IllegalValueException se i posti richiesti sono meno di 1 oppure
+     * più dei posti disponibili
      */
     private void setQuantita(int quantita) throws IllegalValueException {
         if (quantita <= 0) {
-            throw new IllegalValueException("Errore: Impossibile prenotare meno di 1 posto!"); 
-        }else if (quantita > proiezione.getPostiLiberi()) {
+            throw new IllegalValueException("Errore: Impossibile prenotare meno di 1 posto!");
+        } else if (quantita > proiezione.getPostiLiberi()) {
             throw new IllegalValueException("Errore: Non ci sono abbastanza posti a sedere disponibili!");
         }
         this.quantita = quantita;
@@ -112,10 +114,11 @@ public class Prenotazione implements Serializable {
     /**
      * Annulla la prenotazione.
      *
-     * Se ila cancellazione va a buon fine verranno
-     * aggiornati i poati disponibili alla proiezione in questione.
+     * Se ila cancellazione va a buon fine verranno aggiornati i poati
+     * disponibili alla proiezione in questione.
      *
-     * @throws IllegalValueException se vengono sollevate eccezioni nelle chiamate ai metodi di {@code Proiezione}
+     * @throws IllegalValueException se vengono sollevate eccezioni nelle
+     * chiamate ai metodi di {@code Proiezione}
      */
     public void annullaPrenotazione() throws IllegalValueException {
         proiezione.ripristinaPosti(this.quantita);
@@ -144,7 +147,8 @@ public class Prenotazione implements Serializable {
      * Restituisce il costo totale.
      *
      * @return il costo totale della prenotazione
-     * */
+     *
+     */
     public double getCostoTotale() {
         return quantita * proiezione.getCostoBiglietto();
     }
@@ -153,7 +157,8 @@ public class Prenotazione implements Serializable {
      * Restituisce l'id.
      *
      * @return id
-     * */
+     *
+     */
     public int getId() {
         return id;
     }
@@ -162,7 +167,8 @@ public class Prenotazione implements Serializable {
      * Restituisce l'utente.
      *
      * @return utente
-     * */
+     *
+     */
     public Utente getUtente() {
         return utente;
     }
@@ -171,7 +177,8 @@ public class Prenotazione implements Serializable {
      * Restituisce la quantità.
      *
      * @return quantita
-     * */
+     *
+     */
     public int getQuantita() {
         return quantita;
     }
@@ -180,14 +187,15 @@ public class Prenotazione implements Serializable {
      * Restituisce la proiezione.
      *
      * @return proiezione
-     * */
+     *
+     */
     public Proiezione getProiezione() {
         return proiezione;
     }
 
     /**
-     * Restituisce la stringa corrispondente alla prenotazione.
-     * Il formato è: {@code id, nome, cognome, username, proiezione, quantita, costoTotale}
+     * Restituisce la stringa corrispondente alla prenotazione. Il formato è:
+     * {@code id, nome, cognome, username, proiezione, quantita, costoTotale}
      *
      * @return la stringa corrispondente all'utente formattata
      */

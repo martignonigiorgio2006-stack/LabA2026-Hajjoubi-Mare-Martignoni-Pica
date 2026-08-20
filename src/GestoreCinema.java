@@ -4,15 +4,48 @@ import javax.naming.ldap.LdapReferralException;
 import java.io.*;
 import java.util.*;
 
+/**
+ * Rappresenta il gestore del cinema composta da listaUtenti, listaFilm,
+ * listaProiezioni, listaPrenotazioni, listaRegisti, utenteLoggato
+ *
+ */
 public class GestoreCinema {
 
+    /**
+     * listaUtenti.
+     */
     private LinkedList<Utente> listaUtenti;
+    /**
+     * listaFilm.
+     */
     private LinkedList<Film> listaFilm;
+    /**
+     * listaProiezioni.
+     */
     private LinkedList<Proiezione> listaProiezioni;
+    /**
+     * listaPrenotazioni.
+     */
     private LinkedList<Prenotazione> listaPrenotazioni;
+    /**
+     * listaRegisti.
+     */
     private LinkedList<Regista> listaRegisti;
+    /**
+     * utenteLoggato.
+     */
     private Utente utenteLoggato;
 
+    /**
+     * Costruisce un nuovo oggetto {@code GestoreCinema}.
+     *
+     * @param listaUtenti lista degli utenti
+     * @param listaFilm la lista dei film
+     * @param listaProiezioni la lista proiezione
+     * @param listaPrenotazioni la lista delle prenotazioni
+     * @param listaRegisti la lista dei registi
+     * @param utenteLoggato l'utente loggato
+     */
     public GestoreCinema() {
         this.listaUtenti = new LinkedList<Utente>();
         this.listaFilm = new LinkedList<Film>();
@@ -25,30 +58,58 @@ public class GestoreCinema {
     // =========================================================================
     // 1. METODI DI CONTROLLO INTERNI E VERIFICA PERMESSI (PRIVATE)
     // =========================================================================
+    /**
+     * Verifica se un utente è un cliente
+     *
+     * @throws IllegalValueException se l'utente non è un cliente
+     */
     private void verificaCliente() throws IllegalValueException {
         if (utenteLoggato == null || !(utenteLoggato instanceof Cliente)) {
             throw new IllegalValueException("Operazione consentita solo ai clienti!");
         }
     }
 
+    /**
+     * Verifica se un utente è un proiezionista
+     *
+     * @throws IllegalValueException se l'utente non è un proiezionista
+     */
     private void verificaProiezionista() throws IllegalValueException {
         if (utenteLoggato == null || !(utenteLoggato instanceof Proiezionista)) {
             throw new IllegalValueException("Operazione consentita solo al proiezionista!");
         }
     }
 
+    /**
+     * Verifica se un utente è un bigliettaio
+     *
+     * @throws IllegalValueException se l'utente non è un bigliettaio
+     */
     private void verificaBigliettaio() throws IllegalValueException {
         if (utenteLoggato == null || !(utenteLoggato instanceof Bigliettaio)) {
             throw new IllegalValueException("Operazione consentita solo al bigliettaio!");
         }
     }
 
+    /**
+     * Verifica se un cliente ha i permessi per modificare una determinata
+     * operazione
+     *
+     * @param p la prenotazione
+     * @throws IllegalValueException se l'utente non ha i permessi
+     */
     private void verificaProprietaPrenotazione(Prenotazione p) throws IllegalValueException {
         if (utenteLoggato instanceof Cliente && p.getUtente().getId() != utenteLoggato.getId()) {
             throw new IllegalValueException("Non hai i permessi per modificare o cancellare le prenotazioni di altri utenti!");
         }
     }
 
+    /**
+     * Verifica se un username è disponibile
+     *
+     * @param username l'username
+     * @throws IllegalValueException se l'username è già in uso
+     */
     private void verificaUsernameDisponibile(String username) throws IllegalValueException {
         for (Utente u : listaUtenti) {
             if (username.equals(u.getUsername())) {
@@ -57,6 +118,12 @@ public class GestoreCinema {
         }
     }
 
+    /**
+     * Verifica se la prenotazione è attiva
+     *
+     * @param idProiezione l'id della proiezione
+     * @return un boolean
+     */
     private boolean haPrenotazioniAttive(int idProiezione) {
         for (Prenotazione p : listaPrenotazioni) {
             if (p.getProiezione().getId() == idProiezione) {
@@ -69,17 +136,36 @@ public class GestoreCinema {
     // =========================================================================
     // 2. GESTIONE SESSIONE E GETTER GENERALI
     // =========================================================================
+    /**
+     * Imposta e valida l'utente loggato
+     *
+     * @param utenteLoggato l'utente loggato
+     */
     public void setUtenteLoggato(Utente utenteLoggato) {
         this.utenteLoggato = utenteLoggato;
     }
 
+    /**
+     * Restituisce l'utente loggato.
+     *
+     * @return l'utente loggato
+     *
+     */
     public Utente getUtenteLoggato() {
         return utenteLoggato;
     }
 
+    /**
+     * fa entrare l'utente nel suo account
+     *
+     * @param username l'username
+     * @param psw la password
+     * @throws IllegalValueException se le credenziali inseriti non sono valide
+     */
     public void login(String username, String psw) throws IllegalValueException {
-        if(username == null || psw == null)
-                throw new IllegalValueException("Errore: credenziali non inserite correttamente!");
+        if (username == null || psw == null) {
+            throw new IllegalValueException("Errore: credenziali non inserite correttamente!");
+        }
         for (Utente u : listaUtenti) {
             if (username.equals(u.getUsername()) && psw.equals(u.getPsw())) {
                 this.utenteLoggato = u;
@@ -89,22 +175,49 @@ public class GestoreCinema {
         throw new IllegalValueException("Errore: credenziali errate!");
     }
 
+    /**
+     * Fa uscire dall'account proprio l'utente.
+     *
+     */
     public void logout() {
         this.utenteLoggato = null;
     }
 
+    /**
+     * Restituisce la lista dei film.
+     *
+     * @return lista dei film
+     *
+     */
     public LinkedList<Film> getListaFilm() {
         return new LinkedList<>(listaFilm);
     }
 
+    /**
+     * Restituisce la lista delle proiezioni.
+     *
+     * @return lista delle proiezioni
+     *
+     */
     public LinkedList<Proiezione> getListaProiezioni() {
         return new LinkedList<>(listaProiezioni);
     }
 
+    /**
+     * Restituisce lista degli utenti.
+     *
+     * @return la lista degli utenti
+     *
+     */
     public LinkedList<Utente> getListaUtenti() {
         return new LinkedList<>(listaUtenti);
     }
 
+    /**
+     * Restituisce lista dei registi.
+     *
+     * @return lista dei registi
+     */
     public LinkedList<Regista> getListaRegista() {
         return new LinkedList<>(listaRegisti);
     }
@@ -112,14 +225,38 @@ public class GestoreCinema {
     // =========================================================================
     // 3. OPERAZIONI UTENTE NON AUTENTICATO (OSPITE)
     // =========================================================================
+    /**
+     * registra un cliente.
+     *
+     * @param nome il nome
+     * @param cognome il cognome
+     * @param username l'username
+     * @param psw la psw
+     * @param domicilio il domicilio
+     * @param dataNascita la data di nascita
+     *
+     * @throws IllegalValueException se le credenziali inseriti non sono valide
+     */
     public void registraCliente(String nome, String cognome, String username, String psw, Luogo domicilio, Data dataNascita) throws IllegalValueException {
-        if(dataNascita == null)
+        if (dataNascita == null) {
             registraCliente(nome, cognome, username, psw, domicilio);
+        }
         verificaUsernameDisponibile(username);
         Cliente cliente = new Cliente(nome, cognome, username, psw, domicilio, dataNascita);
         listaUtenti.add(cliente);
     }
 
+    /**
+     * registra un cliente.
+     *
+     * @param nome il nome
+     * @param cognome il cognome
+     * @param username l'username
+     * @param psw la psw
+     * @param domicilio il domicilio
+     *
+     * @throws IllegalValueException se le credenziali inseriti non sono valide
+     */
     public void registraCliente(String nome, String cognome, String username, String psw, Luogo domicilio) throws IllegalValueException {
         verificaUsernameDisponibile(username);
         Cliente cliente = new Cliente(nome, cognome, username, psw, domicilio);
@@ -135,6 +272,14 @@ public class GestoreCinema {
         throw new IllegalValueException("Nessuna proiezione trovata con ID: " + id);
     }
 
+    /**
+     * Restituisce le proiezioni in base al titolo.
+     *
+     * @param titolo il titolo
+     *
+     * @return la lista di proiezioni
+     *
+     */
     public LinkedList<Proiezione> getProiezioniPerTitolo(String titolo) {
         LinkedList<Proiezione> lista = new LinkedList<>();
         for (Proiezione p : listaProiezioni) {
@@ -145,6 +290,14 @@ public class GestoreCinema {
         return lista;
     }
 
+    /**
+     * Restituisce li proiezioni in base alla data.
+     *
+     * @param data la data
+     *
+     * @return la lista con le proiezioni
+     *
+     */
     public LinkedList<Proiezione> getProiezionePerData(Data data) {
         LinkedList<Proiezione> lista = new LinkedList<>();
         for (Proiezione p : listaProiezioni) {
@@ -155,26 +308,46 @@ public class GestoreCinema {
         return lista;
     }
 
-    public LinkedList<Proiezione> cercaProiezioni(String titolo, Data inizio, Data fine, Genere genere, Double costoMin, Double costoMax){
+    /**
+     * Restituisce le proiezioni in base a diversi parametri.
+     *
+     * @param titolo il titolo
+     * @param inizio da questa data d'inizio
+     * @param fine fino questa data
+     * @param genere il genere
+     * @param costoMin il costo minimo
+     * @param costoMax il costo massimo
+     *
+     * @return la lista di proiezioni
+     *
+     */
+    public LinkedList<Proiezione> cercaProiezioni(String titolo, Data inizio, Data fine, Genere genere, Double costoMin, Double costoMax) {
         LinkedList<Proiezione> risultato = new LinkedList<>();
-        for(Proiezione p: listaProiezioni){
+        for (Proiezione p : listaProiezioni) {
             boolean controllo = true;
 
-            if(titolo != null && !p.getFilm().getTitolo().toLowerCase().contains(titolo.toLowerCase()))
+            if (titolo != null && !p.getFilm().getTitolo().toLowerCase().contains(titolo.toLowerCase())) {
                 controllo = false;
-            if(inizio != null && p.getData().compareTo(inizio) < 0)
+            }
+            if (inizio != null && p.getData().compareTo(inizio) < 0) {
                 controllo = false;
-            if(fine != null && p.getData().compareTo(fine) > 0)
+            }
+            if (fine != null && p.getData().compareTo(fine) > 0) {
                 controllo = false;
-            if(genere != null && p.getFilm().getGenere().equals(genere))
+            }
+            if (genere != null && p.getFilm().getGenere().equals(genere)) {
                 controllo = false;
-            if(costoMin != null && p.getCostoBiglietto() < costoMin)
+            }
+            if (costoMin != null && p.getCostoBiglietto() < costoMin) {
                 controllo = false;
-            if(costoMax != null && p.getCostoBiglietto() > costoMax)
+            }
+            if (costoMax != null && p.getCostoBiglietto() > costoMax) {
                 controllo = false;
+            }
 
-            if(controllo)
+            if (controllo) {
                 risultato.add(p);
+            }
         }
         return risultato;
     }
@@ -182,6 +355,14 @@ public class GestoreCinema {
     // =========================================================================
     // 4. OPERAZIONI ESCLUSIVE CLIENTE
     // =========================================================================
+    /**
+     * Restituisce le prenotazioni di un determinato utente.
+     *
+     *
+     * @return la lista di prenotazioni
+     * @throws IllegalValueException se le credenziali inseriti non sono valide
+     *
+     */
     public LinkedList<Prenotazione> getPrenotazioneUtente() throws IllegalValueException {
         verificaCliente();
         LinkedList<Prenotazione> lista = new LinkedList<>();
@@ -193,6 +374,16 @@ public class GestoreCinema {
         return lista;
     }
 
+    /**
+     * Aggiunge una prenotazione ad un cliente
+     *
+     * @param idProiezione l'id della proiezione
+     * @param quantita la quantità dei biglietti comprati dall'utente
+     *
+     * @throws IllegalValueException se le l'id non corrisponde a nessuna
+     * proiezione nel catalogo
+     *
+     */
     public void aggiungiPrenotazione(int idProiezione, int quantita) throws IllegalValueException {
         verificaCliente();
         for (Proiezione p : listaProiezioni) {
@@ -205,6 +396,15 @@ public class GestoreCinema {
         throw new IllegalValueException("Errore: L'ID non corrisponde a nessuna proiezione nel catalogo!");
     }
 
+    /**
+     * Rimuove una prenotazione ad un cliente
+     *
+     * @param idProiezione l'id della proiezione
+     *
+     * @throws IllegalValueException se le l'id non corrisponde a nessuna
+     * proiezione nel catalogo
+     *
+     */
     public void rimuoviPrenotazione(int idPrenotazione) throws IllegalValueException {
         verificaCliente();
         for (Prenotazione p : listaPrenotazioni) {
@@ -252,8 +452,7 @@ public class GestoreCinema {
                 }
             }
         }
-        */
-
+     */
     // =========================================================================
     // 5. OPERAZIONI ESCLUSIVE BIGLIETTAIO
     // =========================================================================
@@ -264,11 +463,12 @@ public class GestoreCinema {
         listaUtenti.add(b);
     }
 
-    public void rimuoviBigliettaio(int idBigliettaio) throws IllegalValueException{
+    public void rimuoviBigliettaio(int idBigliettaio) throws IllegalValueException {
         verificaBigliettaio();
-        for(Utente u : listaUtenti){
-            if(u instanceof Bigliettaio && u.getId() == idBigliettaio)
+        for (Utente u : listaUtenti) {
+            if (u instanceof Bigliettaio && u.getId() == idBigliettaio) {
                 listaUtenti.remove(u);
+            }
         }
         throw new IllegalValueException("Errore: Bigliettaio non trovato!");
     }
@@ -280,11 +480,12 @@ public class GestoreCinema {
         listaUtenti.add(p);
     }
 
-    public void rimuoviProiezionista(int idProiezionista) throws IllegalValueException{
+    public void rimuoviProiezionista(int idProiezionista) throws IllegalValueException {
         verificaBigliettaio();
-        for(Utente u : listaUtenti){
-            if(u instanceof Proiezionista && u.getId() == idProiezionista)
+        for (Utente u : listaUtenti) {
+            if (u instanceof Proiezionista && u.getId() == idProiezionista) {
                 listaUtenti.remove(u);
+            }
         }
         throw new IllegalValueException("Errore: Proiezionista non trovato!");
     }
@@ -302,24 +503,31 @@ public class GestoreCinema {
 
     public LinkedList<Prenotazione> cercaPrenotazione(Integer id, String nome, String cognome, String titolo, Data inizio, Data fine) throws IllegalValueException {
         LinkedList<Prenotazione> risultato = new LinkedList<>();
-        for(Prenotazione p: listaPrenotazioni){
+        for (Prenotazione p : listaPrenotazioni) {
             boolean controllo = true;
 
-            if(id != null && p.getId() != id.intValue())
+            if (id != null && p.getId() != id.intValue()) {
                 controllo = false;
-            if(nome != null && !p.getUtente().getNome().toLowerCase().equals(nome.toLowerCase()))
+            }
+            if (nome != null && !p.getUtente().getNome().toLowerCase().equals(nome.toLowerCase())) {
                 controllo = false;
-            if(cognome != null && !p.getUtente().getCognome().toLowerCase().equals(cognome.toLowerCase()))
+            }
+            if (cognome != null && !p.getUtente().getCognome().toLowerCase().equals(cognome.toLowerCase())) {
                 controllo = false;
-            if(titolo != null && !p.getProiezione().getFilm().getTitolo().toLowerCase().equals(titolo.toLowerCase()))
+            }
+            if (titolo != null && !p.getProiezione().getFilm().getTitolo().toLowerCase().equals(titolo.toLowerCase())) {
                 controllo = false;
-            if(inizio != null && p.getProiezione().getData().compareTo(inizio) < 0)
+            }
+            if (inizio != null && p.getProiezione().getData().compareTo(inizio) < 0) {
                 controllo = false;
-            if(fine != null && p.getProiezione().getData().compareTo(fine) > 0)
+            }
+            if (fine != null && p.getProiezione().getData().compareTo(fine) > 0) {
                 controllo = false;
+            }
 
-            if(controllo)
+            if (controllo) {
                 risultato.add(p);
+            }
         }
 
         return risultato;
@@ -422,8 +630,7 @@ public class GestoreCinema {
         }
         throw new IllegalValueException("Impossibile modificare: proiezione non trovata nel catalogo!");
     }
-    */
-
+     */
     // =========================================================================
     // 7. SCRITTURA FILE
     // =========================================================================
@@ -598,7 +805,7 @@ public class GestoreCinema {
             lettore = new ObjectInputStream(new FileInputStream(file));
 
             Object oggetto;
-            int contatoreSezioni = 0; 
+            int contatoreSezioni = 0;
 
             while (true) {
                 try {
@@ -705,11 +912,12 @@ public class GestoreCinema {
     }
 
     // METODO NON RICHIESTI LI USIAMO??
-    public void rimuoviCliente (int idCliente) throws IllegalValueException{
+    public void rimuoviCliente(int idCliente) throws IllegalValueException {
         //verificaBigliettaio();    boh chi verificia
-        for(Utente u : listaUtenti){
-            if(u instanceof Cliente && u.getId() == idCliente)
+        for (Utente u : listaUtenti) {
+            if (u instanceof Cliente && u.getId() == idCliente) {
                 listaUtenti.remove(u);
+            }
         }
         throw new IllegalValueException("Errore: Cliente non trovato!");
     }
