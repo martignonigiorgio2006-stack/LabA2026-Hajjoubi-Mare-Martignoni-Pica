@@ -218,41 +218,41 @@ public class GestoreCinema {
         throw new IllegalValueException("Impossibile rimuovere: l'id non corrisponde a nessuna prenotazione nel catalogo!");
     }
 
-/*
-    LA MODIFICA DI PRENOTAZIONE DEVE SOLO FAR CAMBIARE LA DATA SE LA NUOVA DATA NON E' PASSATA
-    public void modificaPrenotazione(int idPrenotazione, int nuovaQuantita) throws IllegalValueException {
-        verificaCliente();
-        for (Prenotazione p : listaPrenotazioni) {
-            if (idPrenotazione == p.getId()) {
+    /*
+        LA MODIFICA DI PRENOTAZIONE DEVE SOLO FAR CAMBIARE LA DATA SE LA NUOVA DATA NON E' PASSATA
+        public void modificaPrenotazione(int idPrenotazione, int nuovaQuantita) throws IllegalValueException {
+            verificaCliente();
+            for (Prenotazione p : listaPrenotazioni) {
+                if (idPrenotazione == p.getId()) {
+                    verificaProprietaPrenotazione(p);
+                    p.aggiornaQuantita(nuovaQuantita);
+                    return;
+                }
+            }
+            throw new IllegalValueException("Impossibile modificare: prenotazione non trovata!");
+        }
+
+        public void modificaPrenotazione(int idPrenotazione, Proiezione nuovaProiezione, Data dataOdierna) throws IllegalValueException {
+            verificaCliente();
+            for(Prenotazione p: listaPrenotazioni){
                 verificaProprietaPrenotazione(p);
-                p.aggiornaQuantita(nuovaQuantita);
-                return;
+
+                if(idPrenotazione == p.getId()){
+
+                    Data vecchiaData = p.getProiezione().getData();
+                    Data nuovaData = nuovaProiezione.getData();
+                    if(vecchiaData.compareTo(dataOdierna) <= 0 || nuovaData.compareTo(dataOdierna) <= 0) throw new IllegalValueException("Impossibile modificare: data già superata!");
+
+                    if(nuovaProiezione.getPostiLiberi() < p.getQuantita() ) throw new IllegalValueException("Impossibile eseguire: non ci sono abbastanza posti disponibili nella nuova proiezione!");
+
+                    p.getProiezione().ripristinaPosti(p.getQuantita());
+                    nuovaProiezione.scalaPosti(p.getQuantita());
+
+                    p.setProiezione(nuovaProiezione);
+                }
             }
         }
-        throw new IllegalValueException("Impossibile modificare: prenotazione non trovata!");
-    }
-
-    public void modificaPrenotazione(int idPrenotazione, Proiezione nuovaProiezione, Data dataOdierna) throws IllegalValueException {
-        verificaCliente();
-        for(Prenotazione p: listaPrenotazioni){
-            verificaProprietaPrenotazione(p);
-
-            if(idPrenotazione == p.getId()){
-
-                Data vecchiaData = p.getProiezione().getData();
-                Data nuovaData = nuovaProiezione.getData();
-                if(vecchiaData.compareTo(dataOdierna) <= 0 || nuovaData.compareTo(dataOdierna) <= 0) throw new IllegalValueException("Impossibile modificare: data già superata!");
-                
-                if(nuovaProiezione.getPostiLiberi() < p.getQuantita() ) throw new IllegalValueException("Impossibile eseguire: non ci sono abbastanza posti disponibili nella nuova proiezione!");
-
-                p.getProiezione().ripristinaPosti(p.getQuantita());
-                nuovaProiezione.scalaPosti(p.getQuantita());
-                
-                p.setProiezione(nuovaProiezione);
-            }
-        }
-    }
-    */
+        */
 
     // =========================================================================
     // 5. OPERAZIONI ESCLUSIVE BIGLIETTAIO
@@ -403,7 +403,8 @@ public class GestoreCinema {
         throw new IllegalValueException("Errore: Proiezione non trovata!");
     }
 
-    public void modificaProiezione(int idProiezione, Data data, Ora ora, double costoBiglietto) throws IllegalValueException {
+    /* MODIFICARE METODO
+        public void modificaProiezione(int idProiezione, Data data, Ora ora, double costoBiglietto) throws IllegalValueException {
         verificaProiezionista();
         if (haPrenotazioniAttive(idProiezione)) {
             throw new IllegalValueException("Errore: Esistono già prenotazioni per questa proiezione non si può modificare!");
@@ -421,6 +422,7 @@ public class GestoreCinema {
         }
         throw new IllegalValueException("Impossibile modificare: proiezione non trovata nel catalogo!");
     }
+    */
 
     // =========================================================================
     // 7. SCRITTURA FILE
@@ -574,9 +576,9 @@ public class GestoreCinema {
         }
     }
 
-// =========================================================================
-// 0. LETTURA FILE (SCRUPOLO PER VERIFICARE CHE LA SCRITTURA SIA STATA EFFETTUATA)
-// =========================================================================
+    // =========================================================================
+    // 0. LETTURA FILE (SCRUPOLO PER VERIFICARE CHE LA SCRITTURA SIA STATA EFFETTUATA)
+    // =========================================================================
     public void letturaFile() {
 
         File file = new File("archivio.txt");
@@ -702,9 +704,7 @@ public class GestoreCinema {
         Regista.setContaId((int) listaID.get(4));
     }
 
-
-//////  METODI NON RICHIESTI LI USIAMO??
-
+    // METODO NON RICHIESTI LI USIAMO??
     public void rimuoviCliente (int idCliente) throws IllegalValueException{
         //verificaBigliettaio();    boh chi verificia
         for(Utente u : listaUtenti){

@@ -1,9 +1,10 @@
-
 import java.io.Serializable;
 
 /**
  * Rappresenta un film composto da id, durata, anno. etaMin, titolo, genere,
- * regista {@link Serializable} per consentire la serializzazione degli oggetti.
+ * regista
+ *
+ * Implementa {@link Serializable} per consentire la serializzazione degli oggetti.
  */
 public class Film implements Serializable {
 
@@ -26,7 +27,7 @@ public class Film implements Serializable {
      */
     private int anno;
     /**
-     * eta minima per vedere il film.
+     * età minima per vedere il film.
      */
     private int etaMin;
     /**
@@ -34,7 +35,7 @@ public class Film implements Serializable {
      */
     private String titolo;
     /**
-     * genere del film .
+     * genere del film.
      */
     private Genere genere;
     /**
@@ -43,8 +44,8 @@ public class Film implements Serializable {
     private Regista regista;
 
     /**
-     * Costruisce un nuovo oggetto {@code Film}. Tramite i set effettua
-     * verifiche ai parametri.
+     * Costruisce un nuovo oggetto {@code Film}.
+     * Tramite i set effettua verifiche ai parametri.
      *
      * @param titolo il titolo del film
      * @param durata la durata del film
@@ -205,8 +206,9 @@ public class Film implements Serializable {
 
     /**
      * Restituisce la stringa corrispondente al titolo, durata, anno, età
-     * minima, genere, regista del film. Il formato è:
-     * {@code titolo, durata, anno, età minima, genere, regista}
+     * minima, genere, regista del film.
+     *
+     * Il formato è: {@code titolo, durata, anno, età minima, genere, regista}
      *
      * @return la stringa corrispondente al film
      */

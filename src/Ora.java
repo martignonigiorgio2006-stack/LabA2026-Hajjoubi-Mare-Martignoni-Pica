@@ -15,7 +15,9 @@ public class Ora implements Serializable {
     /** Secondo.*/
     private int secondo;
 
-    /** Carattere utilizzato per settare il formato hh:mm:ss.*/
+    /**
+     * Carattere utilizzato per settare il formato hh:mm:ss.
+     * */
     private static final char TOKEN = ':';
 
     /**
@@ -83,7 +85,6 @@ public class Ora implements Serializable {
         this.minuto = minuto;
     }
 
-
     /**
      * Imposta e valida il secondo.
      *
@@ -95,7 +96,6 @@ public class Ora implements Serializable {
             throw new IllegalValueException("Errore: Secondi non validi!");
         this.secondo = secondo;
     }
-
 
     /**
      * Restituisce la stringa corrispondente all'orario.

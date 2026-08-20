@@ -5,7 +5,7 @@ public class CineMax{
     
     public static GestoreCinema gc;
 
-      public static void main(String[] args) {
+    public static void main(String[] args) {
 
         gc = new GestoreCinema();
 
@@ -24,7 +24,6 @@ public class CineMax{
         gc.scritturaFile();
 
     }//Chiusura main
-
 
     public static boolean menuPrincipale() {
         IO.output("## Menù princilale ##", true); 
@@ -223,6 +222,7 @@ public class CineMax{
 
     }//Chiusura visualizzaCatalogoFilm
 
+    //CASE 2 COMMENTATO
     public static boolean menuClienteRegistrato() {
         IO.output("## Menù cliente ##", true); 
 
@@ -236,7 +236,7 @@ public class CineMax{
                 effettuaPrenotazione();
                 return false;
             case 2:
-                modificaPrenotazione();
+                //modificaPrenotazione();
                 return false;
             case 3:
                 cancellarePrenotazione();
@@ -252,7 +252,6 @@ public class CineMax{
                 return false;
         }
     }//Chiusura menuClienteRegistrato()
-
 
     public static void effettuaPrenotazione(){
         try{
@@ -295,11 +294,12 @@ public class CineMax{
 
         }
     }//Chiusura menuClienteRegistrato()
-    
-    public static void modificaPrenotazione(){
+
+    /* MODIFICA METODO
+        public static void modificaPrenotazione(){
         try{
-            IO.output("## Modifica prenotazione ##", true); 
-            
+            IO.output("## Modifica prenotazione ##", true);
+
             String idProiezioneString;
             boolean errore = false;
             do{
@@ -309,7 +309,7 @@ public class CineMax{
                     IO.outputErr("Errore: Compilare i campi richiesti!\nRiprova!");
                 }
             }while(errore);
-    
+
             int idProiezione = Integer.parseInt(idProiezioneString);
 
             String nuovaQuantitaString;
@@ -322,20 +322,21 @@ public class CineMax{
                 } else if(Integer.parseInt(nuovaQuantitaString) <= 0){
                     errore = true;
                     IO.outputErr("Errore: Quantità non ammessa!\nRiprova!");
-                } 
+                }
             }while(errore);
 
             int nuovaQuantita = Integer.parseInt(nuovaQuantitaString);
 
             gc.aggiungiPrenotazione(idProiezione, nuovaQuantita);
-            
+
             IO.output("Prenotazione effettuata con successo!", true);
 
-        }catch(IllegalValueException e){
-            IO.outputErr(e.getMessage()+"\nRiprova!");
+            }catch(IllegalValueException e){
+                IO.outputErr(e.getMessage()+"\nRiprova!");
 
-        }
-    }//Chiusura modificaPrenotazione()
+            }
+        }//Chiusura modificaPrenotazione()
+    */
 
     public static void cancellarePrenotazione(){
         IO.output("## Cancellare prenotazione ##", true); 
@@ -393,6 +394,7 @@ public class CineMax{
         gc.logout();
     }//Chiusura logout
 
+    //CASE 6 COMMENTATO
     public static boolean menuProiezionistaRegistrato() {
         IO.output("## Menù proiezionista ##", true); 
         
@@ -418,7 +420,7 @@ public class CineMax{
                 aggiungiProiezione();
                 return false;
             case 6:
-                modificaProiezione();
+                //modificaProiezione();
                 return false;
             case 7: 
                 cancellaProiezione();
@@ -530,7 +532,8 @@ public class CineMax{
 
     }//Chiusura aggiungiProiezione
 
-    public static void modificaProiezione(){
+    /* MODIFICARE METODO
+        public static void modificaProiezione(){
         try{
             IO.output("## Modifica proiezione ##", true);
             
@@ -546,7 +549,8 @@ public class CineMax{
           IO.outputErr(e.getMessage()+"\nRiprova");
         }
     }//Chiusura modificaProiezione
-    
+    */
+
     public static void cancellaProiezione(){
         try{
             IO.output("## Cancella proiezione ##", true);
@@ -599,7 +603,7 @@ public class CineMax{
 
             Data dataOdierna = new Data(oggi.getDayOfMonth(), oggi.getMonthValue(), oggi.getYear());
             
-            LinkedList<Prenotazione> prenotazioniOdierne = gc.getPrenotazioneOdierna(dataOdierna);
+            LinkedList<Prenotazione> prenotazioniOdierne = gc.getPrenotazionePerData(dataOdierna);
             
             if(prenotazioniOdierne.isEmpty() || prenotazioniOdierne == null){
             IO.output("Nessuna prenotazione trovata per oggi.", true);
@@ -641,7 +645,7 @@ public class CineMax{
         if(titolo.trim().equals("-1"))
             titolo = null;
 
-        Data inizio, fine;
+        Data inizio = null, fine = null;
         boolean errore;
         do{
             errore = false;

@@ -1,10 +1,39 @@
+/**
+ * Rappresenta un cliente composto da id, nome, cognome, username,
+ * psw, domicilio, dataNascita (opzionale), ruolo.
+ *
+ * Questa è una sottoclasse di {@code Utente}.
+ *
+ */
 public class Cliente extends Utente{
 
-    //COSTRUTTORI
+    /**
+     * Costruisce un nuovo oggetto {@code Cliente} tramite la chiamata a un costruttore della superclasse.
+     * Ruolo viene impostato in automatico.
+     *
+     * @param nome il nome del utente
+     * @param cognome il cognome del utente
+     * @param username lo username del utente
+     * @param psw la password del utente
+     * @param domicilio il domicilio del utente
+     * @param dataNascita la data di nascita del utente
+     * @throws IllegalValueException se uno qualsiasi dei parametri non rispetta i vincoli di integrità
+     */
     public Cliente(String nome, String cognome, String username, String psw, Luogo domicilio, Data dataNascita) throws IllegalValueException {
         super(nome, cognome, username, psw, domicilio, dataNascita, Ruolo.CLIENTE);
     }
 
+    /**
+     * Costruisce un nuovo oggetto {@code Cliente} tramite la chiamata a un costruttore della superclasse.
+     * Ruolo viene impostato in automatico.
+     *
+     * @param nome il nome del utente
+     * @param cognome il cognome del utente
+     * @param username lo username del utente
+     * @param psw la password del utente
+     * @param domicilio il domicilio del utente
+     * @throws IllegalValueException se uno qualsiasi dei parametri non rispetta i vincoli di integrità
+     */
     public Cliente(String nome, String cognome, String username, String psw, Luogo domicilio) throws IllegalValueException {
         super(nome, cognome, username, psw, domicilio, Ruolo.CLIENTE);
     }
