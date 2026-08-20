@@ -218,6 +218,8 @@ public class GestoreCinema {
         throw new IllegalValueException("Impossibile rimuovere: l'id non corrisponde a nessuna prenotazione nel catalogo!");
     }
 
+/*
+    LA MODIFICA DI PRENOTAZIONE DEVE SOLO FAR CAMBIARE LA DATA SE LA NUOVA DATA NON E' PASSATA
     public void modificaPrenotazione(int idPrenotazione, int nuovaQuantita) throws IllegalValueException {
         verificaCliente();
         for (Prenotazione p : listaPrenotazioni) {
@@ -250,6 +252,7 @@ public class GestoreCinema {
             }
         }
     }
+    */
 
     // =========================================================================
     // 5. OPERAZIONI ESCLUSIVE BIGLIETTAIO
@@ -375,7 +378,7 @@ public class GestoreCinema {
     public void aggiungiProiezione(Film film, Data data, Ora ora, double costoBiglietto) throws IllegalValueException {
         verificaProiezionista();
         if (!listaFilm.contains(film)) {
-            throw new IllegalValueException("Impossibile creare proiezione: film non presente in catalogo!");
+            throw new IllegalValueException("Errore: Il film richiesto non è presente in catalogo!");
         }
         for (Proiezione p : listaProiezioni) {
             if (data.equals(p.getData()) && ora.equals(p.getOra())) {
@@ -397,13 +400,13 @@ public class GestoreCinema {
                 return;
             }
         }
-        throw new IllegalValueException("Impossibile rimuovere: proiezione non trovata!");
+        throw new IllegalValueException("Errore: Proiezione non trovata!");
     }
 
     public void modificaProiezione(int idProiezione, Data data, Ora ora, double costoBiglietto) throws IllegalValueException {
         verificaProiezionista();
         if (haPrenotazioniAttive(idProiezione)) {
-            throw new IllegalValueException("Impossibile modificare: esistono già prenotazioni per questa proiezione!");
+            throw new IllegalValueException("Errore: Esistono già prenotazioni per questa proiezione non si può modificare!");
         }
         for (Proiezione p1 : listaProiezioni) {
             if (p1.getId() == idProiezione) {

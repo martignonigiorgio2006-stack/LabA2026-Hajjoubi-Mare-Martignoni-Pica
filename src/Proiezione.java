@@ -1,5 +1,6 @@
 
 import java.io.Serializable;
+import java.time.LocalDate;
 
 public class Proiezione implements Serializable {
 
@@ -61,6 +62,17 @@ public class Proiezione implements Serializable {
     }
 
     private void setData(Data data) {
+        if(data==null){
+            throw new IllegalArgumentException("Errore: La data non è valida");
+        }
+
+        LocalDate oggi = LocalDate.now();
+        LocalDate dataProiezione = LocalDate.of(data.getAnno(), data.getMese(), data.getGiorno());
+
+        if (dataProiezione.isBefore(oggi)) {
+            throw new IllegalArgumentException("Errore: La data non è valida");
+        }
+        
         this.data = data;
     }
 
