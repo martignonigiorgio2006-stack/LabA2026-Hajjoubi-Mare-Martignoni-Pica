@@ -144,6 +144,17 @@ public class Prenotazione implements Serializable {
     }
 
     /**
+     * Modifica la proiezione associata alla prenotazione.
+     *
+     * @param p nuova {@code Proiezione} da associare
+     * @throws IllegalValueException se vengono sollevate eccezioni nelle
+     * chiamate ai metodi 
+     */
+    public void modificaPrenotazione(Proiezione p) throws IllegalValueException{
+        setProiezione(proiezione);
+    }
+
+    /**
      * Restituisce il costo totale.
      *
      * @return il costo totale della prenotazione

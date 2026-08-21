@@ -233,10 +233,9 @@ public class Proiezione implements Serializable {
         setPostiLiberi(postiLiberi + quantita);
     }
 
-    //BISOGNA MODIFICARLO !!
     public void aggiornaProiezione(Data nuovaData, Ora nuovaOra, double nuovoCosto) throws IllegalValueException {
         if (nuovaData == null || nuovaOra == null) {
-            throw new IllegalValueException("Errore: Data e Ora non specificate!");
+            throw new IllegalValueException("Errore: Compilare i campi di data e ora!");
         }
         setData(nuovaData);
         setOra(nuovaOra);

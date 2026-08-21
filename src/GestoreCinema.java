@@ -1,7 +1,6 @@
 
-import javax.naming.ldap.LdapReferralException;
-
 import java.io.*;
+import java.time.LocalDate;
 import java.util.*;
 
 /**
@@ -176,7 +175,7 @@ public class GestoreCinema {
     }
 
     /**
-     * Fa uscire dall'account proprio l'utente.
+     * Fa uscire dall'account l'utente.
      *
      */
     public void logout() {
@@ -409,7 +408,7 @@ public class GestoreCinema {
         verificaCliente();
         for (Prenotazione p : listaPrenotazioni) {
             if (idPrenotazione == p.getId()) {
-                //verificaProprietaPrenotazione(p);
+                verificaProprietaPrenotazione(p);
                 p.annullaPrenotazione();
                 listaPrenotazioni.remove(p);
                 return;
@@ -418,41 +417,49 @@ public class GestoreCinema {
         throw new IllegalValueException("Impossibile rimuovere: l'id non corrisponde a nessuna prenotazione nel catalogo!");
     }
 
-    /*
-        LA MODIFICA DI PRENOTAZIONE DEVE SOLO FAR CAMBIARE LA DATA SE LA NUOVA DATA NON E' PASSATA
-        public void modificaPrenotazione(int idPrenotazione, int nuovaQuantita) throws IllegalValueException {
-            verificaCliente();
-            for (Prenotazione p : listaPrenotazioni) {
-                if (idPrenotazione == p.getId()) {
-                    verificaProprietaPrenotazione(p);
-                    p.aggiornaQuantita(nuovaQuantita);
-                    return;
-                }
-            }
-            throw new IllegalValueException("Impossibile modificare: prenotazione non trovata!");
-        }
-
-        public void modificaPrenotazione(int idPrenotazione, Proiezione nuovaProiezione, Data dataOdierna) throws IllegalValueException {
-            verificaCliente();
-            for(Prenotazione p: listaPrenotazioni){
-                verificaProprietaPrenotazione(p);
-
-                if(idPrenotazione == p.getId()){
-
-                    Data vecchiaData = p.getProiezione().getData();
-                    Data nuovaData = nuovaProiezione.getData();
-                    if(vecchiaData.compareTo(dataOdierna) <= 0 || nuovaData.compareTo(dataOdierna) <= 0) throw new IllegalValueException("Impossibile modificare: data già superata!");
-
-                    if(nuovaProiezione.getPostiLiberi() < p.getQuantita() ) throw new IllegalValueException("Impossibile eseguire: non ci sono abbastanza posti disponibili nella nuova proiezione!");
-
-                    p.getProiezione().ripristinaPosti(p.getQuantita());
-                    nuovaProiezione.scalaPosti(p.getQuantita());
-
-                    p.setProiezione(nuovaProiezione);
-                }
-            }
-        }
+    /**
+     * Modifica una prenotazione all'utente, modificando la data 
+     * della proiezione associata.
+     *
+     * @param idPrenotazione l'id della prenotazione da modificare
+     * @param nuovaData nuova data 
+     * @throws IllegalValueException se vengono generati errori nelle 
+     * chiemate ai metodi, se la nuova data non corrispode ad 
+     * una proiezione esistente dello stesso film oppure se non esiste 
+     * la prenotazione.
      */
+    public void modificaPrenotazione(int idPrenotazione, Data nuovaData) throws IllegalValueException {
+        verificaCliente();
+        for (Prenotazione p : listaPrenotazioni) {
+            if (idPrenotazione == p.getId()) {
+                verificaProprietaPrenotazione(p);
+                Proiezione proiezione = verificaData(p.getProiezione(), nuovaData);
+                if(p == null)
+                    throw new IllegalValueException("Errore: La nuova data non corrisponde a nessuna proiezione esistente dello stesso film richiesto!");
+                p.modificaPrenotazione(proiezione);
+                return;
+            }
+        }
+        throw new IllegalValueException("Errore: Prenotazione non trovata!");
+    }
+
+    public Proiezione verificaData(Proiezione proiezione, Data nuovaData) throws IllegalValueException{
+
+        LocalDate oggi = LocalDate.now();
+
+        Data dataOdierna = new Data(oggi.getDayOfMonth(), oggi.getMonthValue(), oggi.getYear());
+
+        if(nuovaData.compareTo(dataOdierna) < 0)
+            throw new IllegalValueException("Errore: La data inserita è passata!");
+        
+        for(Proiezione p : listaProiezioni){
+            if(p.getData().equals(nuovaData) && proiezione.getFilm().equals(p.getFilm())){
+                return p;
+            }
+        }
+        return null; 
+    }
+
     // =========================================================================
     // 5. OPERAZIONI ESCLUSIVE BIGLIETTAIO
     // =========================================================================
@@ -611,12 +618,19 @@ public class GestoreCinema {
         throw new IllegalValueException("Errore: Proiezione non trovata!");
     }
 
-    /* MODIFICARE METODO
-        public void modificaProiezione(int idProiezione, Data data, Ora ora, double costoBiglietto) throws IllegalValueException {
+    public void modificaProiezione(int idProiezione, Data data, Ora ora, double costoBiglietto) throws IllegalValueException {
         verificaProiezionista();
         if (haPrenotazioniAttive(idProiezione)) {
             throw new IllegalValueException("Errore: Esistono già prenotazioni per questa proiezione non si può modificare!");
         }
+        
+        LocalDate oggi = LocalDate.now();
+
+        Data dataOdierna = new Data(oggi.getDayOfMonth(), oggi.getMonthValue(), oggi.getYear());
+
+        if(data.compareTo(dataOdierna) < 0)
+            throw new IllegalValueException("Errore: La data inserita è passata!");
+        
         for (Proiezione p1 : listaProiezioni) {
             if (p1.getId() == idProiezione) {
                 for (Proiezione p2 : listaProiezioni) {
@@ -630,7 +644,7 @@ public class GestoreCinema {
         }
         throw new IllegalValueException("Impossibile modificare: proiezione non trovata nel catalogo!");
     }
-     */
+
     // =========================================================================
     // 7. SCRITTURA FILE
     // =========================================================================
