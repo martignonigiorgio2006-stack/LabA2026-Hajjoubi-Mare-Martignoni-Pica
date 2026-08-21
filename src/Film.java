@@ -214,10 +214,10 @@ public class Film implements Serializable {
      */
     @Override
     public String toString() {
-        return "FILM #" + id + "\n"
-                + "Titolo: " + titolo + "\n"
-                + "Durata: " + durata + " min | Anno: " + anno + " | VM" + etaMin + "\n"
-                + "Genere: " + genere + "\n"
+        return "- FILM #" + id + "\n"
+                + "\tTitolo: " + titolo + "\n"
+                + "\tDurata: " + durata + " min | Anno: " + anno + " | VM" + etaMin + "\n"
+                + "\tGenere: " + genere + "\n"
                 + regista;
     }
 }

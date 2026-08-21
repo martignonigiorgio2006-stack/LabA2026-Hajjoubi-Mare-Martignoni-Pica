@@ -240,7 +240,11 @@ public class GestoreCinema {
         if (dataNascita == null) {
             registraCliente(nome, cognome, username, psw, domicilio);
         }
-        verificaUsernameDisponibile(username);
+        try {
+            verificaUsernameDisponibile(username);
+        }catch(IllegalValueException e){
+            throw e;
+        }
         Cliente cliente = new Cliente(nome, cognome, username, psw, domicilio, dataNascita);
         listaUtenti.add(cliente);
     }
@@ -257,7 +261,11 @@ public class GestoreCinema {
      * @throws IllegalValueException se le credenziali inseriti non sono valide
      */
     public void registraCliente(String nome, String cognome, String username, String psw, Luogo domicilio) throws IllegalValueException {
-        verificaUsernameDisponibile(username);
+        try {
+            verificaUsernameDisponibile(username);
+        }catch(IllegalValueException e){
+            throw e;
+        }
         Cliente cliente = new Cliente(nome, cognome, username, psw, domicilio);
         listaUtenti.add(cliente);
     }
@@ -663,25 +671,28 @@ public class GestoreCinema {
     }
 
     /**
-     * Aggiunge un nuovo regista
+     * Aggiunge un nuovo regista se non esiste già
      *
      * @param regista il regista
      *
      *
      * @throws IllegalValueException se il regista è già presente
      */
-    public void aggiungiRegista(Regista regista) throws IllegalValueException {
+    public Regista aggiungiRegista(Regista regista) throws IllegalValueException {
         verificaProiezionista();
         for (Regista r : listaRegisti) {
             if (regista.getNome().equalsIgnoreCase(r.getNome()) && regista.getCognome().equalsIgnoreCase(r.getCognome())) {
-                throw new IllegalValueException("Errore: Regista già presente!");
+                return r;
+            } else {
+                listaRegisti.add(regista);
+                return regista;
             }
         }
-        listaRegisti.add(regista);
+        return null;
     }
 
     /**
-     * rimuove un regista
+     * Rimuove un regista
      *
      * @param regista il regista
      *

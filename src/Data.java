@@ -188,7 +188,7 @@ public class Data implements Serializable {
      */
     @Override
     public String toString() {
-        return "DATA:" + giorno + TOKEN + mese + TOKEN + anno;
+        return "" + giorno + TOKEN + mese + TOKEN + anno;
     }
 
 

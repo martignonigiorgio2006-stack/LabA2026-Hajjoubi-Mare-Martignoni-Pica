@@ -268,11 +268,11 @@ public abstract class Utente implements Serializable {
      */
     @Override
     public String toString() {
-        return "UTENTE #" + id + "\n"
-                + "Nome completo: " + nome + " " + cognome + "\n"
-                + "Username: " + username + "\n"
-                + "Domicilio: " + domicilio + "\n"
-                + "Nascita: " + (dataNascita != null ? dataNascita : "Non inserita") + "\n"
-                + "Ruolo: " + ruolo;
+        return "- UTENTE #" + id + "\n"
+                + "\tNome completo: " + nome + " " + cognome + "\n"
+                + "\tUsername: " + username + "\n"
+                + "\tDomicilio: " + domicilio + "\n"
+                + "\tNascita: " + (dataNascita != null ? dataNascita : "Non inserita") + "\n"
+                + "\tRuolo: " + ruolo;
     }
 }

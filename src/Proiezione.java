@@ -250,9 +250,9 @@ public class Proiezione implements Serializable {
      */
     @Override
     public String toString() {
-        return "PROIEZIONE #" + id + "\n"
-                + "Film: " + film.getTitolo() + "\n"
-                + "Il: " + data + " alle " + ora
-                + "Prezzo: " + costoBiglietto + "€ | Posti liberi: " + postiLiberi;
+        return "- PROIEZIONE #" + id + "\n"
+                + "\tFilm: " + film.getTitolo() + "\n"
+                + "\tIl " + data + " alle " + ora
+                + "\tPrezzo: " + costoBiglietto + "€ | Posti liberi: " + postiLiberi;
     }
 }

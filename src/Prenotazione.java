@@ -212,10 +212,10 @@ public class Prenotazione implements Serializable {
      */
     @Override
     public String toString() {
-        return "PRENOTAZIONE #" + id + "\n"
-                + "Cliente: " + utente.getNome() + " " + utente.getCognome() + " (" + utente.getUsername() + ")\n"
-                + "Dettagli Proiezione:\n" + proiezione + "\n"
-                + "Posti prenotati: " + quantita + "\n"
-                + "Costo Totale: " + getCostoTotale() + "€";
+        return "- PRENOTAZIONE #" + id + "\n"
+                + "\tCliente: " + utente.getNome() + " " + utente.getCognome() + " (" + utente.getUsername() + ")\n"
+                + "\t" + proiezione + "\n"
+                + "\tPosti prenotati: " + quantita + "\n"
+                + "\tCosto Totale: " + getCostoTotale() + "€";
     }
 }
