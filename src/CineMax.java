@@ -1,10 +1,26 @@
+
 import java.time.LocalDate;
 import java.util.LinkedList;
 
+/**
+ * Rappresenta il main
+ *
+ */
 public class CineMax {
 
+    /**
+     * gestore del cinema.
+     */
     public static GestoreCinema gc;
 
+    /**
+     * Punto di ingresso principale del programma. Inizializza il gestore del
+     * cinema, carica i dati dai file nelle liste di memoria, gestisce il ciclo
+     * del menu principale e, alla chiusura, salva lo stato aggiornato sui file.
+     *
+     * @param args argomenti passati da riga di comando (non usati in questa
+     * applicazione)
+     */
     public static void main(String[] args) {
 
         gc = new GestoreCinema();
@@ -19,12 +35,17 @@ public class CineMax {
         } while (!scelta);
 
         IO.output("Arrivederci!");
-        
+
         //Ultima istruzione del programma sempre (scrittura sul file delle liste che contengono i dati del programma)
         gc.scritturaFile();
 
     }//Chiusura main
 
+    /**
+     * Gestisce il menù principale
+     *
+     * @return un boolean per capire se uscire dal programma
+     */
     public static boolean menuPrincipale() {
         IO.output("\n## Menù principale ##", true);
 
@@ -55,6 +76,10 @@ public class CineMax {
         }
     }//Chiusura menuPrincipale
 
+    /**
+     * Gestisce il login di un utente
+     *
+     */
     public static void login() {
         IO.output("\n## Login ##", true);
 
@@ -92,6 +117,10 @@ public class CineMax {
         }
     }//Chiusura login
 
+    /**
+     * Registra un cliente
+     *
+     */
     public static void registraCliente() {
         IO.output("\n## Registrazione clienti ##", true);
 
@@ -130,6 +159,10 @@ public class CineMax {
         }
     }//chiusura registraCliente
 
+    /**
+     * Cerca una proiezione
+     *
+     */
     public static void cercaProiezione() {
         IO.output("\n## Ricerca proiezioni ##", true);
 
@@ -180,8 +213,8 @@ public class CineMax {
         do {
             costoMin = IO.readDouble(opzioni[4]);
             if (costoMin == -1) {
-                costoMin = null; 
-            }else if (costoMin < 0) {
+                costoMin = null;
+            } else if (costoMin < 0) {
                 IO.outputErr("Errore: Costo negativo non consentito\nRiprova!");
                 errore = true;
             }
@@ -192,8 +225,8 @@ public class CineMax {
         do {
             costoMax = IO.readDouble(opzioni[5]);
             if (costoMax == -1) {
-                costoMax = null; 
-            }else if (costoMax < 0) {
+                costoMax = null;
+            } else if (costoMax < 0) {
                 IO.outputErr("Errore: Costo negativo non consentito\nRiprova!");
                 errore = true;
             }
@@ -210,6 +243,10 @@ public class CineMax {
         }
     }//Chiusura cercaProiezione
 
+    /**
+     * Visualizza il catalogo dei film
+     *
+     */
     public static void visualizzaCatalogoFilm() {
         IO.output("\n## Catalogo film ##", true);
 
@@ -297,8 +334,8 @@ public class CineMax {
         }
     }//Chiusura menuClienteRegistrato()
 
-    public static void modificaPrenotazione(){
-        try{
+    public static void modificaPrenotazione() {
+        try {
             IO.output("\n## Modifica prenotazione ##", true);
 
             String idPrenotazioneString;
@@ -326,12 +363,12 @@ public class CineMax {
 
             IO.output("\nModifica effettuata con successo!", true);
 
-        }catch(IllegalValueException e){
-            IO.outputErr(e.getMessage()+"\nRiprova!");
+        } catch (IllegalValueException e) {
+            IO.outputErr(e.getMessage() + "\nRiprova!");
 
         }
     }//Chiusura modificaPrenotazione()
-     
+
     public static void cancellarePrenotazione() {
         IO.output("## Cancellare prenotazione ##", true);
         try {
@@ -387,7 +424,6 @@ public class CineMax {
         IO.output("\n## Logout ##", true);
         gc.logout();
     }//Chiusura logout
-
 
     public static boolean menuProiezionistaRegistrato() {
         IO.output("\n## Menù proiezionista ##", true);
@@ -527,26 +563,26 @@ public class CineMax {
 
     }//Chiusura aggiungiProiezione
 
-    public static void modificaProiezione(){
-        try{
+    public static void modificaProiezione() {
+        try {
             IO.output("\n## Modifica proiezione ##", true);
-            
+
             int idProiezione = IO.readInt("Inserisci l'ID della proiezione da modificare: ");
-            
+
             Data nuovaData = IO.readData("Inserisci la nuova data (formato gg/mm/aaaa): ");
 
             Ora nuovoOrario = IO.readOra("Inserisci il nuovo orario: ");
 
             Double costoBiglietto = IO.readDouble("Inserisci il costo del biglietto: ");
 
-            gc.modificaProiezione(idProiezione, nuovaData, nuovoOrario, costoBiglietto);  
+            gc.modificaProiezione(idProiezione, nuovaData, nuovoOrario, costoBiglietto);
             IO.output("Modifica effettuata con successo!", true);
-           
-        }catch(IllegalValueException e){
-          IO.outputErr(e.getMessage()+"\nRiprova");
+
+        } catch (IllegalValueException e) {
+            IO.outputErr(e.getMessage() + "\nRiprova");
         }
     }//Chiusura modificaProiezione
-    
+
     public static void cancellaProiezione() {
         try {
             IO.output("\n## Cancella proiezione ##", true);
