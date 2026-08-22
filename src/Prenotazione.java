@@ -148,10 +148,10 @@ public class Prenotazione implements Serializable {
      *
      * @param p nuova {@code Proiezione} da associare
      * @throws IllegalValueException se vengono sollevate eccezioni nelle
-     * chiamate ai metodi 
+     * chiamate ai metodi
      */
-    public void modificaPrenotazione(Proiezione p) throws IllegalValueException{
-        setProiezione(proiezione);
+    public void modificaPrenotazione(Proiezione p) throws IllegalValueException {
+        setProiezione(p);
     }
 
     /**

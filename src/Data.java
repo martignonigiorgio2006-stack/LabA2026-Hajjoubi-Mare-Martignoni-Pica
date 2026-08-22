@@ -1,9 +1,12 @@
+
 import java.io.Serializable;
+import java.time.LocalDate;
 
 /**
  * Rappresenta una data composta da giorno, mese e anno
  *
- * Implementa {@link Serializable} per consentire la serializzazione degli oggetti.
+ * Implementa {@link Serializable} per consentire la serializzazione degli
+ * oggetti.
  */
 public class Data implements Serializable {
 
@@ -26,22 +29,29 @@ public class Data implements Serializable {
 
     /**
      * Carattere utilizzato per settare il formato gg:mm:aaaa.
-     * */
+     *
+     */
     private static final char TOKEN = '/';
 
     /**
      * mesi dell'anno.
      */
     private final int MESI = 12;
+    /**
+     * anno limite per l'inserimento dei film (può inserire al massimo fino
+     * all'anno successivo al corrente).
+     */
+    private static final int ANNO_CORRENTE = LocalDate.now().getYear();
 
     /**
-     * Costruisce un nuovo oggetto {@code Data}.
-     * Tramite i set effettua verifiche ai parametri.
+     * Costruisce un nuovo oggetto {@code Data}. Tramite i set effettua
+     * verifiche ai parametri.
      *
      * @param giorno giorno
      * @param mese mese
      * @param anno anno
-     * @throws IllegalValueException se uno qualsiasi dei parametri non rispetta i vincoli di integrità
+     * @throws IllegalValueException se uno qualsiasi dei parametri non rispetta
+     * i vincoli di integrità
      */
     public Data(int giorno, int mese, int anno) throws IllegalValueException {
         setAnno(anno);
@@ -81,8 +91,8 @@ public class Data implements Serializable {
      * Imposta e valida il giorno.
      *
      * @param giorno il giorno da settare
-     * @throws IllegalValueException se il giorno è minore di 1 oppure
-     * il giorno è maggiore dei giorni di quel mese
+     * @throws IllegalValueException se il giorno è minore di 1 oppure il giorno
+     * è maggiore dei giorni di quel mese
      */
     private void setGiorno(int giorno) throws IllegalValueException {
         if (giorno < 1 || giorno > getMaxGiorniMese(this.mese, this.anno)) {
@@ -104,7 +114,8 @@ public class Data implements Serializable {
      * Imposta e valida il mese.
      *
      * @param mese il mese da settare
-     * @throws IllegalValueException se il mese è minore di 1 oppure meggiore di 12
+     * @throws IllegalValueException se il mese è minore di 1 oppure meggiore di
+     * 12
      */
     private void setMese(int mese) throws IllegalValueException {
         if (mese < 1 || mese > 12) {
@@ -123,13 +134,13 @@ public class Data implements Serializable {
     }
 
     /**
-     * Imposta e valida  l'anno.
+     * Imposta e valida l'anno.
      *
      * @param anno l'anno da settare
      * @throws IllegalValueException se l'anno è minore di 1900
      */
     private void setAnno(int anno) throws IllegalValueException {
-        if (anno < 1900) {
+        if (anno < 1900 || anno > ANNO_CORRENTE) {
             throw new IllegalValueException("Errore: Anno inserito non valido!");
         }
         this.anno = anno;
@@ -148,9 +159,9 @@ public class Data implements Serializable {
      * Confronta due date.
      *
      * @param altra la seconda data
-     * @return un valore negativo se la prima data è precedente alla seconda,
-     *         0 se le due date sono uguali,
-     *         un valore positivo se la prima data è successiva alla seconda,
+     * @return un valore negativo se la prima data è precedente alla seconda, 0
+     * se le due date sono uguali, un valore positivo se la prima data è
+     * successiva alla seconda,
      */
     public int compareTo(Data altra) {
         if (this.anno != altra.getAnno()) {
@@ -181,8 +192,8 @@ public class Data implements Serializable {
     }
 
     /**
-     * Restituisce la stringa corrispondente alla data.
-     * Il formato è: {@code giorno, mese, anno}
+     * Restituisce la stringa corrispondente alla data. Il formato è:
+     * {@code giorno, mese, anno}
      *
      * @return la stringa corrispondente alla data
      */
@@ -190,6 +201,5 @@ public class Data implements Serializable {
     public String toString() {
         return "" + giorno + TOKEN + mese + TOKEN + anno;
     }
-
 
 }

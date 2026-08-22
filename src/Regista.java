@@ -109,6 +109,6 @@ public class Regista implements Serializable {
      */
     @Override
     public String toString() {
-        return "Regista #" + id + " " + nome + " " + cognome;
+        return "Regista #" + id + ": " + nome + " " + cognome;
     }
 }

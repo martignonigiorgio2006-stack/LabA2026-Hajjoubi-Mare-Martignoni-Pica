@@ -1,10 +1,13 @@
+
 import java.io.Serializable;
+import java.time.LocalDate;
 
 /**
  * Rappresenta un film composto da id, durata, anno. etaMin, titolo, genere,
  * regista
  *
- * Implementa {@link Serializable} per consentire la serializzazione degli oggetti.
+ * Implementa {@link Serializable} per consentire la serializzazione degli
+ * oggetti.
  */
 public class Film implements Serializable {
 
@@ -42,10 +45,15 @@ public class Film implements Serializable {
      * regista del film.
      */
     private Regista regista;
+    /**
+     * anno limite per l'inserimento dei film (può inserire al massimo fino
+     * all'anno successivo al corrente).
+     */
+    private static final int ANNO_LIMITE = LocalDate.now().getYear() + 1;
 
     /**
-     * Costruisce un nuovo oggetto {@code Film}.
-     * Tramite i set effettua verifiche ai parametri.
+     * Costruisce un nuovo oggetto {@code Film}. Tramite i set effettua
+     * verifiche ai parametri.
      *
      * @param titolo il titolo del film
      * @param durata la durata del film
@@ -168,8 +176,8 @@ public class Film implements Serializable {
      * @param anno l'anno da settare
      */
     private void setAnno(int anno) throws IllegalValueException {
-        if (anno < 1985) {
-            throw new IllegalValueException("Errore: Anno inserito <1985!");
+        if (anno < 1985 || anno > ANNO_LIMITE) {
+            throw new IllegalValueException("Errore: Anno inserito minore di 1985 o maggiore di " + ANNO_LIMITE + "!");
         }
         this.anno = anno;
     }
@@ -218,6 +226,6 @@ public class Film implements Serializable {
                 + "\tTitolo: " + titolo + "\n"
                 + "\tDurata: " + durata + " min | Anno: " + anno + " | VM" + etaMin + "\n"
                 + "\tGenere: " + genere + "\n"
-                + regista;
+                + "\t" + regista;
     }
 }

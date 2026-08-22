@@ -239,12 +239,9 @@ public class GestoreCinema {
     public void registraCliente(String nome, String cognome, String username, String psw, Luogo domicilio, Data dataNascita) throws IllegalValueException {
         if (dataNascita == null) {
             registraCliente(nome, cognome, username, psw, domicilio);
+            return;
         }
-        try {
-            verificaUsernameDisponibile(username);
-        }catch(IllegalValueException e){
-            throw e;
-        }
+        verificaUsernameDisponibile(username);
         Cliente cliente = new Cliente(nome, cognome, username, psw, domicilio, dataNascita);
         listaUtenti.add(cliente);
     }
@@ -261,11 +258,7 @@ public class GestoreCinema {
      * @throws IllegalValueException se le credenziali inseriti non sono valide
      */
     public void registraCliente(String nome, String cognome, String username, String psw, Luogo domicilio) throws IllegalValueException {
-        try {
-            verificaUsernameDisponibile(username);
-        }catch(IllegalValueException e){
-            throw e;
-        }
+        verificaUsernameDisponibile(username);
         Cliente cliente = new Cliente(nome, cognome, username, psw, domicilio);
         listaUtenti.add(cliente);
     }
@@ -441,7 +434,7 @@ public class GestoreCinema {
             if (idPrenotazione == p.getId()) {
                 verificaProprietaPrenotazione(p);
                 Proiezione proiezione = verificaData(p.getProiezione(), nuovaData);
-                if (p == null) {
+                if (proiezione == null) {
                     throw new IllegalValueException("Errore: La nuova data non corrisponde a nessuna proiezione esistente dello stesso film richiesto!");
                 }
                 p.modificaPrenotazione(proiezione);

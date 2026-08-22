@@ -1,15 +1,16 @@
-import java.util.Scanner;
+
 import java.util.InputMismatchException;
+import java.util.Scanner;
 
 public class IO {
 
     //NON CHIUDIAMO MAI LO STREAM DI LETTURA PROBLEMA?
-    private static Scanner tastiera = new Scanner(System.in);
+    public static Scanner tastiera = new Scanner(System.in);
 
     public static void output(String s, boolean b) {
         if (b) {
-            System.out.println(s); 
-        }else {
+            System.out.println(s);
+        } else {
             output(s);
         }
     }
@@ -20,8 +21,8 @@ public class IO {
 
     public static void output(int x, boolean b) {
         if (b) {
-            System.out.println(x); 
-        }else {
+            System.out.println(x);
+        } else {
             output(x);
         }
     }
@@ -32,8 +33,8 @@ public class IO {
 
     public static void output(double x, boolean b) {
         if (b) {
-            System.out.println(x); 
-        }else {
+            System.out.println(x);
+        } else {
             output(x);
         }
     }
@@ -44,8 +45,8 @@ public class IO {
 
     public static void output(char c, boolean b) {
         if (b) {
-            System.out.println(c); 
-        }else {
+            System.out.println(c);
+        } else {
             output(c);
         }
     }
@@ -59,105 +60,100 @@ public class IO {
         System.out.println("\u001B[31m" + s + "\u001B[0m");//Scrive rosso
     }
 
-    public static int readInt(String s, int x) throws InputMismatchException{
+    public static int readInt(String s, int x) throws InputMismatchException {
         int risposta;
         boolean errore;
-        do{
+        do {
             errore = false;
             output(s, false);
-            try{
+            try {
                 risposta = tastiera.nextInt();
                 tastiera.nextLine();
                 return risposta;
-            }
-            catch(InputMismatchException e) {
-                outputErr("\t"+"Errore: Il campo richiesto contiene valori non ammessi!\n\tRiprova!");
+            } catch (InputMismatchException e) {
+                outputErr("\t" + "Errore: Il campo richiesto contiene valori non ammessi!\n\tRiprova!");
                 tastiera.nextLine();
                 errore = true;
             }
-        }while(errore);
+        } while (errore);
         return 0;
     }
 
-    public static int readInt(String s) throws InputMismatchException{
+    public static int readInt(String s) throws InputMismatchException {
         int risposta;
         boolean errore;
-        do{
+        do {
             errore = false;
             output(s, false);
-            try{
+            try {
                 risposta = tastiera.nextInt();
                 tastiera.nextLine();
                 return risposta;
-            }
-            catch(InputMismatchException e) {
+            } catch (InputMismatchException e) {
                 outputErr("Errore: Il campo richiesto contiene valori non ammessi!\nRiprova!");
                 tastiera.nextLine();
                 errore = true;
             }
-        }while(errore);
+        } while (errore);
         return 0;
     }
 
     public static int readInt() {
         int risposta;
         boolean errore;
-        do{
+        do {
             errore = false;
-            try{
+            try {
                 risposta = tastiera.nextInt();
                 tastiera.nextLine();
                 return risposta;
-            }
-            catch(InputMismatchException e) {
-               outputErr("Errore: Il campo richiesto contiene valori non ammessi!\nRiprova!");
-                tastiera.nextLine();
-                errore = true;
-            }
-        }while(errore);
-        return 0;
-    }
-
-    public static String readIntFormatoStringa(String s) {
-       return readString(s);
-    }
-
-    public static double readDouble(String s) throws InputMismatchException{
-        double risposta;
-        boolean errore;
-        do{
-            errore = false;
-            output(s, false);
-            try{
-                risposta = tastiera.nextDouble();
-                tastiera.nextLine();
-                return risposta;
-            }
-            catch(InputMismatchException e) {
+            } catch (InputMismatchException e) {
                 outputErr("Errore: Il campo richiesto contiene valori non ammessi!\nRiprova!");
                 tastiera.nextLine();
                 errore = true;
             }
-        }while(errore);
+        } while (errore);
+        return 0;
+    }
+
+    public static String readIntFormatoStringa(String s) {
+        return readString(s);
+    }
+
+    public static double readDouble(String s) throws InputMismatchException {
+        double risposta;
+        boolean errore;
+        do {
+            errore = false;
+            output(s, false);
+            try {
+                risposta = tastiera.nextDouble();
+                tastiera.nextLine();
+                return risposta;
+            } catch (InputMismatchException e) {
+                outputErr("Errore: Il campo richiesto contiene valori non ammessi!\nRiprova!");
+                tastiera.nextLine();
+                errore = true;
+            }
+        } while (errore);
         return 0;
     }
 
     public static double readDouble() {
         double risposta;
         boolean errore;
-        do{
+        do {
             errore = false;
-            try{
+            try {
                 risposta = tastiera.nextDouble();
                 tastiera.nextLine();
                 return risposta;
-            }
-            catch(InputMismatchException e) {
+            } catch (InputMismatchException e) {
                 outputErr("Errore: Il campo richiesto contiene valori non ammessi!\nRiprova!");
                 tastiera.nextLine();
                 errore = true;
             }
-        }while(errore);
+        } while (errore);
         return 0;
     }
 
@@ -174,43 +170,68 @@ public class IO {
 
     public static String readString(String s) {
         boolean errore;
-        String risrposta;
-        do{
+        String risposta;
+        do {
             errore = false;
-            output(s,false);
-            risrposta = tastiera.nextLine();
-            if(risrposta == null || risrposta.trim().isEmpty()){
+            output(s, false);
+            risposta = tastiera.nextLine();
+            if (risposta == null || risposta.trim().isEmpty()) {
                 outputErr("Errore: Compilare i campi richiesti!\nRiprova!");
                 errore = true;
             }
-        }while(errore);
-        return risrposta;
+        } while (errore);
+        return risposta;
+    }
+
+    public static String readString(String s, int x) {
+        boolean errore;
+        String risposta;
+        do {
+            errore = false;
+            output(s, false);
+            risposta = tastiera.nextLine();
+            if (risposta == null || risposta.trim().isEmpty()) {
+                outputErr("Errore: Compilare i campi richiesti!\nRiprova!");
+                errore = true;
+            } else {
+                for (int i = 0; i < risposta.length(); i++) {
+                    char c = risposta.charAt(i);
+                    if (Character.isDigit(c)) {
+                        outputErr("Errore: Il campo richiesto contiene campi non ammessi!\nRiprova!");
+                        errore = true;
+                        break;
+                    }
+                }
+
+            }
+        } while (errore);
+        return risposta;
     }
 
     public static String readString() {
         boolean errore;
-        String risrposta;
-        do{
+        String risposta;
+        do {
             errore = false;
-            risrposta = tastiera.nextLine();
-            if(risrposta == null || risrposta.trim().isEmpty()){
+            risposta = tastiera.nextLine();
+            if (risposta == null || risposta.trim().isEmpty()) {
                 outputErr("Errore: Compilare i campi richiesti!\nRiprova!");
                 errore = true;
             }
-        }while(errore);
-        return risrposta;
+        } while (errore);
+        return risposta;
     }
 
-    public static Data readData(String s) throws IllegalValueException{
+    public static Data readData(String s) throws IllegalValueException {
         boolean errore;
-        do{
+        do {
             errore = false;
             String dataFormatoStringa;
             dataFormatoStringa = readString(s);
-            if(dataFormatoStringa == null || dataFormatoStringa.trim().isEmpty()) {
+            if (dataFormatoStringa == null || dataFormatoStringa.trim().isEmpty()) {
                 errore = true;
                 outputErr("Errore: Compilare i campi richiesti!\nRiprova!");
-            } else if(dataFormatoStringa.trim().equals("-1")) {
+            } else if (dataFormatoStringa.trim().equals("-1")) {
                 return null;
             } else {
                 String[] dataArray = dataFormatoStringa.split("/");
@@ -227,113 +248,115 @@ public class IO {
                         outputErr("Errore: La data contiene valori non ammessi!\nRiprova!");
                         errore = true;
                     } catch (IllegalValueException e) {
-                        outputErr(e.getMessage()+"\nRiprova!");
+                        outputErr(e.getMessage() + "\nRiprova!");
                         errore = true;
                     }
                 }
             }
-        }while(errore);
+        } while (errore);
         return null;
     }
 
-    public static Genere readGenere(String s){
+    public static Genere readGenere(String s) {
         boolean errore;
-        do{
+        do {
             errore = false;
             String genereFormatoStringa = readString(s);
-            if(genereFormatoStringa == null || genereFormatoStringa.trim().isEmpty()){
+            if (genereFormatoStringa == null || genereFormatoStringa.trim().isEmpty()) {
                 outputErr("Errore: Compilare i campi richiesti!\nRiprova!");
                 errore = true;
-            } else if(genereFormatoStringa.trim().equals("-1")){
+            } else if (genereFormatoStringa.trim().equals("-1")) {
                 return null;
             } else {
                 Genere[] listaGeneri = Genere.values();
-                for (Genere g : listaGeneri)
-                    if (genereFormatoStringa.trim().toUpperCase().equals(g.toString().toUpperCase()))
+                for (Genere g : listaGeneri) {
+                    if (genereFormatoStringa.trim().toUpperCase().equals(g.toString().toUpperCase())) {
                         return g;
+                    }
+                }
                 outputErr("Errore: Il genere non esiste!\nRiprova!");
                 errore = true;
             }
-        }while(errore);
+        } while (errore);
         return null;
     }
 
-    public static Luogo readDomicilio(String s) throws IllegalValueException{
+    public static Luogo readDomicilio(String s) throws IllegalValueException {
         boolean errore;
         Luogo luogo = null;
         output(s, true);
-        do{
+        do {
             errore = false;
             String via, citta, cap, numeroCivicoFormatoStringa;
             int numeroCivico = 0;
-            via = IO.readString("\tVia: ");
-            if(via == null || via.trim().isEmpty()){
-                outputErr("\t"+"Errore: Compilare i campi richiesti!\n\tRiprova!");
+            via = IO.readString("\tVia (non inserire qui il numero civico e non riscrivere via o piazza): ", 1);
+            if (via == null || via.trim().isEmpty()) {
+                outputErr("\t" + "Errore: Compilare i campi richiesti!\n\tRiprova!");
                 errore = true;
                 continue;
             }
             numeroCivico = readInt("\tNumero civico: ", 1);
-            citta = IO.readString("\tCittà: ");
-            if(citta == null || citta.trim().isEmpty()) {
-                outputErr("\t"+"Errore: Compilare i campi richiesti!\n\tRiprova!");
+            citta = IO.readString("\tCittà: ", 1);
+            if (citta == null || citta.trim().isEmpty()) {
+                outputErr("\t" + "Errore: Compilare i campi richiesti!\n\tRiprova!");
                 errore = true;
                 continue;
             }
             cap = IO.readString("\tCap: ");
-            if(cap == null || cap.trim().isEmpty()){
-                outputErr("\t"+"Errore: Compilare i campi richiesti!\n\tRiprova!");
+            if (cap == null || cap.trim().isEmpty()) {
+                outputErr("\t" + "Errore: Compilare i campi richiesti!\n\tRiprova!");
                 errore = true;
                 continue;
             }
-            try{
+            try {
                 luogo = new Luogo(via, numeroCivico, citta, cap);
-            }catch(IllegalValueException e){
-                outputErr("\t"+e.getMessage()+"\n\tRiprova!");
+            } catch (IllegalValueException e) {
+                outputErr("\t" + e.getMessage() + "\n\tRiprova!");
                 errore = true;
             }
-        }while(errore);
+        } while (errore);
         return luogo;
     }
 
-    public static Regista readRegista(String s) throws IllegalValueException{
-        output(s);
-        
+    public static Regista readRegista(String s) throws IllegalValueException {
+        output(s, true);
+
         String nome, cognome;
         boolean errore = false;
-        do{
+        do {
             errore = false;
-            nome = readString("\tNome: ");
-            if(nome == null || nome.trim().isEmpty()){
-                outputErr("\tErrore: Compilare i campi richiesti!\nRiprova!");
+            nome = readString("\tNome: ", 1);
+            if (nome == null || nome.trim().isEmpty()) {
+                outputErr("\t" + "Errore: Compilare i campi richiesti!\n\tRiprova!");
                 errore = true;
             }
-        }while(errore);
+        } while (errore);
 
-        do{
+        do {
             errore = false;
-            cognome = readString("\tCognome: ");
-            if(cognome == null || cognome.trim().isEmpty()){
-                outputErr("\tErrore: Compilare i campi richiesti!\nRiprova!");
+            cognome = readString("\tCognome: ", 1);
+            if (cognome == null || cognome.trim().isEmpty()) {
+                outputErr("\t" + "Errore: Compilare i campi richiesti!\n\tRiprova!");
                 errore = true;
             }
-        }while(errore);
+        } while (errore);
 
         return new Regista(nome, cognome);
     }
 
-    public static Ora readOra(String s) throws IllegalValueException{ //se lo invio null?
+    public static Ora readOra(String s) throws IllegalValueException {
         boolean errore;
-        do{
+        do {
             errore = false;
             String oraFormatoStringa = readString(s);
-            if(oraFormatoStringa == null || oraFormatoStringa.trim().isEmpty()){
+            if (oraFormatoStringa == null || oraFormatoStringa.trim().isEmpty()) {
                 outputErr("Errore: Compilare i campi richiesti!\nRiprova!");
                 errore = true;
-            } else if(oraFormatoStringa.trim().equals("-1")) {
+            } else if (oraFormatoStringa.trim().equals("-1")) {
                 return null;
             } else {
                 String[] oraArray = oraFormatoStringa.split(":");
-                if(oraArray.length != 3) {
+                if (oraArray.length != 3) {
                     outputErr("Errore: Formato ora non valido!\nRiprova!");
                     errore = true;
                 } else {
@@ -346,16 +369,13 @@ public class IO {
                         outputErr("Errore: L'orario contiene valori non ammessi!\nRiprova!");
                         errore = true;
                     } catch (IllegalValueException e) {
-                        outputErr(e.getMessage()+"\nRiprova!");
+                        outputErr(e.getMessage() + "\nRiprova!");
                         errore = true;
                     }
                 }
             }
-        }while(errore);
+        } while (errore);
         return null;
     }
 
 }
-
-
-

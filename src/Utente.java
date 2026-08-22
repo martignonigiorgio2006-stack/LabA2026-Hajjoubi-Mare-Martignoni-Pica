@@ -1,11 +1,12 @@
+
 import java.io.Serializable;
 
 /**
  * Rappresenta un utente composto da id, nome, cognome, username, psw,
  * domicilio, dataNascita, ruolo
  *
- * Implementa {@link Serializable} per consentire
- * la serializzazione degli oggetti.
+ * Implementa {@link Serializable} per consentire la serializzazione degli
+ * oggetti.
  */
 public abstract class Utente implements Serializable {
 
@@ -61,7 +62,8 @@ public abstract class Utente implements Serializable {
      * @param domicilio il domicilio del utente
      * @param dataNascita la data di nascita del utente
      * @param ruolo il ruolo del utente
-     * @throws IllegalValueException se uno qualsiasi dei parametri non rispetta i vincoli di integrità
+     * @throws IllegalValueException se uno qualsiasi dei parametri non rispetta
+     * i vincoli di integrità
      */
     public Utente(String nome, String cognome, String username, String psw, Luogo domicilio, Data dataNascita, Ruolo ruolo) throws IllegalValueException {
         this.id = ++contaId;
@@ -87,7 +89,8 @@ public abstract class Utente implements Serializable {
      * @param ruolo il ruolo del utente
      * @throws IllegalValueException se uno qualsiasi dei parametri non rispetta
      * i vincoli di integrità
-     * */
+     *
+     */
     public Utente(String nome, String cognome, String username, String psw, Luogo domicilio, Ruolo ruolo) throws IllegalValueException {
         this(nome, cognome, username, psw, domicilio, null, ruolo);
     }
@@ -96,7 +99,8 @@ public abstract class Utente implements Serializable {
      * Restituisce l'id.
      *
      * @return id
-     * */
+     *
+     */
     public int getId() {
         return id;
     }
@@ -105,7 +109,8 @@ public abstract class Utente implements Serializable {
      * Restituisce il nome.
      *
      * @return nome
-     * */
+     *
+     */
     public String getNome() {
         return nome;
     }
@@ -114,7 +119,8 @@ public abstract class Utente implements Serializable {
      * Restituisce il cognome.
      *
      * @return cognome
-     * */
+     *
+     */
     public String getCognome() {
         return cognome;
     }
@@ -123,7 +129,8 @@ public abstract class Utente implements Serializable {
      * Restituisce lo username.
      *
      * @return username
-     * */
+     *
+     */
     public String getUsername() {
         return username;
     }
@@ -132,7 +139,8 @@ public abstract class Utente implements Serializable {
      * Restituisce la password.
      *
      * @return psw
-     * */
+     *
+     */
     public String getPsw() {
         return psw;
     }
@@ -141,7 +149,8 @@ public abstract class Utente implements Serializable {
      * Restituisce il domicilio.
      *
      * @return domicilio
-     * */
+     *
+     */
     public Luogo getDomicilio() {
         return domicilio;
     }
@@ -150,7 +159,8 @@ public abstract class Utente implements Serializable {
      * Restituisce la data di nascita.
      *
      * @return dataNascita
-     * */
+     *
+     */
     public Data getDataNascita() {
         return dataNascita;
     }
@@ -159,7 +169,8 @@ public abstract class Utente implements Serializable {
      * Restituisce il ruolo.
      *
      * @return ruolo
-     * */
+     *
+     */
     public Ruolo getRuolo() {
         return ruolo;
     }
@@ -216,13 +227,14 @@ public abstract class Utente implements Serializable {
      * Imposta e valida la password.
      *
      * @param psw pa password
-     * @throws IllegalValueException se la password non viene inserita oppure ha meno di 8 caratteri
+     * @throws IllegalValueException se la password non viene inserita oppure ha
+     * meno di 8 caratteri
      */
     private void setPsw(String psw) throws IllegalValueException {
         if (psw == null || psw.trim().length() < 8) {
             throw new IllegalValueException("Errore: Password non valida (almeno 8 caratteri)!");
         }
-        this.psw = psw;
+        this.psw = psw.trim();
     }
 
     /**
@@ -243,7 +255,7 @@ public abstract class Utente implements Serializable {
      *
      * @param dataNascita la data di nascita
      */
-    private void setDataNascita(Data dataNascita)  {
+    private void setDataNascita(Data dataNascita) {
         this.dataNascita = dataNascita;
     }
 
@@ -252,7 +264,8 @@ public abstract class Utente implements Serializable {
      *
      * @param ruolo il ruolo
      * @throws IllegalValueException se il ruolo non viene inserito
-     * */
+     *
+     */
     private void setRuolo(Ruolo ruolo) throws IllegalValueException {
         if (ruolo == null) {
             throw new IllegalValueException("Errore: Ruolo obbligatorio!");
@@ -261,8 +274,8 @@ public abstract class Utente implements Serializable {
     }
 
     /**
-     * Restituisce la stringa corrispondente all'utente.
-     * Il formato è: {@code nome, cognome, username, domicilio, nascita, ruolo}
+     * Restituisce la stringa corrispondente all'utente. Il formato è:
+     * {@code nome, cognome, username, domicilio, nascita, ruolo}
      *
      * @return la stringa corrispondente all'utente formattata
      */
