@@ -1,4 +1,7 @@
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
 /**
@@ -34,7 +37,9 @@ public abstract class Utente implements Serializable {
     /**
      * password.
      */
-    private String psw;
+    //private String psw;
+    private transient String psw;
+
     /**
      * domiclio.
      */
@@ -288,4 +293,45 @@ public abstract class Utente implements Serializable {
                 + "\tNascita: " + (dataNascita != null ? dataNascita : "Non inserita") + "\n"
                 + "\tRuolo: " + ruolo;
     }
+
+
+
+
+    private void writeObject(ObjectOutputStream out) throws IOException {
+        out.defaultWriteObject();
+        out.writeObject(cifra(psw));
+    }
+
+    private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
+        in.defaultReadObject();
+        psw = decifra((String) in.readObject());
+    }
+
+    private String cifra(String testo) {
+        String chiave = "CineMax";
+        StringBuilder risultato = new StringBuilder();
+
+        for (int i = 0; i < testo.length(); i++) {
+            risultato.append((char) (testo.charAt(i) ^ chiave.charAt(i % chiave.length())));
+        }
+
+        return java.util.Base64.getEncoder().encodeToString(
+                risultato.toString().getBytes()
+        );
+    }
+
+    private String decifra(String testo) {
+        String chiave = "CineMax";
+        byte[] dati = java.util.Base64.getDecoder().decode(testo);
+        String cifrato = new String(dati);
+
+        StringBuilder risultato = new StringBuilder();
+
+        for (int i = 0; i < cifrato.length(); i++) {
+            risultato.append((char) (cifrato.charAt(i) ^ chiave.charAt(i % chiave.length())));
+        }
+
+        return risultato.toString();
+    }
+
 }

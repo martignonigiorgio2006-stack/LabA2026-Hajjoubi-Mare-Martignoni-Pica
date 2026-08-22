@@ -38,8 +38,7 @@ public class Data implements Serializable {
      */
     private final int MESI = 12;
     /**
-     * anno limite per l'inserimento dei film (può inserire al massimo fino
-     * all'anno successivo al corrente).
+     * anno corrente (limite date di nascita).
      */
     private static final int ANNO_CORRENTE = LocalDate.now().getYear();
 

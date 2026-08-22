@@ -36,7 +36,7 @@ public class CineMax {
         } while (!scelta);
 
         IO.output("Arrivederci!");
-
+    
         //Ultima istruzione del programma sempre (scrittura sul file delle liste che contengono i dati del programma)
         gc.scritturaFile();
 
