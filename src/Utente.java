@@ -4,7 +4,7 @@ AUTORI:
 - Mare, Filippo, 766773, VA
 - Martignoni, Giorgio, 766932, VA
 - Pica, Simone, 765155, VA
-*/
+ */
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -274,8 +274,9 @@ public abstract class Utente implements Serializable {
      * @param dataNascita la data di nascita
      */
     private void setDataNascita(Data dataNascita) throws IllegalValueException {
-        if(dataNascita.compareTo(dataOdierna) > 0)
-            throw new IllegalValueException("Errore: Data di nascita futura!");
+        if (dataNascita.compareTo(dataOdierna) > 0) {
+            throw new IllegalValueException("Errore: Data non valida!");
+        }
         this.dataNascita = dataNascita;
     }
 
@@ -308,9 +309,6 @@ public abstract class Utente implements Serializable {
                 + "\tNascita: " + (dataNascita != null ? dataNascita : "Non inserita") + "\n"
                 + "\tRuolo: " + ruolo;
     }
-
-
-
 
     private void writeObject(ObjectOutputStream out) throws IOException {
         out.defaultWriteObject();

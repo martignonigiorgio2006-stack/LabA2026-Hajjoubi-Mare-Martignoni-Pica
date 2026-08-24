@@ -4,7 +4,7 @@ AUTORI:
 - Mare, Filippo, 766773, VA
 - Martignoni, Giorgio, 766932, VA
 - Pica, Simone, 765155, VA
-*/
+ */
 import java.time.LocalDate;
 import java.util.InputMismatchException;
 import java.util.LinkedList;
@@ -42,7 +42,6 @@ public class CineMax {
         } while (!scelta);
 
         IO.output("Arrivederci!");
-    
         //Ultima istruzione del programma sempre (scrittura sul file delle liste che contengono i dati del programma)
         gc.scritturaFile();
 
@@ -223,6 +222,11 @@ public class CineMax {
 
     }//Chiusura visualizzaCatalogoFilm
 
+    /**
+     * Il menù del cliente
+     *
+     * @return un boolean
+     */
     public static boolean menuClienteRegistrato() {
         IO.output("\n## Menù cliente ##", true);
 
@@ -254,6 +258,10 @@ public class CineMax {
         }
     }//Chiusura menuClienteRegistrato()
 
+    /**
+     * Per effettuare nuove prentoazioni
+     *
+     */
     public static void effettuaPrenotazione() {
         try {
             IO.output("\n## Effettuare prenotazione ##", true);
@@ -285,6 +293,10 @@ public class CineMax {
         }
     }//Chiusura menuClienteRegistrato()
 
+    /**
+     * Per modificare le prentoazioni
+     *
+     */
     public static void modificaPrenotazione() {
         try {
             IO.output("\n## Modifica prenotazione ##", true);
@@ -303,6 +315,10 @@ public class CineMax {
         }
     }//Chiusura modificaPrenotazione()
 
+    /**
+     * Per cancellare le prentoazioni
+     *
+     */
     public static void cancellarePrenotazione() {
         IO.output("## Cancellare prenotazione ##", true);
         try {
@@ -318,6 +334,10 @@ public class CineMax {
 
     }//Chiusura cancellarePrenotazione
 
+    /**
+     * Per visualizzare le prentoazioni
+     *
+     */
     public static void visualizzaPrenotazioni() {
         IO.output("\n## Visualizza prenotazioni ##", true);
         try {
@@ -336,6 +356,10 @@ public class CineMax {
 
     }//Chiusura visualizzaPrenotazioni
 
+    /**
+     * Per effettuare il logout
+     *
+     */
     public static void logout() {
         IO.output("\n## Logout ##", true);
         gc.logout();
@@ -375,6 +399,10 @@ public class CineMax {
         }
     }//Chiusura menuProiezionistaRegistrato
 
+    /**
+     * Per aggiungere un nuovo film
+     *
+     */
     public static void aggiungiFilm() {
         try {
             IO.output("\n## Aggiungi film ##", true);
@@ -395,6 +423,10 @@ public class CineMax {
         }
     }//Chiusura aggiungiFilm
 
+    /**
+     * Per rimuovere dei film
+     *
+     */
     public static void rimuoviFilm() {
         try {
             IO.output("\n## Rimuovi film ##", true);
@@ -408,6 +440,11 @@ public class CineMax {
         }
     }//Chiusura rimuoviFilm
 
+    /**
+     * Per aggiungere regista prentoazioni
+     *
+     * @return Il regista aggiunto
+     */
     public static Regista aggiungiRegista() {
         try {
             Regista regista = gc.aggiungiRegista(IO.readRegista("Inserisci dati regista"));
@@ -421,6 +458,10 @@ public class CineMax {
         return null;
     }//Chiusura aggiungiRegista
 
+    /**
+     * Per aggiungere una nuova proiezione
+     *
+     */
     public static void aggiungiProiezione() {
         try {
             IO.output("\n## Aggiungi proiezione ##", true);
@@ -471,6 +512,10 @@ public class CineMax {
 
     }//Chiusura aggiungiProiezione
 
+    /**
+     * Per modificare una proiezione
+     *
+     */
     public static void modificaProiezione() {
         try {
             IO.output("\n## Modifica proiezione ##", true);
@@ -496,6 +541,10 @@ public class CineMax {
         }
     }//Chiusura modificaProiezione
 
+    /**
+     * Per cancellare una proiezione
+     *
+     */
     public static void cancellaProiezione() {
         try {
             IO.output("\n## Cancella proiezione ##", true);
@@ -515,6 +564,11 @@ public class CineMax {
         }
     }//Chiusura cancellaProiezione
 
+    /**
+     * Menù bigliettaio registrato
+     *
+     * @return un booleano
+     */
     public static boolean menuBigliettaioRegistrato() {
         IO.output("\n## Menù bigliettaio ##", true);
 
@@ -546,6 +600,10 @@ public class CineMax {
         }
     }//Chiusura menuBigliettaioRegistrato
 
+    /**
+     * Per cercare prenotazioni odierna
+     *
+     */
     public static void cercaPrenotazioniOdierne() {
         IO.output("\n## Prenotazioni odierne ##", true);
 
@@ -570,6 +628,10 @@ public class CineMax {
 
     }//Chiusura cercaPrenotazioniOdierne
 
+    /**
+     * Per cercare una prenotazione
+     *
+     */
     public static void cercaPrenotazione() {
         IO.output("\n## Cerca prenotazione ##", true);
 
@@ -618,6 +680,10 @@ public class CineMax {
         }
     }//Chiusura metodo cercaPrenotazione()
 
+    /**
+     * Per aggiungere un bigliettaio
+     *
+     */
     public static void aggiungiBigliettaio() {
         IO.output("\n## Aggiungi bigliettaio ##", true);
 
@@ -635,6 +701,10 @@ public class CineMax {
 
     }//Chiusura aggiungiBigliettaio
 
+    /**
+     * Per aggiungere un proiezionista
+     *
+     */
     public static void aggiungiProiezionista() {
         IO.output("\n## Aggiungi proiezionista ##", true);
 
