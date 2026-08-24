@@ -1,4 +1,10 @@
-
+/*
+AUTORI:
+- Hajjoubi, Omar, 766954, VA
+- Mare, Filippo, 766773, VA
+- Martignoni, Giorgio, 766932, VA
+- Pica, Simone, 765155, VA
+*/
 import java.time.LocalDate;
 import java.util.InputMismatchException;
 import java.util.LinkedList;
@@ -131,12 +137,7 @@ public class CineMax {
             String cognome = IO.readString("Cognome: ", 1);
             String username = IO.readString("Username: ");
             String password = IO.readString("Password: ");
-            Luogo domicilio = null;
-            try {
-                domicilio = IO.readDomicilio("Inserisci il tuo domicilio");
-            } catch (IllegalValueException e) {
-                IO.outputErr(e.getMessage() + "\nRiprova!");
-            }
+            Luogo domicilio = IO.readDomicilio("Inserisci il tuo domicilio");
             Data dataDiNascita = IO.readData("Inserisci la tua data di nascita in formato gg/mm/aaaa (-1 per saltare): ");
 
             gc.registraCliente(nome, cognome, username, password, domicilio, dataDiNascita);
@@ -164,20 +165,8 @@ public class CineMax {
             titolo = null;
         }
 
-        Data inizio = null;
-        try {
-            inizio = IO.readData(opzioni[1]);
-        } catch (IllegalValueException e) {
-            IO.outputErr(e.getMessage());
-        }
-
-        Data fine = null;
-        try {
-            fine = IO.readData((opzioni[2]));
-        } catch (IllegalValueException e) {
-            IO.outputErr(e.getMessage());
-        }
-
+        Data inizio = IO.readData(opzioni[1]);
+        Data fine = IO.readData((opzioni[2]));
         Genere genere = IO.readGenere(opzioni[3]);
 
         Double costoMin;
@@ -611,13 +600,8 @@ public class CineMax {
             titolo = null;
         }
 
-        Data inizio = null, fine = null;
-        try {
-            inizio = IO.readData(opzioni[4]);
-            fine = IO.readData(opzioni[5]);
-        } catch (IllegalValueException e) {
-            throw new RuntimeException(e);
-        }
+        Data inizio = IO.readData(opzioni[4]);
+        Data fine = IO.readData(opzioni[5]);
 
         try {
             LinkedList<Prenotazione> risultato = gc.cercaPrenotazione(codice, nome, cognome, titolo, inizio, fine);
@@ -642,13 +626,8 @@ public class CineMax {
             String cognome = IO.readString("Cognome: ");
             String username = IO.readString("Username: ");
             String password = IO.readString("Password: ");
+            Luogo domicilio = IO.readDomicilio("Inserisci il tuo domicilio");
 
-            Luogo domicilio = null;
-            try {
-                domicilio = IO.readDomicilio("Inserisci il tuo domicilio");
-            } catch (IllegalValueException e) {
-                IO.outputErr(e.getMessage() + "\nRiprova!");
-            }
             gc.registraBigliettaio(nome, cognome, username, password, domicilio);
         } catch (IllegalValueException e) {
             IO.outputErr(e.getMessage() + "\nRiprova!");
@@ -664,13 +643,8 @@ public class CineMax {
             String cognome = IO.readString("Cognome: ");
             String username = IO.readString("Username: ");
             String password = IO.readString("Password: ");
+            Luogo domicilio = IO.readDomicilio("Inserisci il tuo domicilio");
 
-            Luogo domicilio = null;
-            try {
-                domicilio = IO.readDomicilio("Inserisci il tuo domicilio");
-            } catch (IllegalValueException e) {
-                IO.outputErr(e.getMessage() + "\nRiprova!");
-            }
             gc.registraProiezionista(nome, cognome, username, password, domicilio);
         } catch (IllegalValueException e) {
             IO.outputErr(e.getMessage() + "\nRiprova!");

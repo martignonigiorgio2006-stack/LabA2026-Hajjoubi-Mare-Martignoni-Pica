@@ -1,8 +1,15 @@
-
+/*
+AUTORI:
+- Hajjoubi, Omar, 766954, VA
+- Mare, Filippo, 766773, VA
+- Martignoni, Giorgio, 766932, VA
+- Pica, Simone, 765155, VA
+*/
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.time.LocalDate;
 
 /**
  * Rappresenta un utente composto da id, nome, cognome, username, psw,
@@ -21,7 +28,7 @@ public abstract class Utente implements Serializable {
     /**
      * Id.
      */
-    private int id;
+    private final int id;
     /**
      * nome.
      */
@@ -48,6 +55,10 @@ public abstract class Utente implements Serializable {
      * data di nascita.
      */
     private Data dataNascita;
+    /**
+     * data odierna.
+     */
+    private final Data dataOdierna;
     /**
      * ruolo.
      */
@@ -77,6 +88,8 @@ public abstract class Utente implements Serializable {
         setUsername(username);
         setPsw(psw);
         setDomicilio(domicilio);
+        LocalDate oggi = LocalDate.now();
+        dataOdierna = new Data(oggi.getDayOfMonth(), oggi.getMonthValue(), oggi.getYear());
         setDataNascita(dataNascita);
         setRuolo(ruolo);
     }
@@ -256,11 +269,13 @@ public abstract class Utente implements Serializable {
     }
 
     /**
-     * Imposta la data di nascita.
+     * Imposta la data di nascita (mai successiva a oggi).
      *
      * @param dataNascita la data di nascita
      */
-    private void setDataNascita(Data dataNascita) {
+    private void setDataNascita(Data dataNascita) throws IllegalValueException {
+        if(dataNascita.compareTo(dataOdierna) > 0)
+            throw new IllegalValueException("Errore: Data di nascita futura!");
         this.dataNascita = dataNascita;
     }
 

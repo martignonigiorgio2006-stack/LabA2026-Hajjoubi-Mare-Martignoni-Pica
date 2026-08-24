@@ -1,12 +1,32 @@
-
+/*
+AUTORI:
+- Hajjoubi, Omar, 766954, VA
+- Mare, Filippo, 766773, VA
+- Martignoni, Giorgio, 766932, VA
+- Pica, Simone, 765155, VA
+*/
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+/**
+ * Racchiude tutti i metodi di lettura da tastiera
+ * e scrittura sul terminale utilizzati dal programma.
+ */
 public class IO {
 
-    //NON CHIUDIAMO MAI LO STREAM DI LETTURA PROBLEMA?
+    /**
+     * tastiera (Stream di lettura dati da tastiera).
+     */
     public static Scanner tastiera = new Scanner(System.in);
 
+    /**
+     * Permette di stampare la stringa passata come parametro
+     * scegliendo se andare a capo oppure no tramite la variabile booleana
+     * b passata come parametro.
+     *
+     * @param s la stringa da stampare
+     * @param b variabile che permette di andare a capo o meno
+     */
     public static void output(String s, boolean b) {
         if (b) {
             System.out.println(s);
@@ -15,10 +35,23 @@ public class IO {
         }
     }
 
+    /**
+     * Permette di stampare la stringa passata come parametro
+     *
+     * @param s la stringa da stampare
+     */
     public static void output(String s) {
         System.out.print(s);
     }
 
+    /**
+     * Permette di stampare l'intero passato come parametro
+     * scegliendo se andare a capo oppure no tramite la variabile booleana
+     * b passata come parametro.
+     *
+     * @param x l'intero da stampare
+     * @param b variabile che permette di andare a capo o meno
+     */
     public static void output(int x, boolean b) {
         if (b) {
             System.out.println(x);
@@ -27,10 +60,23 @@ public class IO {
         }
     }
 
+    /**
+     * Permette di stampare l'intero passato come parametro
+     *
+     * @param x l'intero da stampare
+     */
     public static void output(int x) {
         System.out.print(x);
     }
 
+    /**
+     * Permette di stampare il double passato come parametro
+     * scegliendo se andare a capo oppure no tramite la variabile booleana
+     * b passata come parametro.
+     *
+     * @param x il double da stampare
+     * @param b variabile che permette di andare a capo o meno
+     */
     public static void output(double x, boolean b) {
         if (b) {
             System.out.println(x);
@@ -39,10 +85,23 @@ public class IO {
         }
     }
 
+    /**
+     * Permette di stampare il double passato come parametro
+     *
+     * @param x il double da stampare
+     */
     public static void output(double x) {
         System.out.print(x);
     }
 
+    /**
+     * Permette di stampare il char passato come parametro
+     * scegliendo se andare a capo oppure no tramite la variabile booleana
+     * b passata come parametro.
+     *
+     * @param c il char da stampare
+     * @param b variabile che permette di andare a capo o meno
+     */
     public static void output(char c, boolean b) {
         if (b) {
             System.out.println(c);
@@ -51,15 +110,37 @@ public class IO {
         }
     }
 
+    /**
+     * Permette di stampare il char passato come parametro
+     *
+     * @param c il char da stampare
+     */
     public static void output(char c) {
         System.out.print(c);
     }
 
+    /**
+     * Permette di stampare una stringa passata come
+     * parametro che indica un'eccezione o un errore
+     * da segnalare all'utente (la stringa verrà visualizzata di colore rosso).
+     *
+     * @param s la stringa da stampare
+     */
     public static void outputErr(String s) {
-        //System.out.println(s);
         System.out.println("\u001B[31m" + s + "\u001B[0m");//Scrive rosso
     }
 
+    /**
+     * Permette di stampare la stringa passata come parametro e di
+     * retituire un valore intero al metodo chiamante.
+     *
+     * La variabile x consente l'overloading del metodo.
+     *
+     * @param s la stringa da stampare
+     * @param x variabile utilizzata per effettuare l'overloading del metodo
+     * @return int i'intero inserito dall'utente
+     * @throws InputMismatchException se il valore inserito dall'utente non è un intero
+     */
     public static int readInt(String s, int x) throws InputMismatchException {
         int risposta;
         boolean errore;
@@ -79,6 +160,14 @@ public class IO {
         return 0;
     }
 
+    /**
+     * Permette di stampare la stringa passata come parametro e di
+     * retituire un valore intero al metodo chiamante.
+     *
+     * @param s la stringa da stampare
+     * @return int i'intero inserito dall'utente
+     * @throws InputMismatchException se il valore inserito dall'utente non è un intero
+     */
     public static int readInt(String s) throws InputMismatchException {
         int risposta;
         boolean errore;
@@ -98,6 +187,12 @@ public class IO {
         return 0;
     }
 
+    /**
+     * Permettec retituire un valore intero al metodo chiamante.
+     *
+     * @return int i'intero inserito dall'utente
+     * @throws InputMismatchException se il valore inserito dall'utente non è un intero
+     */
     public static int readInt() {
         int risposta;
         boolean errore;
@@ -120,6 +215,14 @@ public class IO {
         return readString(s);
     }
 
+    /**
+     * Permette di stampare la stringa passata come parametro e di
+     * retituire un valore double al metodo chiamante.
+     *
+     * @param s la stringa da stampare
+     * @return double il double inserito dall'utente
+     * @throws InputMismatchException se il valore inserito dall'utente non è un double
+     */
     public static double readDouble(String s) throws InputMismatchException {
         double risposta;
         boolean errore;
@@ -168,6 +271,13 @@ public class IO {
         return temp.charAt(0);
     }
 
+    /**
+     * Permette di stampare la stringa passata come parametro e di
+     * retituire un valore String al metodo chiamante.
+     *
+     * @param s la stringa da stampare
+     * @return String la stringa inserita dall'utente
+     */
     public static String readString(String s) {
         boolean errore;
         String risposta;
@@ -183,6 +293,16 @@ public class IO {
         return risposta;
     }
 
+    /**
+     * Permette di stampare la stringa passata come parametro e di
+     * retituire un valore String al metodo chiamante.
+     *
+     * La variabile x consente l'overloading del metodo.
+     *
+     * @param s la stringa da stampare
+     * @param x variabile utilizzata per effettuare l'overloading del metodo
+     * @return String la stringa inserita dall'utente
+     */
     public static String readString(String s, int x) {
         boolean errore;
         String risposta;
@@ -222,7 +342,14 @@ public class IO {
         return risposta;
     }
 
-    public static Data readData(String s) throws IllegalValueException {
+    /**
+     * Permette di stampare la stringa passata come parametro e di
+     * retituire un valore Data al metodo chiamante.
+     *
+     * @param s la stringa da stampare
+     * @return Data la data inserita dall'utente
+     */
+    public static Data readData(String s) {
         boolean errore;
         do {
             errore = false;
@@ -257,6 +384,13 @@ public class IO {
         return null;
     }
 
+    /**
+     * Permette di stampare la stringa passata come parametro e di
+     * retituire un valore Genere al metodo chiamante.
+     *
+     * @param s la stringa da stampare
+     * @return Genere il genere inserito dall'utente
+     */
     public static Genere readGenere(String s) {
         boolean errore;
         do {
@@ -281,7 +415,14 @@ public class IO {
         return null;
     }
 
-    public static Luogo readDomicilio(String s) throws IllegalValueException {
+    /**
+     * Permette di stampare la stringa passata come parametro e di
+     * retituire un valore Domicilio al metodo chiamante.
+     *
+     * @param s la stringa da stampare
+     * @return Domicilio il domicilio inserito dall'utente
+     */
+    public static Luogo readDomicilio(String s) {
         boolean errore;
         Luogo luogo = null;
         output(s, true);
@@ -318,6 +459,14 @@ public class IO {
         return luogo;
     }
 
+    /**
+     * Permette di stampare la stringa passata come parametro e di
+     * retituire un valore Regista al metodo chiamante.
+     *
+     * @param s la stringa da stampare
+     * @return Regista il regista inserito dall'utente
+     * @throws IllegalValueException se il costruttore di Regista genera eccezioni
+     */
     public static Regista readRegista(String s) throws IllegalValueException {
         output(s, true);
 
@@ -344,7 +493,14 @@ public class IO {
         return new Regista(nome, cognome);
     }
 
-    public static Ora readOra(String s) throws IllegalValueException {
+    /**
+     * Permette di stampare la stringa passata come parametro e di
+     * retituire un valore Ora al metodo chiamante.
+     *
+     * @param s la stringa da stampare
+     * @return Ora l'ora inserita dall'utente
+     */
+    public static Ora readOra(String s) {
         boolean errore;
         do {
             errore = false;

@@ -1,4 +1,10 @@
-
+/*
+AUTORI:
+- Hajjoubi, Omar, 766954, VA
+- Mare, Filippo, 766773, VA
+- Martignoni, Giorgio, 766932, VA
+- Pica, Simone, 765155, VA
+*/
 import java.io.Serializable;
 import java.time.LocalDate;
 
@@ -34,11 +40,11 @@ public class Data implements Serializable {
     private static final char TOKEN = '/';
 
     /**
-     * mesi dell'anno.
+     * Mesi dell'anno.
      */
     private final int MESI = 12;
     /**
-     * anno corrente (limite date di nascita).
+     * Anno corrente (limite date di nascita).
      */
     private static final int ANNO_CORRENTE = LocalDate.now().getYear();
 
@@ -61,9 +67,10 @@ public class Data implements Serializable {
     /**
      * Restituisce quanti giorni ha il mese riciesto.
      *
+     * @param mese mese
      * @return quanti giorni ha il mese riciesto
      */
-    private int getMaxGiorniMese(int mese, int anno) {
+    private int getMaxGiorniMese(int mese) {
         switch (mese) {
             case 4:
             case 6:
@@ -94,7 +101,7 @@ public class Data implements Serializable {
      * è maggiore dei giorni di quel mese
      */
     private void setGiorno(int giorno) throws IllegalValueException {
-        if (giorno < 1 || giorno > getMaxGiorniMese(this.mese, this.anno)) {
+        if (giorno < 1 || giorno > getMaxGiorniMese(this.mese)) {
             throw new IllegalValueException("Errore: Giorno inserito non valido!");
         }
         this.giorno = giorno;

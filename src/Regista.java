@@ -1,4 +1,10 @@
-
+/*
+AUTORI:
+- Hajjoubi, Omar, 766954, VA
+- Mare, Filippo, 766773, VA
+- Martignoni, Giorgio, 766932, VA
+- Pica, Simone, 765155, VA
+*/
 import java.io.Serializable;
 
 /**
@@ -7,6 +13,8 @@ import java.io.Serializable;
  */
 public class Regista implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+
     /**
      * contaId.
      */
@@ -14,7 +22,7 @@ public class Regista implements Serializable {
     /**
      * id del regista.
      */
-    private int id;
+    private final int id;
     /**
      * nome del regista.
      */

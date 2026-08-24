@@ -1,4 +1,10 @@
-
+/*
+AUTORI:
+- Hajjoubi, Omar, 766954, VA
+- Mare, Filippo, 766773, VA
+- Martignoni, Giorgio, 766932, VA
+- Pica, Simone, 765155, VA
+*/
 import java.io.Serializable;
 
 /**
@@ -19,7 +25,7 @@ public class Prenotazione implements Serializable {
     /**
      * id.
      */
-    private int id;
+    private final int id;
 
     /**
      * utente.
