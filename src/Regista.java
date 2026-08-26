@@ -13,6 +13,9 @@ import java.io.Serializable;
  */
 public class Regista implements Serializable {
 
+    /**
+     * Identificatore della versione della classe utilizzato durante la serializzazione.
+     */
     private static final long serialVersionUID = 1L;
 
     /**

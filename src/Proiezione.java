@@ -18,6 +18,9 @@ import java.time.LocalDate;
 
 public class Proiezione implements Serializable {
 
+    /**
+     * Identificatore della versione della classe utilizzato durante la serializzazione.
+     */
     private static final long serialVersionUID = 1L;
 
     /**
@@ -260,6 +263,6 @@ public class Proiezione implements Serializable {
         return "- PROIEZIONE #" + id + "\n"
                 + "\tFilm: " + film.getTitolo() + "\n"
                 + "\tIl " + data + " alle " + ora
-                + "\tPrezzo: " + costoBiglietto + "€ | Posti liberi: " + postiLiberi;
+                + "\tPrezzo: " + costoBiglietto + valuta + " | Posti liberi: " + postiLiberi;
     }
 }

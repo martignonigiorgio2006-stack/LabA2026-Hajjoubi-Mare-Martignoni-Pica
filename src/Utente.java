@@ -164,26 +164,6 @@ public abstract class Utente implements Serializable {
     }
 
     /**
-     * Restituisce il domicilio.
-     *
-     * @return domicilio
-     *
-     */
-    public Luogo getDomicilio() {
-        return domicilio;
-    }
-
-    /**
-     * Restituisce la data di nascita.
-     *
-     * @return dataNascita
-     *
-     */
-    public Data getDataNascita() {
-        return dataNascita;
-    }
-
-    /**
      * Restituisce il ruolo.
      *
      * @return ruolo
@@ -310,16 +290,35 @@ public abstract class Utente implements Serializable {
                 + "\tRuolo: " + ruolo;
     }
 
+    /**
+     * Scrive nel file la password cifrata
+     *
+     * @param out lo stream di serializzazione
+     * @throws IOException propaga eccezioni di tipo Input/Output se sollevate
+     */
     private void writeObject(ObjectOutputStream out) throws IOException {
         out.defaultWriteObject();
         out.writeObject(cifra(psw));
     }
 
+    /**
+     * Legge dal file la password cifrata
+     *
+     * @param in lo stream di deserializzazione
+     * @throws IOException propaga eccezioni di tipo Input/Output se sollevate
+     * @throws ClassNotFoundException se la classe dell'oggetto non viene trovata
+     */
     private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
         in.defaultReadObject();
         psw = decifra((String) in.readObject());
     }
 
+    /**
+     * Cifra la password.
+     *
+     * @param testo la password da cifrare
+     * @return risultato password cifrata
+     */
     private String cifra(String testo) {
         String chiave = "CineMax";
         StringBuilder risultato = new StringBuilder();
@@ -333,6 +332,12 @@ public abstract class Utente implements Serializable {
         );
     }
 
+    /**
+     * Decifra la password.
+     *
+     * @param testo la password da decifrare
+     * @return risultato password decifrata
+     */
     private String decifra(String testo) {
         String chiave = "CineMax";
         byte[] dati = java.util.Base64.getDecoder().decode(testo);

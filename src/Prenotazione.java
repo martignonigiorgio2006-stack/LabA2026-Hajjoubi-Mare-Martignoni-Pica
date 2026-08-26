@@ -15,6 +15,9 @@ import java.io.Serializable;
  */
 public class Prenotazione implements Serializable {
 
+    /**
+     * Identificatore della versione della classe utilizzato durante la serializzazione.
+     */
     private static final long serialVersionUID = 1L;
 
     /**
@@ -130,25 +133,6 @@ public class Prenotazione implements Serializable {
         proiezione.ripristinaPosti(this.quantita);
     }
 
-    //L'UTENTE NON PUO' MODIFICARE I POSTI CHE HA COMPRATO!!
-    public void aggiornaQuantita(int nuovaQuantita) throws IllegalValueException {
-        if (nuovaQuantita <= 0) {
-            throw new IllegalValueException("Errore: Impossibile prenotare meno di 1 posto!");
-        }
-        int differenza = nuovaQuantita - this.quantita;
-        if (differenza > 0) {
-            // signifca che l'utente aggiunge posti e verifico quindi la disponibilità che è rimasta
-            if (differenza > proiezione.getPostiLiberi()) {
-                throw new IllegalValueException("Errore: Non ci sono abbastanza posti disponibili per la modifica!");
-            }
-            proiezione.scalaPosti(differenza);
-        } else if (differenza < 0) {
-            //significa che l'utente ha tolto dei posti quindi semplicemente aggiungo"
-            proiezione.ripristinaPosti(-differenza);
-        }
-        this.quantita = nuovaQuantita;
-    }
-
     /**
      * Modifica la proiezione associata alla prenotazione.
      *
@@ -188,16 +172,6 @@ public class Prenotazione implements Serializable {
      */
     public Utente getUtente() {
         return utente;
-    }
-
-    /**
-     * Restituisce la quantità.
-     *
-     * @return quantita
-     *
-     */
-    public int getQuantita() {
-        return quantita;
     }
 
     /**

@@ -16,7 +16,9 @@ import java.time.LocalDate;
  * oggetti.
  */
 public class Film implements Serializable {
-
+    /**
+     *  * Identificatore della versione della classe utilizzato durante la serializzazione.
+     */
     private static final long serialVersionUID = 1L;
 
     /**
@@ -99,48 +101,12 @@ public class Film implements Serializable {
     }
 
     /**
-     * Restituisce la durata.
-     *
-     * @return durata
-     */
-    public int getDurata() {
-        return durata;
-    }
-
-    /**
-     * Restituisce l'anno.
-     *
-     * @return anno
-     */
-    public int getAnno() {
-        return anno;
-    }
-
-    /**
-     * Restituisce l'eta minima.
-     *
-     * @return etaMin
-     */
-    public int getEtaMin() {
-        return etaMin;
-    }
-
-    /**
      * Restituisce il genere.
      *
      * @return genere
      */
     public Genere getGenere() {
         return genere;
-    }
-
-    /**
-     * Restituisce il regista.
-     *
-     * @return regista
-     */
-    public Regista getRegista() {
-        return regista;
     }
 
     /**

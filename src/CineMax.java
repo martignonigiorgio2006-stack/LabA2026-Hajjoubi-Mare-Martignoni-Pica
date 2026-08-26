@@ -46,7 +46,7 @@ public class CineMax {
         gc.scritturaFile();
 
         IO.tastiera.close();
-    }//Chiusura main
+    }
 
     /**
      * Gestisce il menù principale
@@ -82,7 +82,7 @@ public class CineMax {
                 IO.outputErr("Errore: valore inserito non valido!\nRiprova!");
                 return false;
         }
-    }//Chiusura menuPrincipale
+    }
 
     /**
      * Gestisce il login di un utente
@@ -122,7 +122,7 @@ public class CineMax {
             IO.outputErr(e.getMessage() + "\nRiprova!");
             return;
         }
-    }//Chiusura login
+    }
 
     /**
      * Registra un cliente
@@ -146,7 +146,7 @@ public class CineMax {
         } catch (IllegalValueException e) {
             IO.outputErr(e.getMessage() + "\nRiprova!");
         }
-    }//chiusura registraCliente
+    }
 
     /**
      * Cerca una proiezione
@@ -202,7 +202,7 @@ public class CineMax {
                 IO.output(p.toString(), true);
             }
         }
-    }//Chiusura cercaProiezione
+    }
 
     /**
      * Visualizza il catalogo dei film
@@ -220,7 +220,7 @@ public class CineMax {
             IO.output(f.toString(), true);
         }
 
-    }//Chiusura visualizzaCatalogoFilm
+    }
 
     /**
      * Il menù del cliente
@@ -256,7 +256,7 @@ public class CineMax {
                 IO.outputErr("Errore: valore inserito non valido.\nRiprova!");
                 return false;
         }
-    }//Chiusura menuClienteRegistrato()
+    }
 
     /**
      * Per effettuare nuove prentoazioni
@@ -291,7 +291,7 @@ public class CineMax {
             IO.outputErr(e.getMessage() + "\nRiprova!");
 
         }
-    }//Chiusura menuClienteRegistrato()
+    }
 
     /**
      * Per modificare le prentoazioni
@@ -313,7 +313,7 @@ public class CineMax {
             IO.outputErr(e.getMessage() + "\nRiprova!");
 
         }
-    }//Chiusura modificaPrenotazione()
+    }
 
     /**
      * Per cancellare le prentoazioni
@@ -332,7 +332,7 @@ public class CineMax {
             IO.outputErr(e.getMessage() + "\nRiprova!");
         }
 
-    }//Chiusura cancellarePrenotazione
+    }
 
     /**
      * Per visualizzare le prentoazioni
@@ -354,7 +354,7 @@ public class CineMax {
             IO.outputErr(e.getMessage() + "\nRiprova!");
         }
 
-    }//Chiusura visualizzaPrenotazioni
+    }
 
     /**
      * Per effettuare il logout
@@ -363,7 +363,7 @@ public class CineMax {
     public static void logout() {
         IO.output("\n## Logout ##", true);
         gc.logout();
-    }//Chiusura logout
+    }
 
     public static boolean menuProiezionistaRegistrato() {
         IO.output("\n## Menù proiezionista ##", true);
@@ -397,7 +397,7 @@ public class CineMax {
                 IO.outputErr("Errore: valore inserito non valido.\nRiprova!");
                 return false;
         }
-    }//Chiusura menuProiezionistaRegistrato
+    }
 
     /**
      * Per aggiungere un nuovo film
@@ -421,7 +421,7 @@ public class CineMax {
         } catch (IllegalValueException e) {
             IO.outputErr(e.getMessage() + "\nRiprova");
         }
-    }//Chiusura aggiungiFilm
+    }
 
     /**
      * Per rimuovere dei film
@@ -438,7 +438,7 @@ public class CineMax {
         } catch (IllegalValueException e) {
             IO.outputErr(e.getMessage() + "\nRiprova");
         }
-    }//Chiusura rimuoviFilm
+    }
 
     /**
      * Per aggiungere regista prentoazioni
@@ -456,7 +456,7 @@ public class CineMax {
             IO.outputErr(e.getMessage() + "\nRiprova");
         }
         return null;
-    }//Chiusura aggiungiRegista
+    }
 
     /**
      * Per aggiungere una nuova proiezione
@@ -510,7 +510,7 @@ public class CineMax {
             IO.outputErr(e.getMessage() + "\nRiprova");
         }
 
-    }//Chiusura aggiungiProiezione
+    }
 
     /**
      * Per modificare una proiezione
@@ -539,7 +539,7 @@ public class CineMax {
         } catch (IllegalValueException e) {
             IO.outputErr(e.getMessage() + "\nRiprova");
         }
-    }//Chiusura modificaProiezione
+    }
 
     /**
      * Per cancellare una proiezione
@@ -562,7 +562,7 @@ public class CineMax {
         } catch (IllegalValueException e) {
             IO.outputErr(e.getMessage() + "\nRiprova");
         }
-    }//Chiusura cancellaProiezione
+    }
 
     /**
      * Menù bigliettaio registrato
@@ -598,7 +598,7 @@ public class CineMax {
                 IO.outputErr("Errore: valore inserito non valido.\nRiprova!");
                 return false;
         }
-    }//Chiusura menuBigliettaioRegistrato
+    }
 
     /**
      * Per cercare prenotazioni odierna
@@ -626,7 +626,7 @@ public class CineMax {
             IO.outputErr(e.getMessage() + "\nRiprova");
         }
 
-    }//Chiusura cercaPrenotazioniOdierne
+    }
 
     /**
      * Per cercare una prenotazione
@@ -678,7 +678,7 @@ public class CineMax {
         } catch (IllegalValueException e) {
             IO.outputErr(e.getMessage() + "\nRiprova!");
         }
-    }//Chiusura metodo cercaPrenotazione()
+    }
 
     /**
      * Per aggiungere un bigliettaio
@@ -699,8 +699,7 @@ public class CineMax {
             IO.outputErr(e.getMessage() + "\nRiprova!");
         }
 
-    }//Chiusura aggiungiBigliettaio
-
+    }
     /**
      * Per aggiungere un proiezionista
      *
@@ -720,46 +719,6 @@ public class CineMax {
             IO.outputErr(e.getMessage() + "\nRiprova!");
         }
 
-    }//Chiusura aggiungiProiezionista
+    }
 
-    //////  METODI NON RICHIESTI LI USIAMO?
-    public static void rimuoviCliente() {
-        IO.output("\n## Rimuovi cliente ##", true);
-
-        int idCliente = IO.readInt("Inserisci l'ID del cliente da cancellare: ");
-
-        try {
-            gc.rimuoviCliente(idCliente);
-        } catch (IllegalValueException e) {
-            IO.outputErr(e.getMessage() + "\nRiprova!");
-        }
-
-    }//Chiusura rimuoviBigliettaio
-
-    public static void rimuoviBigliettaio() {
-        IO.output("\n## Rimuovi bigliettaio ##", true);
-
-        int idBigliettaio = IO.readInt("Inserisci l'ID del bigliettaio da cancellare: ");
-
-        try {
-            gc.rimuoviBigliettaio(idBigliettaio);
-        } catch (IllegalValueException e) {
-            IO.outputErr(e.getMessage() + "\nRiprova!");
-        }
-
-    }//Chiusura rimuoviBigliettaio
-
-    public static void rimuoviProiezionista() {
-        IO.output("\n## Rimuovi proiezionista ##", true);
-
-        int idProiezionista = IO.readInt("Inserisci l'ID del proiezionista da cancellare: ");
-
-        try {
-            gc.rimuoviProiezione(idProiezionista);
-        } catch (IllegalValueException e) {
-            IO.outputErr(e.getMessage() + "\nRiprova!");
-        }
-
-    }//Chiusura rimuoviProiezionista
-
-}//Fine Classe 
+}

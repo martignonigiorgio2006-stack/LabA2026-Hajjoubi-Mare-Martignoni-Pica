@@ -45,47 +45,6 @@ public class IO {
     }
 
     /**
-     * Permette di stampare l'intero passato come parametro
-     * scegliendo se andare a capo oppure no tramite la variabile booleana
-     * b passata come parametro.
-     *
-     * @param x l'intero da stampare
-     * @param b variabile che permette di andare a capo o meno
-     */
-    public static void output(int x, boolean b) {
-        if (b) {
-            System.out.println(x);
-        } else {
-            output(x);
-        }
-    }
-
-    /**
-     * Permette di stampare l'intero passato come parametro
-     *
-     * @param x l'intero da stampare
-     */
-    public static void output(int x) {
-        System.out.print(x);
-    }
-
-    /**
-     * Permette di stampare il double passato come parametro
-     * scegliendo se andare a capo oppure no tramite la variabile booleana
-     * b passata come parametro.
-     *
-     * @param x il double da stampare
-     * @param b variabile che permette di andare a capo o meno
-     */
-    public static void output(double x, boolean b) {
-        if (b) {
-            System.out.println(x);
-        } else {
-            output(x);
-        }
-    }
-
-    /**
      * Permette di stampare il double passato come parametro
      *
      * @param x il double da stampare
@@ -94,30 +53,6 @@ public class IO {
         System.out.print(x);
     }
 
-    /**
-     * Permette di stampare il char passato come parametro
-     * scegliendo se andare a capo oppure no tramite la variabile booleana
-     * b passata come parametro.
-     *
-     * @param c il char da stampare
-     * @param b variabile che permette di andare a capo o meno
-     */
-    public static void output(char c, boolean b) {
-        if (b) {
-            System.out.println(c);
-        } else {
-            output(c);
-        }
-    }
-
-    /**
-     * Permette di stampare il char passato come parametro
-     *
-     * @param c il char da stampare
-     */
-    public static void output(char c) {
-        System.out.print(c);
-    }
 
     /**
      * Permette di stampare una stringa passata come
@@ -211,10 +146,6 @@ public class IO {
         return 0;
     }
 
-    public static String readIntFormatoStringa(String s) {
-        return readString(s);
-    }
-
     /**
      * Permette di stampare la stringa passata come parametro e di
      * retituire un valore double al metodo chiamante.
@@ -240,35 +171,6 @@ public class IO {
             }
         } while (errore);
         return 0;
-    }
-
-    public static double readDouble() {
-        double risposta;
-        boolean errore;
-        do {
-            errore = false;
-            try {
-                risposta = tastiera.nextDouble();
-                tastiera.nextLine();
-                return risposta;
-            } catch (InputMismatchException e) {
-                outputErr("Errore: Il campo richiesto contiene valori non ammessi!\nRiprova!");
-                tastiera.nextLine();
-                errore = true;
-            }
-        } while (errore);
-        return 0;
-    }
-
-    public static char readChar(String s) {
-        output(s, false);
-        String temp = tastiera.nextLine();
-        return temp.charAt(0);
-    }
-
-    public static char readChar() {
-        String temp = tastiera.nextLine();
-        return temp.charAt(0);
     }
 
     /**
@@ -323,20 +225,6 @@ public class IO {
                     }
                 }
 
-            }
-        } while (errore);
-        return risposta;
-    }
-
-    public static String readString() {
-        boolean errore;
-        String risposta;
-        do {
-            errore = false;
-            risposta = tastiera.nextLine();
-            if (risposta == null || risposta.trim().isEmpty()) {
-                outputErr("Errore: Compilare i campi richiesti!\nRiprova!");
-                errore = true;
             }
         } while (errore);
         return risposta;

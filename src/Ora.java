@@ -13,6 +13,11 @@ import java.io.Serializable;
 */
 public class Ora implements Serializable {
 
+    /**
+     * Identificatore della versione della classe utilizzato durante la serializzazione.
+     */
+    private static final long serialVersionUID = 1L;
+
     /** Ora.*/
     private int ora;
     
@@ -39,33 +44,6 @@ public class Ora implements Serializable {
         setOra(ora);
         setMinuto(minuto);
         setSecondo(secondo);
-    }
-
-    /**
-     * Restituisce l'ora.
-     *
-     * @return l'ora
-    */
-    public int getOra() {
-        return ora;
-    }
-
-    /**
-     * Restituisce il minuto.
-     *
-     * @return il minuto
-    */
-    public int getMinuto() {
-        return minuto;
-    }
-
-    /**
-     * Restituisce il secondo.
-     *
-     * @return secondo
-    */
-    public int getSecondo(){
-        return secondo;
     }
 
     /**

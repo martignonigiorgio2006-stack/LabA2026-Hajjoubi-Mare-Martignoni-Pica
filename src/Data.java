@@ -16,6 +16,9 @@ import java.time.LocalDate;
  */
 public class Data implements Serializable {
 
+    /**
+     * Identificatore della versione della classe utilizzato durante la serializzazione.
+     */
     private static final long serialVersionUID = 1L;
 
     /**
@@ -39,10 +42,6 @@ public class Data implements Serializable {
      */
     private static final char TOKEN = '/';
 
-    /**
-     * Mesi dell'anno.
-     */
-    private final int MESI = 12;
     /**
      * Anno corrente (limite date di nascita).
      */

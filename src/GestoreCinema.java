@@ -54,9 +54,6 @@ public class GestoreCinema {
         this.utenteLoggato = null;
     }
 
-    // =========================================================================
-    // 1. METODI DI CONTROLLO INTERNI E VERIFICA PERMESSI (PRIVATE)
-    // =========================================================================
     /**
      * Verifica se un utente è un cliente
      *
@@ -132,18 +129,6 @@ public class GestoreCinema {
         return false;
     }
 
-    // =========================================================================
-    // 2. GESTIONE SESSIONE E GETTER GENERALI
-    // =========================================================================
-    /**
-     * Imposta e valida l'utente loggato
-     *
-     * @param utenteLoggato l'utente loggato
-     */
-    public void setUtenteLoggato(Utente utenteLoggato) {
-        this.utenteLoggato = utenteLoggato;
-    }
-
     /**
      * Restituisce l'utente loggato.
      *
@@ -200,27 +185,6 @@ public class GestoreCinema {
     }
 
     /**
-     * Restituisce lista degli utenti.
-     *
-     * @return la lista degli utenti
-     */
-    public LinkedList<Utente> getListaUtenti() {
-        return new LinkedList<>(listaUtenti);
-    }
-
-    /**
-     * Restituisce lista dei registi.
-     *
-     * @return lista dei registi
-     */
-    public LinkedList<Regista> getListaRegista() {
-        return new LinkedList<>(listaRegisti);
-    }
-
-    // =========================================================================
-    // 3. OPERAZIONI UTENTE NON AUTENTICATO (OSPITE)
-    // =========================================================================
-    /**
      * registra un cliente.
      *
      * @param nome il nome
@@ -255,47 +219,6 @@ public class GestoreCinema {
         verificaUsernameDisponibile(username);
         Cliente cliente = new Cliente(nome, cognome, username, psw, domicilio);
         listaUtenti.add(cliente);
-    }
-
-    public Proiezione getProiezionePerId(int id) throws IllegalValueException {
-        for (Proiezione p : listaProiezioni) {
-            if (p.getId() == id) {
-                return p;
-            }
-        }
-        throw new IllegalValueException("Nessuna proiezione trovata con ID: " + id);
-    }
-
-    /**
-     * Restituisce le proiezioni in base al titolo.
-     *
-     * @param titolo il titolo
-     * @return la lista di proiezioni
-     */
-    public LinkedList<Proiezione> getProiezioniPerTitolo(String titolo) {
-        LinkedList<Proiezione> lista = new LinkedList<>();
-        for (Proiezione p : listaProiezioni) {
-            if (titolo.equalsIgnoreCase(p.getFilm().getTitolo())) {
-                lista.add(p);
-            }
-        }
-        return lista;
-    }
-
-    /**
-     * Restituisce li proiezioni in base alla data.
-     *
-     * @param data la data
-     * @return la lista con le proiezioni
-     */
-    public LinkedList<Proiezione> getProiezionePerData(Data data) {
-        LinkedList<Proiezione> lista = new LinkedList<>();
-        for (Proiezione p : listaProiezioni) {
-            if (data.equals(p.getData())) {
-                lista.add(p);
-            }
-        }
-        return lista;
     }
 
     /**
@@ -340,9 +263,6 @@ public class GestoreCinema {
         return risultato;
     }
 
-    // =========================================================================
-    // 4. OPERAZIONI ESCLUSIVE CLIENTE
-    // =========================================================================
     /**
      * Restituisce le prenotazioni di un determinato utente.
      *
@@ -452,9 +372,6 @@ public class GestoreCinema {
         return null;
     }
 
-    // =========================================================================
-    // 5. OPERAZIONI ESCLUSIVE BIGLIETTAIO
-    // =========================================================================
     /**
      * Registra un nuovo bigliettaio
      *
@@ -473,22 +390,6 @@ public class GestoreCinema {
     }
 
     /**
-     * Rimuove un bigliettaio
-     *
-     * @param idBigliettaio l'id del bigliettaio
-     * @throws IllegalValueException se non viene trovato il bigliettaio
-     */
-    public void rimuoviBigliettaio(int idBigliettaio) throws IllegalValueException {
-        verificaBigliettaio();
-        for (Utente u : listaUtenti) {
-            if (u instanceof Bigliettaio && u.getId() == idBigliettaio) {
-                listaUtenti.remove(u);
-            }
-        }
-        throw new IllegalValueException("Errore: Bigliettaio non trovato!");
-    }
-
-    /**
      * Registra un nuovo proiezionista
      *
      * @param nome il nome del proiezionista
@@ -503,22 +404,6 @@ public class GestoreCinema {
         verificaUsernameDisponibile(username);
         Proiezionista p = new Proiezionista(nome, cognome, username, psw, domicilio);
         listaUtenti.add(p);
-    }
-
-    /**
-     * Rimuove un proiezionista
-     *
-     * @param idProiezionista l'id del proiezionista
-     * @throws IllegalValueException se non viene trovato il proiezionista
-     */
-    public void rimuoviProiezionista(int idProiezionista) throws IllegalValueException {
-        verificaBigliettaio();
-        for (Utente u : listaUtenti) {
-            if (u instanceof Proiezionista && u.getId() == idProiezionista) {
-                listaUtenti.remove(u);
-            }
-        }
-        throw new IllegalValueException("Errore: Proiezionista non trovato!");
     }
 
     /**
@@ -584,20 +469,6 @@ public class GestoreCinema {
     }
 
     /**
-     * Restituisce le prenotazioni
-     *
-     * @return lista con le prenotazioni
-     * @throws IllegalValueException se non vengono inseriti dati errati
-     */
-    public LinkedList<Prenotazione> getListaPrenotazioni() throws IllegalValueException {
-        verificaBigliettaio();
-        return new LinkedList<>(listaPrenotazioni);
-    }
-
-    // =========================================================================
-    // 6. OPERAZIONI ESCLUSIVE PROIEZIONISTA
-    // =========================================================================
-    /**
      * Aggiunge un nuovo film
      *
      * @param titolo il titolo
@@ -653,22 +524,6 @@ public class GestoreCinema {
             }
         }
         return null;
-    }
-
-    /**
-     * Rimuove un regista
-     *
-     * @param regista il regista
-     * @throws IllegalValueException se non trova il regista
-     */
-    public void rimuoviRegista(Regista regista) throws IllegalValueException {
-        verificaProiezionista();
-        for (Regista r : listaRegisti) {
-            if (regista.getNome().equalsIgnoreCase(r.getNome()) && regista.getCognome().equalsIgnoreCase(r.getCognome())) {
-                listaRegisti.remove(r);
-            }
-        }
-        throw new IllegalValueException("Errore: Regista non trovato!");
     }
 
     /**
@@ -755,22 +610,19 @@ public class GestoreCinema {
         throw new IllegalValueException("Impossibile modificare: proiezione non trovata nel catalogo!");
     }
 
-    // =========================================================================
-    // 7. SCRITTURA FILE
-    // =========================================================================
     /**
      * Scrivo sul file
      *
      */
     public void scritturaFile() {
 
-        File file = new File("archivio.txt");
+        File file = new File("archivio.dat");
 
         if (!file.exists()) {
             try {
                 file.createNewFile();
             } catch (IOException e) {
-                e.printStackTrace();
+                IO.outputErr(e.toString());
             }
         }
 
@@ -833,28 +685,25 @@ public class GestoreCinema {
             scrittore.close();
 
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            IO.outputErr(e.toString());
         } catch (IOException e) {
-            e.printStackTrace();
+            IO.outputErr(e.toString());
         }
     }
 
-    // =========================================================================
-    // 8. METODO PER RIEMPIRE LE LINKEDLIST DEL PROGRAMMA ALL'AVVIO
-    // =========================================================================
     /**
      * Riempie le liste
      *
      */
     public void riempiListe() {
 
-        File file = new File("archivio.txt");
+        File file = new File("archivio.dat");
 
         if (!file.exists()) {
             try {
                 file.createNewFile();
             } catch (IOException e) {
-                e.printStackTrace();
+                IO.outputErr(e.toString());
             }
         }
 
@@ -914,22 +763,19 @@ public class GestoreCinema {
         }
     }
 
-    // =========================================================================
-    // 0. LETTURA FILE (SCRUPOLO PER VERIFICARE CHE LA SCRITTURA SIA STATA EFFETTUATA)
-    // =========================================================================
     /**
      * Legge il file
      *
      */
     public void letturaFile() {
 
-        File file = new File("archivio.txt");
+        File file = new File("archivio.dat");
 
         if (!file.exists()) {
             try {
                 file.createNewFile();
             } catch (IOException e) {
-                e.printStackTrace();
+                IO.outputErr(e.toString());
             }
         }
 
@@ -1053,17 +899,6 @@ public class GestoreCinema {
         Prenotazione.setContaId((int) listaID.get(2));
         Proiezione.setContaId((int) listaID.get(3));
         Regista.setContaId((int) listaID.get(4));
-    }
-
-    // METODO NON RICHIESTI LI USIAMO??
-    public void rimuoviCliente(int idCliente) throws IllegalValueException {
-        verificaBigliettaio();
-        for (Utente u : listaUtenti) {
-            if (u instanceof Cliente && u.getId() == idCliente) {
-                listaUtenti.remove(u);
-            }
-        }
-        throw new IllegalValueException("Errore: Cliente non trovato!");
     }
 
 }

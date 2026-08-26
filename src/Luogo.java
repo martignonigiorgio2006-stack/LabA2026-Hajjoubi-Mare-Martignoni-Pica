@@ -12,6 +12,10 @@ import java.io.Serializable;
  * Implementa {@link Serializable} per consentire la serializzazione degli oggetti.
  */
 public class Luogo implements Serializable {
+    /**
+     * Identificatore della versione della classe utilizzato durante la serializzazione.
+     */
+    private static final long serialVersionUID = 1L;
 
     /** Nome della via.*/
     private String via;
@@ -40,42 +44,6 @@ public class Luogo implements Serializable {
         setNumC(numC);
         setCitta(citta);
         setCAP(cap);
-    }
-
-    /**
-     * Restituisce il nome della via.
-     *
-     * @return il nome della via
-     */
-    public String getVia() {
-        return via;
-    }
-
-    /**
-     * Restituisce il numero civico.
-     *
-     * @return il numero civico
-     */
-    public int getNumC() {
-        return numC;
-    }
-
-    /**
-     * Restituisce il nome della città.
-     *
-     * @return il nome della città
-     */
-    public String getCitta() {
-        return citta;
-    }
-
-    /**
-     * Restituisce il cap.
-     *
-     * @return il codice cap
-     */
-    public String getCAP() {
-        return cap;
     }
 
     /**
