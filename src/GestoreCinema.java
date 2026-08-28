@@ -6,9 +6,8 @@ AUTORI:
 - Pica, Simone, 765155, VA
  */
 import java.io.*;
-import java.time.LocalDate;
 import java.util.*;
-
+import java.time.LocalDate;
 /**
  * Rappresenta il gestore del cinema composta da listaUtenti, listaFilm,
  * listaProiezioni, listaPrenotazioni, listaRegisti, utenteLoggato
@@ -42,7 +41,7 @@ public class GestoreCinema {
     private Utente utenteLoggato;
 
     /**
-     * Costruisce un nuovo oggetto {@code GestoreCinema} instanziando le liste
+     * Costruisce un nuovo oggetto {@link GestoreCinema} instanziando le liste
      * della classe.
      */
     public GestoreCinema() {
@@ -331,7 +330,7 @@ public class GestoreCinema {
      * dello stesso film oppure se non esiste la prenotazione.
      */
     public void modificaPrenotazione(int idPrenotazione, Data nuovaData) throws IllegalValueException {
-        verificaCliente();
+       verificaCliente();
         for (Prenotazione p : listaPrenotazioni) {
             if (idPrenotazione == p.getId()) {
                 verificaProprietaPrenotazione(p);
@@ -414,7 +413,7 @@ public class GestoreCinema {
      * @throws IllegalValueException se non vengono inseriti dati errati
      */
     public LinkedList<Prenotazione> getPrenotazionePerData(Data data) throws IllegalValueException {
-        verificaBigliettaio();
+       verificaBigliettaio();
         LinkedList<Prenotazione> lista = new LinkedList<>();
         for (Prenotazione p : listaPrenotazioni) {
             if (data.equals(p.getProiezione().getData())) {
@@ -616,14 +615,22 @@ public class GestoreCinema {
      */
     public void scritturaFile() {
 
-        File file = new File("archivio.dat");
-
-        if (!file.exists()) {
-            try {
-                file.createNewFile();
-            } catch (IOException e) {
-                IO.outputErr(e.toString());
+        File file = null;
+        try {
+            // Trova la cartella in cui si trova l'eseguibile e sale fuori da 'bin' se necessario
+            File cartellaBase = new File(GestoreCinema.class.getProtectionDomain().getCodeSource().getLocation().toURI()).getParentFile();
+            if (cartellaBase.getName().equals("bin")) {
+                cartellaBase = cartellaBase.getParentFile();
             }
+
+            File dir = new File(cartellaBase, "data");
+            if (!dir.exists()) {
+                dir.mkdir();
+            }
+            file = new File(dir, "archivio.dat");
+        } catch (Exception e) {
+            IO.outputErr(e.toString());
+            return;
         }
 
         ObjectOutputStream scrittore;
@@ -697,16 +704,26 @@ public class GestoreCinema {
      */
     public void riempiListe() {
 
-        File file = new File("archivio.dat");
-
-        if (!file.exists()) {
-            try {
-                file.createNewFile();
-            } catch (IOException e) {
-                IO.outputErr(e.toString());
+        File file = null;
+        try {
+            File cartellaBase = new File(GestoreCinema.class.getProtectionDomain().getCodeSource().getLocation().toURI()).getParentFile();
+            if (cartellaBase.getName().equals("bin")) {
+                cartellaBase = cartellaBase.getParentFile();
             }
+
+            File dir = new File(cartellaBase, "data");
+            if (!dir.exists()) {
+                dir.mkdir();
+            }
+            file = new File(dir, "archivio.dat");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return;
         }
 
+        if (!file.exists() || file.length() == 0) {
+            return;
+        }
         ObjectInputStream lettore;
 
         try {
@@ -720,7 +737,6 @@ public class GestoreCinema {
                 try {
                     oggetto = lettore.readObject();
 
-                    // Quando incontri il token, incrementi il contatore e vai avanti
                     if (oggetto instanceof String && oggetto.equals("*")) {
                         contatoreSezioni++;
                         continue;
@@ -769,14 +785,25 @@ public class GestoreCinema {
      */
     public void letturaFile() {
 
-        File file = new File("archivio.dat");
-
-        if (!file.exists()) {
-            try {
-                file.createNewFile();
-            } catch (IOException e) {
-                IO.outputErr(e.toString());
+        File file = null;
+        try {
+            File cartellaBase = new File(GestoreCinema.class.getProtectionDomain().getCodeSource().getLocation().toURI()).getParentFile();
+            if (cartellaBase.getName().equals("bin")) {
+                cartellaBase = cartellaBase.getParentFile();
             }
+
+            File dir = new File(cartellaBase, "data");
+            if (!dir.exists()) {
+                dir.mkdir();
+            }
+            file = new File(dir, "archivio.dat");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return;
+        }
+
+        if (!file.exists() || file.length() == 0) {
+            return;
         }
 
         ObjectInputStream lettore;

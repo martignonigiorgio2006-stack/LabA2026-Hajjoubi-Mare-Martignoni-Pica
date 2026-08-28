@@ -5,12 +5,8 @@ AUTORI:
 - Martignoni, Giorgio, 766932, VA
 - Pica, Simone, 765155, VA
  */
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.Serializable;
+import java.io.*;
 import java.time.LocalDate;
-
 /**
  * Rappresenta un utente composto da id, nome, cognome, username, psw,
  * domicilio, dataNascita, ruolo
@@ -20,6 +16,9 @@ import java.time.LocalDate;
  */
 public abstract class Utente implements Serializable {
 
+    /**
+     * Identificatore della versione della classe utilizzato durante la serializzazione.
+     */
     private static final long serialVersionUID = 1L;
     /**
      * contaId.
@@ -65,7 +64,7 @@ public abstract class Utente implements Serializable {
     private Ruolo ruolo;
 
     /**
-     * Costruisce un nuovo oggetto {@code Utente}.
+     * Costruisce un nuovo oggetto {@link Utente}.
      *
      * Tramite i set effettua verifiche ai parametri.
      *
@@ -95,7 +94,7 @@ public abstract class Utente implements Serializable {
     }
 
     /**
-     * Costruisce un nuovo oggetto {@code Utente}.
+     * Costruisce un nuovo oggetto {@link Utente}.
      *
      * Tramite i set effettua verifiche ai parametri.
      *
@@ -254,7 +253,10 @@ public abstract class Utente implements Serializable {
      * @param dataNascita la data di nascita
      */
     private void setDataNascita(Data dataNascita) throws IllegalValueException {
-        if (dataNascita.compareTo(dataOdierna) > 0) {
+        if(dataNascita == null){
+            this.dataNascita = null;
+        }
+        else if (dataNascita.compareTo(dataOdierna) > 0) {
             throw new IllegalValueException("Errore: Data non valida!");
         }
         this.dataNascita = dataNascita;
@@ -275,8 +277,7 @@ public abstract class Utente implements Serializable {
     }
 
     /**
-     * Restituisce la stringa corrispondente all'utente. Il formato è:
-     * {@code nome, cognome, username, domicilio, nascita, ruolo}
+     * Restituisce la stringa corrispondente all'utente.
      *
      * @return la stringa corrispondente all'utente formattata
      */

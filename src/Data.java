@@ -7,7 +7,6 @@ AUTORI:
 */
 import java.io.Serializable;
 import java.time.LocalDate;
-
 /**
  * Rappresenta una data composta da giorno, mese e anno
  *
@@ -48,7 +47,7 @@ public class Data implements Serializable {
     private static final int ANNO_CORRENTE = LocalDate.now().getYear();
 
     /**
-     * Costruisce un nuovo oggetto {@code Data}. Tramite i set effettua
+     * Costruisce un nuovo oggetto {@link Data}. Tramite i set effettua
      * verifiche ai parametri.
      *
      * @param giorno giorno
@@ -197,8 +196,7 @@ public class Data implements Serializable {
     }
 
     /**
-     * Restituisce la stringa corrispondente alla data. Il formato è:
-     * {@code giorno, mese, anno}
+     * Restituisce la stringa corrispondente alla data. 
      *
      * @return la stringa corrispondente alla data
      */

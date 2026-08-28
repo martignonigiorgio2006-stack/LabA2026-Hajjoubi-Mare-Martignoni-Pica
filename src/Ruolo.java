@@ -5,8 +5,9 @@ AUTORI:
 - Martignoni, Giorgio, 766932, VA
 - Pica, Simone, 765155, VA
 */
+
 /**
- * Rappresenta i possibili tipi di ruolo di un {@code Utente}.
+ * Rappresenta i possibili tipi di ruolo di un {@link Utente}.
  * 
  */
 public enum Ruolo {

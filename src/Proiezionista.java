@@ -5,17 +5,18 @@ AUTORI:
 - Martignoni, Giorgio, 766932, VA
 - Pica, Simone, 765155, VA
 */
+
 /**
  * Rappresenta un proiezionista composto da id, nome, cognome, username,
  * psw, domicilio, ruolo.
  *
- * Questa è una sottoclasse di {@code Utente}.
+ * Questa è una sottoclasse di {@link Utente}.
  *
  */
 public class Proiezionista extends Utente{
 
     /**
-     * Costruisce un nuovo oggetto {@code Proiezionista} tramite la chiamata a un costruttore della superclasse.
+     * Costruisce un nuovo oggetto {@link Proiezionista} tramite la chiamata a un costruttore della superclasse.
      * Ruolo viene impostato in automatico.
      *
      * @param nome il nome del utente

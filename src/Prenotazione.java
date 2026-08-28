@@ -6,7 +6,6 @@ AUTORI:
 - Pica, Simone, 765155, VA
 */
 import java.io.Serializable;
-
 /**
  * Rappresenta una prenotazione composta da id, utente, quantità, proiezione
  *
@@ -46,7 +45,7 @@ public class Prenotazione implements Serializable {
     private Proiezione proiezione;
 
     /**
-     * Costruisce un nuovo oggetto {@code Prenotazione}.
+     * Costruisce un nuovo oggetto {@link Prenotazione}.
      *
      * Tramite i set effettua verifiche ai parametri.
      *
@@ -127,7 +126,7 @@ public class Prenotazione implements Serializable {
      * disponibili alla proiezione in questione.
      *
      * @throws IllegalValueException se vengono sollevate eccezioni nelle
-     * chiamate ai metodi di {@code Proiezione}
+     * chiamate ai metodi di {@link Proiezione}
      */
     public void annullaPrenotazione() throws IllegalValueException {
         proiezione.ripristinaPosti(this.quantita);
@@ -136,7 +135,7 @@ public class Prenotazione implements Serializable {
     /**
      * Modifica la proiezione associata alla prenotazione.
      *
-     * @param p nuova {@code Proiezione} da associare
+     * @param p nuova {@link Proiezione} da associare
      * @throws IllegalValueException se vengono sollevate eccezioni nelle
      * chiamate ai metodi
      */
@@ -185,8 +184,7 @@ public class Prenotazione implements Serializable {
     }
 
     /**
-     * Restituisce la stringa corrispondente alla prenotazione. Il formato è:
-     * {@code id, nome, cognome, username, proiezione, quantita, costoTotale}
+     * Restituisce la stringa corrispondente alla prenotazione. 
      *
      * @return la stringa corrispondente all'utente formattata
      */

@@ -5,8 +5,9 @@ AUTORI:
 - Martignoni, Giorgio, 766932, VA
 - Pica, Simone, 765155, VA
 */
+
 /**
- * Rappresenta i possibili tipi di genere di un {@code Film}.
+ * Rappresenta i possibili tipi di genere di un {@link Film}.
  * 
  */
 public enum Genere {

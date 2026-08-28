@@ -7,7 +7,6 @@ AUTORI:
 */
 import java.io.Serializable;
 import java.time.LocalDate;
-
 /**
  * Rappresenta una proiezione composta da id, film, data, ora, costoBiglietto.
  *
@@ -69,7 +68,7 @@ public class Proiezione implements Serializable {
     private int postiLiberi;
 
     /**
-     * Costruisce un nuovo oggetto {@code Proiezione}.
+     * Costruisce un nuovo oggetto {@link Proiezione}.
      *
      * Tramite i set effettua verifiche ai parametri.
      *
@@ -227,7 +226,7 @@ public class Proiezione implements Serializable {
      * Scala i posti liberi se viene effettuata una prenotazione.
      *
      * @param quantita posti richiesti
-     * @throws IllegalValueException se vengono sollevate eccezioni nelle chiamate ai metodi di {@code Proiezione}
+     * @throws IllegalValueException se vengono sollevate eccezioni nelle chiamate ai metodi di {@link Proiezione}
      */
     public void scalaPosti(int quantita) throws IllegalValueException {
         setPostiLiberi(this.postiLiberi - quantita);
@@ -237,7 +236,7 @@ public class Proiezione implements Serializable {
      * Ripristina i posti liberi se viene cancellata una prenotazione.
      *
      * @param quantita posti da ripristinare
-     * @throws IllegalValueException se vengono sollevate eccezioni nelle chiamate ai metodi di {@code Proiezione}
+     * @throws IllegalValueException se vengono sollevate eccezioni nelle chiamate ai metodi di {@link Proiezione}
      */
     public void ripristinaPosti(int quantita) throws IllegalValueException {
         setPostiLiberi(postiLiberi + quantita);
@@ -254,7 +253,6 @@ public class Proiezione implements Serializable {
 
     /**
      * Restituisce la stringa corrispondente alla proiezione.
-     * Il formato è: {@code id, film, data, ora, prezzo, postiliberi}
      *
      * @return la stringa corrispondente alla proiezione
      */

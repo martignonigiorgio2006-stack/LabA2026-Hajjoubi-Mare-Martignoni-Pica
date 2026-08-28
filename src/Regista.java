@@ -6,7 +6,6 @@ AUTORI:
 - Pica, Simone, 765155, VA
 */
 import java.io.Serializable;
-
 /**
  * Rappresenta un regista composto da id, nome, cognome. Implementa
  * {@link Serializable} per consentire la serializzazione degli oggetti.
@@ -36,7 +35,7 @@ public class Regista implements Serializable {
     private String cognome;
 
     /**
-     * Costruisce un nuovo oggetto {@code Regista}. Tramite i set effettua
+     * Costruisce un nuovo oggetto {@link Regista}. Tramite i set effettua
      * verifiche ai parametri.
      *
      * @param nome il nome del regista
@@ -90,7 +89,7 @@ public class Regista implements Serializable {
      * Imposta e valida il nome.
      *
      * @param nome il nome da settare
-     * @throws IllegalValueException se il nome è {@code null} o vuota
+     * @throws IllegalValueException se il nome è {@link null} o vuota
      */
     public void setNome(String nome) throws IllegalValueException {
         if (nome == null || nome.trim().isEmpty()) {
@@ -103,7 +102,7 @@ public class Regista implements Serializable {
      * Imposta e valida il cognome.
      *
      * @param cognome il cognime da settare
-     * @throws IllegalValueException se il cognome è {@code null} o vuota
+     * @throws IllegalValueException se il cognome è {@link null} o vuota
      */
     public void setCognome(String cognome) throws IllegalValueException {
         if (cognome == null || cognome.trim().isEmpty()) {
@@ -114,7 +113,6 @@ public class Regista implements Serializable {
 
     /**
      * Restituisce la stringa corrispondente al nome e il cognome del regista.
-     * Il formato è: {@code nome, cognome}
      *
      * @return la stringa corrispondente al nome e cognome
      */

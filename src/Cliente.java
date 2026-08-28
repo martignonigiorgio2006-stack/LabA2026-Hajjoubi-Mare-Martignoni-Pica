@@ -9,13 +9,13 @@ AUTORI:
  * Rappresenta un cliente composto da id, nome, cognome, username,
  * psw, domicilio, dataNascita (opzionale), ruolo.
  *
- * Questa è una sottoclasse di {@code Utente}.
+ * Questa è una sottoclasse di {@link Utente}.
  *
  */
 public class Cliente extends Utente{
 
     /**
-     * Costruisce un nuovo oggetto {@code Cliente} tramite la chiamata a un costruttore della superclasse.
+     * Costruisce un nuovo oggetto {@link Cliente} tramite la chiamata a un costruttore della superclasse.
      * Ruolo viene impostato in automatico.
      *
      * @param nome il nome del utente
@@ -33,7 +33,7 @@ public class Cliente extends Utente{
     }
 
     /**
-     * Costruisce un nuovo oggetto {@code Cliente} tramite la chiamata a un costruttore della superclasse.
+     * Costruisce un nuovo oggetto {@link Cliente} tramite la chiamata a un costruttore della superclasse.
      * Ruolo viene impostato in automatico.
      *
      * @param nome il nome del utente

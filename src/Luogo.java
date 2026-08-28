@@ -30,7 +30,7 @@ public class Luogo implements Serializable {
     private int numC;
 
     /**
-     * Costruisce un nuovo oggetto {@code Luogo}.
+     * Costruisce un nuovo oggetto {@link Luogo}.
      * Tramite i set effettua verifiche ai parametri.
      * 
      * @param via   il nome della via
@@ -50,7 +50,7 @@ public class Luogo implements Serializable {
      * Imposta e valida il nome della via.
      *
      * @param via il nome della via da settare
-     * @throws IllegalValueException se la via è {@code null} o vuota
+     * @throws IllegalValueException se la via è null o vuota
      */
     private void setVia(String via) throws IllegalValueException {
         if (via == null || via.trim().isEmpty()) {
@@ -76,7 +76,7 @@ public class Luogo implements Serializable {
      * Imposta e valida il nome della città.
      *
      * @param citta il nome della città da settare
-     * @throws IllegalValueException se la città è {@code null} o vuota
+     * @throws IllegalValueException se la città è null o vuota
      */
     private void setCitta(String citta) throws IllegalValueException {
         if (citta == null || citta.trim().isEmpty()) {
@@ -89,24 +89,17 @@ public class Luogo implements Serializable {
      * Imposta e valida il cap.
      *
      * @param cap il cap da impostare (deve contenere esattamente 5 caratteri numerici)
-     * @throws IllegalValueException se il cap è {@code null}, vuoto, di lunghezza diversa da 5 o contiene caratteri non numerici
+     * @throws IllegalValueException se il cap è null, vuoto, di lunghezza diversa da 5 o contiene caratteri non numerici
      */
     private void setCAP(String cap) throws IllegalValueException {
         if (cap == null || cap.trim().isEmpty() || cap.length() != 5) {
             throw new IllegalValueException("Errore: Formato CAP non valido!");
-        }
-        for (int i = 0; i < cap.length(); i++) {
-            char c = cap.charAt(i);
-            if (!Character.isDigit(c)) {
-                throw new IllegalValueException("Errore: Formato CAP non valido, i valori inseriti non sono tutti numeri!");
-            }
         }
         this.cap = cap.trim();
     }
 
     /**
      * Restituisce la stringa corrispondente all'indirizzo completo.
-     * Il formato è: {@code via numC, citta, cap} 
      *
      * @return la stringa contenente all'indirizzo formattato
      */

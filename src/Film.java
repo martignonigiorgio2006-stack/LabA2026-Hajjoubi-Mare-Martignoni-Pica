@@ -60,7 +60,7 @@ public class Film implements Serializable {
     private static final int ANNO_LIMITE = LocalDate.now().getYear() + 1;
 
     /**
-     * Costruisce un nuovo oggetto {@code Film}. Tramite i set effettua
+     * Costruisce un nuovo oggetto {@link Film}. Tramite i set effettua
      * verifiche ai parametri.
      *
      * @param titolo il titolo del film
@@ -187,9 +187,7 @@ public class Film implements Serializable {
     /**
      * Restituisce la stringa corrispondente al titolo, durata, anno, età
      * minima, genere, regista del film.
-     *
-     * Il formato è: {@code titolo, durata, anno, età minima, genere, regista}
-     *
+     *     
      * @return la stringa corrispondente al film
      */
     @Override

@@ -33,7 +33,7 @@ public class Ora implements Serializable {
     private static final char TOKEN = ':';
 
     /**
-     * Costruisce un nuovo oggetto {@code Ora}.
+     * Costruisce un nuovo oggetto {@link Ora}.
      * Tramite i set effettua verifiche ai parametri.
      * 
      * @param ora   ora
@@ -84,7 +84,6 @@ public class Ora implements Serializable {
 
     /**
      * Restituisce la stringa corrispondente all'orario.
-     * Il formato è: {@code ora, minuto, secondo} 
      *
      * @return la stringa corrispondente all'orario formattato
     */

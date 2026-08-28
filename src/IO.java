@@ -213,13 +213,13 @@ public class IO {
             output(s, false);
             risposta = tastiera.nextLine();
             if (risposta == null || risposta.trim().isEmpty()) {
-                outputErr("Errore: Compilare i campi richiesti!\nRiprova!");
+                outputErr("\t"+"Errore: Compilare i campi richiesti!\n\tRiprova!");
                 errore = true;
             } else {
                 for (int i = 0; i < risposta.length(); i++) {
                     char c = risposta.charAt(i);
                     if (Character.isDigit(c)) {
-                        outputErr("Errore: Il campo richiesto contiene campi non ammessi!\nRiprova!");
+                        outputErr("\t"+"Errore: Il campo richiesto contiene campi non ammessi!\n\tRiprova!");
                         errore = true;
                         break;
                     }
@@ -313,37 +313,49 @@ public class IO {
     public static Luogo readDomicilio(String s) {
         boolean errore;
         Luogo luogo = null;
+        String via, citta, cap;
+        int numeroCivico = 0;
+
         output(s, true);
+
         do {
             errore = false;
-            String via, citta, cap, numeroCivicoFormatoStringa;
-            int numeroCivico = 0;
             via = IO.readString("\tVia (non inserire qui il numero civico e non riscrivere via o piazza): ", 1);
             if (via == null || via.trim().isEmpty()) {
                 outputErr("\t" + "Errore: Compilare i campi richiesti!\n\tRiprova!");
                 errore = true;
-                continue;
             }
             numeroCivico = readInt("\tNumero civico: ", 1);
             citta = IO.readString("\tCittà: ", 1);
             if (citta == null || citta.trim().isEmpty()) {
                 outputErr("\t" + "Errore: Compilare i campi richiesti!\n\tRiprova!");
                 errore = true;
-                continue;
             }
+        } while (errore);
+
+        do{
+            errore = false;
             cap = IO.readString("\tCap: ");
             if (cap == null || cap.trim().isEmpty()) {
                 outputErr("\t" + "Errore: Compilare i campi richiesti!\n\tRiprova!");
                 errore = true;
-                continue;
+            } else {
+                for (int i = 0; i < cap.length(); i++) {
+                char c = cap.charAt(i);
+                if (!Character.isDigit(c)) {
+                    outputErr("Errore: Formato CAP non valido, i valori inseriti non sono tutti numeri!");
+                    errore = true;
+                }
+                }
             }
-            try {
-                luogo = new Luogo(via, numeroCivico, citta, cap);
-            } catch (IllegalValueException e) {
-                outputErr("\t" + e.getMessage() + "\n\tRiprova!");
-                errore = true;
-            }
-        } while (errore);
+        }while(errore);
+             
+        try {
+            luogo = new Luogo(via, numeroCivico, citta, cap);
+        } catch (IllegalValueException e) {
+            outputErr("\t" + e.getMessage() + "\n\tRiprova!");
+        }
+        
         return luogo;
     }
 

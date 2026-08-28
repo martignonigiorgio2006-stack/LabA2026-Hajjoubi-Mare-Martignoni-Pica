@@ -8,9 +8,8 @@ AUTORI:
 import java.time.LocalDate;
 import java.util.InputMismatchException;
 import java.util.LinkedList;
-
 /**
- * Rappresenta il main
+ * Rappresenta il main.
  *
  */
 public class CineMax {
@@ -32,17 +31,17 @@ public class CineMax {
 
         gc = new GestoreCinema();
 
-        //gc.letturaFile(); //Non serve all'utente ma a noi, se l'utente chiede di stampare quali film usiamo le liste perchè il file si aggiorna alla fine
-        //Prima istruzione del programma sempre (lettura del file per il riempimento delle liste su cui girerà il programma)
+        //gc.letturaFile(); 
         gc.riempiListe();
 
+        
         boolean scelta;
         do {
             scelta = menuPrincipale();
         } while (!scelta);
 
         IO.output("Arrivederci!");
-        //Ultima istruzione del programma sempre (scrittura sul file delle liste che contengono i dati del programma)
+        
         gc.scritturaFile();
 
         IO.tastiera.close();
