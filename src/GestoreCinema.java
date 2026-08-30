@@ -8,6 +8,7 @@ AUTORI:
 import java.io.*;
 import java.util.*;
 import java.time.LocalDate;
+
 /**
  * Rappresenta il gestore del cinema composta da listaUtenti, listaFilm,
  * listaProiezioni, listaPrenotazioni, listaRegisti, utenteLoggato
@@ -269,7 +270,7 @@ public class GestoreCinema {
      * @throws IllegalValueException se le credenziali inseriti non sono valide
      */
     public LinkedList<Prenotazione> getPrenotazioneUtente() throws IllegalValueException {
-        verificaCliente();
+        // verificaCliente();
         LinkedList<Prenotazione> lista = new LinkedList<>();
         for (Prenotazione p : listaPrenotazioni) {
             if (utenteLoggato.getId() == p.getUtente().getId()) {
@@ -330,7 +331,7 @@ public class GestoreCinema {
      * dello stesso film oppure se non esiste la prenotazione.
      */
     public void modificaPrenotazione(int idPrenotazione, Data nuovaData) throws IllegalValueException {
-       verificaCliente();
+        verificaCliente();
         for (Prenotazione p : listaPrenotazioni) {
             if (idPrenotazione == p.getId()) {
                 verificaProprietaPrenotazione(p);
@@ -413,7 +414,7 @@ public class GestoreCinema {
      * @throws IllegalValueException se non vengono inseriti dati errati
      */
     public LinkedList<Prenotazione> getPrenotazionePerData(Data data) throws IllegalValueException {
-       verificaBigliettaio();
+        verificaBigliettaio();
         LinkedList<Prenotazione> lista = new LinkedList<>();
         for (Prenotazione p : listaPrenotazioni) {
             if (data.equals(p.getProiezione().getData())) {
