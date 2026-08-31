@@ -17,35 +17,22 @@ Funzionalità principali:
 
 3. REQUISITI DI SISTEMA
 
-- Java Development Kit (JDK)
-- un ambiente di sviluppo compatibile con Java
+Per utilizzare CineMax è necessario avere installato sul computer la versione di java 26.0.1 e scaricare il repository gitHub: https://github.com/martignonigiorgio2006-stack/LabA2026-Hajjoubi-Mare-Martignoni-Pica.git 
 
-4. ISTRUZIONE PER LA COMPILAZIONE DA RIGA DI COMANDO
-   Per compilare il progetto da riga di comando è necessario aver installato JDK; aprire il terminale nella cartella principale del progetto e spostarsi nella cartella "scr" ed eseguire:
-
-   > ```bash
-   > cd src
-   > javac -d ../bin *.java
-   > ```
-
-5. ISTRUZIONI DI ESECUZIONE
+4. ISTRUZIONI DI ESECUZIONE
    È possibile avviare l'applicazione utilizzando gli script preconfigurati nella cartella `bin`:
 
 - Su Windows:
-  Aprire il terminale nella cartella `bin` e digitare:
-
-  > avvio.bat
-  > (oppure fare doppio click sul file)
+  Utilizzare il file  `avvio.bat`.
 
 - Su macOS / Linux:
-  Fare doppio click su `avvia.command` oppure eseguirlo da terminale
-  > chmod +x avvia.command
-  > ./avvia.command
+  Utilizzare il file `avvio.command`
 
-6. STRUTTURA DIRECTORY DEL PROGETTO
+5. STRUTTURA DIRECTORY DEL PROGETTO
 
 - bin --> contiene gli eseguibili che sono: avvio.bat (per windows), avvio.command (per macOS)
 - data --> contiene il file (archivio.dat) che fa da database
+- doc --> contiene i due manuali (tecnico e utente) in formato pdf
 - doc/javadoc --> contiene gli html della nostra javadoc
 - src --> contiene tutti i file .java
 - autori.txt --> Informazioni degli autori
